@@ -1,0 +1,759 @@
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\MaterialGateRegister.dll.config
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\MaterialGateRegister.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\MaterialGateRegister.pdb
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\csc.exe
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\csc.exe.config
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\csc.rsp
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\csi.exe
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\csi.exe.config
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\csi.rsp
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\Microsoft.Managed.Core.targets
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\Microsoft.Win32.Primitives.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\System.AppContext.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\System.Collections.Immutable.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\System.Console.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\System.Diagnostics.StackTrace.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\System.Globalization.Calendars.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\System.IO.Compression.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\System.IO.Compression.ZipFile.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\System.IO.FileSystem.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\System.IO.FileSystem.Primitives.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\System.Net.Http.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\System.Net.Sockets.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\System.Reflection.Metadata.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.Encoding.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.Primitives.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\System.Text.Encoding.CodePages.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\System.Threading.Tasks.Extensions.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\System.ValueTuple.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\System.Xml.ReaderWriter.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\System.Xml.XmlDocument.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\System.Xml.XPath.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\System.Xml.XPath.XDocument.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\vbc.exe
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\vbc.exe.config
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\vbc.rsp
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\VBCSCompiler.exe
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\roslyn\VBCSCompiler.exe.config
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\Antlr3.Runtime.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\Microsoft.Web.Infrastructure.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\Newtonsoft.Json.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\System.Web.Helpers.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\System.Web.Mvc.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\System.Web.Optimization.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\System.Web.Razor.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\System.Web.WebPages.Deployment.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\System.Web.WebPages.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\System.Web.WebPages.Razor.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\WebGrease.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\System.Web.Helpers.xml
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\System.Web.Mvc.xml
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\System.Web.Optimization.xml
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\System.Web.Razor.xml
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\System.Web.WebPages.xml
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\System.Web.WebPages.Deployment.xml
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\System.Web.WebPages.Razor.xml
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\Newtonsoft.Json.xml
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\Antlr3.Runtime.pdb
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\obj\Debug\MaterialGateRegister.csproj.CoreCompileInputs.cache
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\obj\Debug\MaterialGateRegister.csproj.CopyComplete
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\obj\Debug\MaterialGateRegister.dll
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\obj\Debug\MaterialGateRegister.pdb
+E:\MVC projects\MaterialGateRegister\MaterialGateRegister\obj\Debug\MaterialGateRegister.csproj.AssemblyReference.cache
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\MaterialGateRegister.dll.config
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\MaterialGateRegister.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\MaterialGateRegister.pdb
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\csc.exe
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\csc.exe.config
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\csc.rsp
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\csi.exe
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\csi.exe.config
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\csi.rsp
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.Managed.Core.targets
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\System.AppContext.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\System.Collections.Immutable.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\System.Console.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\System.Globalization.Calendars.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\System.IO.Compression.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\System.IO.Compression.ZipFile.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\System.IO.FileSystem.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\System.Net.Http.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\System.Net.Sockets.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\System.Reflection.Metadata.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\System.ValueTuple.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\System.Xml.XmlDocument.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\System.Xml.XPath.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\vbc.exe
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\vbc.exe.config
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\vbc.rsp
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\VBCSCompiler.exe
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\roslyn\VBCSCompiler.exe.config
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\Antlr3.Runtime.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\Microsoft.Web.Infrastructure.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\Newtonsoft.Json.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\System.Web.Helpers.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\System.Web.Mvc.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\System.Web.Optimization.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\System.Web.Razor.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\System.Web.WebPages.Deployment.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\System.Web.WebPages.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\System.Web.WebPages.Razor.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\WebGrease.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\System.Web.Helpers.xml
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\System.Web.Mvc.xml
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\System.Web.Optimization.xml
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\System.Web.Razor.xml
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\System.Web.WebPages.xml
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\System.Web.WebPages.Deployment.xml
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\System.Web.WebPages.Razor.xml
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\Newtonsoft.Json.xml
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\Antlr3.Runtime.pdb
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\obj\Debug\MaterialGateRegister.csprojAssemblyReference.cache
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\obj\Debug\MaterialGateRegister.csproj.CoreCompileInputs.cache
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\obj\Debug\MaterialGateRegister.csproj.CopyComplete
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\obj\Debug\MaterialGateRegister.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\obj\Debug\MaterialGateRegister.pdb
+E:\Training\Material_Movement\MaterialGateRegister\obj\Debug\MaterialGateRegister.csproj.AssemblyReference.cache
+E:\Training\Material_Movement\MaterialGateRegister\obj\Debug\MaterialGateRegister.csproj.CoreCompileInputs.cache
+E:\Training\Material_Movement\MaterialGateRegister\bin\MaterialGateRegister.dll.config
+E:\Training\Material_Movement\MaterialGateRegister\bin\MaterialGateRegister.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\MaterialGateRegister.pdb
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\csc.exe
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\csc.exe.config
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\csc.rsp
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\csi.exe
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\csi.exe.config
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\csi.rsp
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.Managed.Core.targets
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.Win32.Primitives.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\System.AppContext.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\System.Collections.Immutable.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\System.Console.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\System.Diagnostics.StackTrace.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\System.Globalization.Calendars.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\System.IO.Compression.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\System.IO.Compression.ZipFile.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\System.IO.FileSystem.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\System.IO.FileSystem.Primitives.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\System.Net.Http.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\System.Net.Sockets.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\System.Reflection.Metadata.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.Encoding.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.Primitives.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\System.Text.Encoding.CodePages.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\System.Threading.Tasks.Extensions.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\System.ValueTuple.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\System.Xml.ReaderWriter.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\System.Xml.XmlDocument.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\System.Xml.XPath.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\System.Xml.XPath.XDocument.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\vbc.exe
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\vbc.exe.config
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\vbc.rsp
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\VBCSCompiler.exe
+E:\Training\Material_Movement\MaterialGateRegister\bin\roslyn\VBCSCompiler.exe.config
+E:\Training\Material_Movement\MaterialGateRegister\bin\Antlr3.Runtime.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\Microsoft.Web.Infrastructure.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\Newtonsoft.Json.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\System.Web.Helpers.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\System.Web.Mvc.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\System.Web.Optimization.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\System.Web.Razor.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\System.Web.WebPages.Deployment.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\System.Web.WebPages.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\System.Web.WebPages.Razor.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\WebGrease.dll
+E:\Training\Material_Movement\MaterialGateRegister\bin\System.Web.Helpers.xml
+E:\Training\Material_Movement\MaterialGateRegister\bin\System.Web.Mvc.xml
+E:\Training\Material_Movement\MaterialGateRegister\bin\System.Web.Optimization.xml
+E:\Training\Material_Movement\MaterialGateRegister\bin\System.Web.Razor.xml
+E:\Training\Material_Movement\MaterialGateRegister\bin\System.Web.WebPages.xml
+E:\Training\Material_Movement\MaterialGateRegister\bin\System.Web.WebPages.Deployment.xml
+E:\Training\Material_Movement\MaterialGateRegister\bin\System.Web.WebPages.Razor.xml
+E:\Training\Material_Movement\MaterialGateRegister\bin\Newtonsoft.Json.xml
+E:\Training\Material_Movement\MaterialGateRegister\bin\Antlr3.Runtime.pdb
+E:\Training\Material_Movement\MaterialGateRegister\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Training\Material_Movement\MaterialGateRegister\obj\Debug\MaterialGateRegister.csproj.CopyComplete
+E:\Training\Material_Movement\MaterialGateRegister\obj\Debug\MaterialGateRegister.dll
+E:\Training\Material_Movement\MaterialGateRegister\obj\Debug\MaterialGateRegister.pdb
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\MaterialGateRegister.dll.config
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\MaterialGateRegister.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\MaterialGateRegister.pdb
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\csc.exe
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\csc.exe.config
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\csc.rsp
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\csi.exe
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\csi.exe.config
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\csi.rsp
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.Managed.Core.targets
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.Win32.Primitives.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\System.AppContext.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\System.Collections.Immutable.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\System.Console.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\System.Diagnostics.StackTrace.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\System.Globalization.Calendars.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\System.IO.Compression.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\System.IO.Compression.ZipFile.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\System.IO.FileSystem.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\System.IO.FileSystem.Primitives.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\System.Net.Http.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\System.Net.Sockets.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\System.Reflection.Metadata.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.Encoding.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.Primitives.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\System.Text.Encoding.CodePages.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\System.Threading.Tasks.Extensions.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\System.ValueTuple.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\System.Xml.ReaderWriter.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\System.Xml.XmlDocument.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\System.Xml.XPath.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\System.Xml.XPath.XDocument.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\vbc.exe
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\vbc.exe.config
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\vbc.rsp
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\VBCSCompiler.exe
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\roslyn\VBCSCompiler.exe.config
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\Antlr3.Runtime.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\Microsoft.Web.Infrastructure.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\Newtonsoft.Json.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\System.Web.Helpers.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\System.Web.Mvc.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\System.Web.Optimization.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\System.Web.Razor.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\System.Web.WebPages.Deployment.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\System.Web.WebPages.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\System.Web.WebPages.Razor.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\WebGrease.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\System.Web.Helpers.xml
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\System.Web.Mvc.xml
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\System.Web.Optimization.xml
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\System.Web.Razor.xml
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\System.Web.WebPages.xml
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\System.Web.WebPages.Deployment.xml
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\System.Web.WebPages.Razor.xml
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\Newtonsoft.Json.xml
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\Antlr3.Runtime.pdb
+E:\tutorial\Material_Movement\MaterialGateRegister\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\tutorial\Material_Movement\MaterialGateRegister\obj\Debug\MaterialGateRegister.csproj.AssemblyReference.cache
+E:\tutorial\Material_Movement\MaterialGateRegister\obj\Debug\MaterialGateRegister.csproj.CoreCompileInputs.cache
+E:\tutorial\Material_Movement\MaterialGateRegister\obj\Debug\MaterialGateRegister.csproj.CopyComplete
+E:\tutorial\Material_Movement\MaterialGateRegister\obj\Debug\MaterialGateRegister.dll
+E:\tutorial\Material_Movement\MaterialGateRegister\obj\Debug\MaterialGateRegister.pdb
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\ClosedXML.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\DocumentFormat.OpenXml.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\ExcelNumberFormat.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\System.IO.Packaging.dll
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\ClosedXML.pdb
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\ClosedXML.xml
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\DocumentFormat.OpenXml.xml
+D:\ClientProjects\titan\Material_Movement\MaterialGateRegister\bin\ExcelNumberFormat.xml
+E:\Output\Material_Movement\MaterialGateRegister\obj\Debug\MaterialGateRegister.csproj.CoreCompileInputs.cache
+E:\Output\Material_Movement\MaterialGateRegister\obj\Debug\MaterialGateRegister.csproj.AssemblyReference.cache
+E:\Output\Material_Movement\MaterialGateRegister\bin\MaterialGateRegister.dll.config
+E:\Output\Material_Movement\MaterialGateRegister\bin\MaterialGateRegister.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\MaterialGateRegister.pdb
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\csc.exe
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\csc.exe.config
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\csc.rsp
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\csi.exe
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\csi.exe.config
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\csi.rsp
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.Managed.Core.targets
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\Microsoft.Win32.Primitives.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\System.AppContext.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\System.Collections.Immutable.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\System.Console.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\System.Diagnostics.StackTrace.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\System.Globalization.Calendars.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\System.IO.Compression.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\System.IO.Compression.ZipFile.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\System.IO.FileSystem.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\System.IO.FileSystem.Primitives.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\System.Net.Http.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\System.Net.Sockets.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\System.Reflection.Metadata.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.Encoding.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.Primitives.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\System.Text.Encoding.CodePages.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\System.Threading.Tasks.Extensions.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\System.ValueTuple.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\System.Xml.ReaderWriter.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\System.Xml.XmlDocument.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\System.Xml.XPath.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\System.Xml.XPath.XDocument.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\vbc.exe
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\vbc.exe.config
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\vbc.rsp
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\VBCSCompiler.exe
+E:\Output\Material_Movement\MaterialGateRegister\bin\roslyn\VBCSCompiler.exe.config
+E:\Output\Material_Movement\MaterialGateRegister\bin\Antlr3.Runtime.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\ClosedXML.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\DocumentFormat.OpenXml.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\ExcelNumberFormat.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\Microsoft.Web.Infrastructure.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\Newtonsoft.Json.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\System.IO.Packaging.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\System.Web.Helpers.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\System.Web.Mvc.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\System.Web.Optimization.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\System.Web.Razor.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\System.Web.WebPages.Deployment.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\System.Web.WebPages.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\System.Web.WebPages.Razor.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\WebGrease.dll
+E:\Output\Material_Movement\MaterialGateRegister\bin\ClosedXML.pdb
+E:\Output\Material_Movement\MaterialGateRegister\bin\ClosedXML.xml
+E:\Output\Material_Movement\MaterialGateRegister\bin\DocumentFormat.OpenXml.xml
+E:\Output\Material_Movement\MaterialGateRegister\bin\ExcelNumberFormat.xml
+E:\Output\Material_Movement\MaterialGateRegister\bin\System.Web.Helpers.xml
+E:\Output\Material_Movement\MaterialGateRegister\bin\System.Web.Mvc.xml
+E:\Output\Material_Movement\MaterialGateRegister\bin\System.Web.Optimization.xml
+E:\Output\Material_Movement\MaterialGateRegister\bin\System.Web.Razor.xml
+E:\Output\Material_Movement\MaterialGateRegister\bin\System.Web.WebPages.xml
+E:\Output\Material_Movement\MaterialGateRegister\bin\System.Web.WebPages.Deployment.xml
+E:\Output\Material_Movement\MaterialGateRegister\bin\System.Web.WebPages.Razor.xml
+E:\Output\Material_Movement\MaterialGateRegister\bin\Newtonsoft.Json.xml
+E:\Output\Material_Movement\MaterialGateRegister\bin\Antlr3.Runtime.pdb
+E:\Output\Material_Movement\MaterialGateRegister\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Output\Material_Movement\MaterialGateRegister\obj\Debug\MaterialGateRegister.csproj.CopyComplete
+E:\Output\Material_Movement\MaterialGateRegister\obj\Debug\MaterialGateRegister.dll
+E:\Output\Material_Movement\MaterialGateRegister\obj\Debug\MaterialGateRegister.pdb
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\MaterialGateRegister.dll.config
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\MaterialGateRegister.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\MaterialGateRegister.pdb
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\csc.exe
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\csc.exe.config
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\csc.rsp
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\csi.exe
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\csi.exe.config
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\csi.rsp
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\Microsoft.Managed.Core.targets
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\Microsoft.Win32.Primitives.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\System.AppContext.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\System.Collections.Immutable.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\System.Console.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\System.Diagnostics.StackTrace.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\System.Globalization.Calendars.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\System.IO.Compression.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\System.IO.Compression.ZipFile.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\System.IO.FileSystem.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\System.IO.FileSystem.Primitives.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\System.Net.Http.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\System.Net.Sockets.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\System.Reflection.Metadata.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.Encoding.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.Primitives.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\System.Text.Encoding.CodePages.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\System.Threading.Tasks.Extensions.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\System.ValueTuple.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\System.Xml.ReaderWriter.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\System.Xml.XmlDocument.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\System.Xml.XPath.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\System.Xml.XPath.XDocument.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\vbc.exe
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\vbc.exe.config
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\vbc.rsp
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\VBCSCompiler.exe
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\roslyn\VBCSCompiler.exe.config
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\Antlr3.Runtime.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\ClosedXML.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\DocumentFormat.OpenXml.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\ExcelNumberFormat.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\Microsoft.Web.Infrastructure.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\Newtonsoft.Json.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\System.IO.Packaging.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\System.Web.Helpers.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\System.Web.Mvc.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\System.Web.Optimization.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\System.Web.Razor.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\System.Web.WebPages.Deployment.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\System.Web.WebPages.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\System.Web.WebPages.Razor.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\WebGrease.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\ClosedXML.pdb
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\ClosedXML.xml
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\DocumentFormat.OpenXml.xml
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\ExcelNumberFormat.xml
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\System.Web.Helpers.xml
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\System.Web.Mvc.xml
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\System.Web.Optimization.xml
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\System.Web.Razor.xml
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\System.Web.WebPages.xml
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\System.Web.WebPages.Deployment.xml
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\System.Web.WebPages.Razor.xml
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\Newtonsoft.Json.xml
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\Antlr3.Runtime.pdb
+E:\MVC projects\Material_movement\MaterialGateRegister\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\MVC projects\Material_movement\MaterialGateRegister\obj\Debug\MaterialGateRegister.csproj.AssemblyReference.cache
+E:\MVC projects\Material_movement\MaterialGateRegister\obj\Debug\MaterialGateRegister.csproj.CoreCompileInputs.cache
+E:\MVC projects\Material_movement\MaterialGateRegister\obj\Debug\MaterialGateRegister.csproj.CopyComplete
+E:\MVC projects\Material_movement\MaterialGateRegister\obj\Debug\MaterialGateRegister.dll
+E:\MVC projects\Material_movement\MaterialGateRegister\obj\Debug\MaterialGateRegister.pdb
+E:\Training\Code\MaterialGateRegister\bin\MaterialGateRegister.dll.config
+E:\Training\Code\MaterialGateRegister\bin\MaterialGateRegister.dll
+E:\Training\Code\MaterialGateRegister\bin\MaterialGateRegister.pdb
+E:\Training\Code\MaterialGateRegister\bin\roslyn\csc.exe
+E:\Training\Code\MaterialGateRegister\bin\roslyn\csc.exe.config
+E:\Training\Code\MaterialGateRegister\bin\roslyn\csc.rsp
+E:\Training\Code\MaterialGateRegister\bin\roslyn\csi.exe
+E:\Training\Code\MaterialGateRegister\bin\roslyn\csi.exe.config
+E:\Training\Code\MaterialGateRegister\bin\roslyn\csi.rsp
+E:\Training\Code\MaterialGateRegister\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Training\Code\MaterialGateRegister\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\Microsoft.Managed.Core.targets
+E:\Training\Code\MaterialGateRegister\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Training\Code\MaterialGateRegister\bin\roslyn\Microsoft.Win32.Primitives.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\System.AppContext.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\System.Collections.Immutable.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\System.Console.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\System.Diagnostics.StackTrace.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\System.Globalization.Calendars.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\System.IO.Compression.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\System.IO.Compression.ZipFile.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\System.IO.FileSystem.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\System.IO.FileSystem.Primitives.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\System.Net.Http.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\System.Net.Sockets.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\System.Reflection.Metadata.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.Encoding.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.Primitives.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\System.Text.Encoding.CodePages.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\System.Threading.Tasks.Extensions.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\System.ValueTuple.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\System.Xml.ReaderWriter.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\System.Xml.XmlDocument.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\System.Xml.XPath.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\System.Xml.XPath.XDocument.dll
+E:\Training\Code\MaterialGateRegister\bin\roslyn\vbc.exe
+E:\Training\Code\MaterialGateRegister\bin\roslyn\vbc.exe.config
+E:\Training\Code\MaterialGateRegister\bin\roslyn\vbc.rsp
+E:\Training\Code\MaterialGateRegister\bin\roslyn\VBCSCompiler.exe
+E:\Training\Code\MaterialGateRegister\bin\roslyn\VBCSCompiler.exe.config
+E:\Training\Code\MaterialGateRegister\bin\Antlr3.Runtime.dll
+E:\Training\Code\MaterialGateRegister\bin\ClosedXML.dll
+E:\Training\Code\MaterialGateRegister\bin\DocumentFormat.OpenXml.dll
+E:\Training\Code\MaterialGateRegister\bin\ExcelNumberFormat.dll
+E:\Training\Code\MaterialGateRegister\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Training\Code\MaterialGateRegister\bin\Microsoft.Web.Infrastructure.dll
+E:\Training\Code\MaterialGateRegister\bin\Newtonsoft.Json.dll
+E:\Training\Code\MaterialGateRegister\bin\System.IO.Packaging.dll
+E:\Training\Code\MaterialGateRegister\bin\System.Web.Helpers.dll
+E:\Training\Code\MaterialGateRegister\bin\System.Web.Mvc.dll
+E:\Training\Code\MaterialGateRegister\bin\System.Web.Optimization.dll
+E:\Training\Code\MaterialGateRegister\bin\System.Web.Razor.dll
+E:\Training\Code\MaterialGateRegister\bin\System.Web.WebPages.Deployment.dll
+E:\Training\Code\MaterialGateRegister\bin\System.Web.WebPages.dll
+E:\Training\Code\MaterialGateRegister\bin\System.Web.WebPages.Razor.dll
+E:\Training\Code\MaterialGateRegister\bin\WebGrease.dll
+E:\Training\Code\MaterialGateRegister\bin\ClosedXML.pdb
+E:\Training\Code\MaterialGateRegister\bin\ClosedXML.xml
+E:\Training\Code\MaterialGateRegister\bin\DocumentFormat.OpenXml.xml
+E:\Training\Code\MaterialGateRegister\bin\ExcelNumberFormat.xml
+E:\Training\Code\MaterialGateRegister\bin\System.Web.Helpers.xml
+E:\Training\Code\MaterialGateRegister\bin\System.Web.Mvc.xml
+E:\Training\Code\MaterialGateRegister\bin\System.Web.Optimization.xml
+E:\Training\Code\MaterialGateRegister\bin\System.Web.Razor.xml
+E:\Training\Code\MaterialGateRegister\bin\System.Web.WebPages.xml
+E:\Training\Code\MaterialGateRegister\bin\System.Web.WebPages.Deployment.xml
+E:\Training\Code\MaterialGateRegister\bin\System.Web.WebPages.Razor.xml
+E:\Training\Code\MaterialGateRegister\bin\Newtonsoft.Json.xml
+E:\Training\Code\MaterialGateRegister\bin\Antlr3.Runtime.pdb
+E:\Training\Code\MaterialGateRegister\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Training\Code\MaterialGateRegister\obj\Debug\MaterialGateRegister.csproj.CoreCompileInputs.cache
+E:\Training\Code\MaterialGateRegister\obj\Debug\MaterialGateRegister.csproj.CopyComplete
+E:\Training\Code\MaterialGateRegister\obj\Debug\MaterialGateRegister.dll
+E:\Training\Code\MaterialGateRegister\obj\Debug\MaterialGateRegister.pdb
+E:\Training\Code\MaterialGateRegister\obj\Debug\MaterialGateRegister.csproj.AssemblyReference.cache
+D:\Code\MaterialGateRegister\bin\MaterialGateRegister.dll.config
+D:\Code\MaterialGateRegister\bin\MaterialGateRegister.dll
+D:\Code\MaterialGateRegister\bin\MaterialGateRegister.pdb
+D:\Code\MaterialGateRegister\bin\roslyn\csc.exe
+D:\Code\MaterialGateRegister\bin\roslyn\csc.exe.config
+D:\Code\MaterialGateRegister\bin\roslyn\csc.rsp
+D:\Code\MaterialGateRegister\bin\roslyn\csi.exe
+D:\Code\MaterialGateRegister\bin\roslyn\csi.exe.config
+D:\Code\MaterialGateRegister\bin\roslyn\csi.rsp
+D:\Code\MaterialGateRegister\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Code\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Code\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\Code\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Code\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\Code\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Code\MaterialGateRegister\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Code\MaterialGateRegister\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\Code\MaterialGateRegister\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\Code\MaterialGateRegister\bin\roslyn\Microsoft.Managed.Core.targets
+D:\Code\MaterialGateRegister\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Code\MaterialGateRegister\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\Code\MaterialGateRegister\bin\roslyn\System.AppContext.dll
+D:\Code\MaterialGateRegister\bin\roslyn\System.Collections.Immutable.dll
+D:\Code\MaterialGateRegister\bin\roslyn\System.Console.dll
+D:\Code\MaterialGateRegister\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+D:\Code\MaterialGateRegister\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\Code\MaterialGateRegister\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\Code\MaterialGateRegister\bin\roslyn\System.Globalization.Calendars.dll
+D:\Code\MaterialGateRegister\bin\roslyn\System.IO.Compression.dll
+D:\Code\MaterialGateRegister\bin\roslyn\System.IO.Compression.ZipFile.dll
+D:\Code\MaterialGateRegister\bin\roslyn\System.IO.FileSystem.dll
+D:\Code\MaterialGateRegister\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\Code\MaterialGateRegister\bin\roslyn\System.Net.Http.dll
+D:\Code\MaterialGateRegister\bin\roslyn\System.Net.Sockets.dll
+D:\Code\MaterialGateRegister\bin\roslyn\System.Reflection.Metadata.dll
+D:\Code\MaterialGateRegister\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\Code\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\Code\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\Code\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\Code\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\Code\MaterialGateRegister\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\Code\MaterialGateRegister\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\Code\MaterialGateRegister\bin\roslyn\System.ValueTuple.dll
+D:\Code\MaterialGateRegister\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\Code\MaterialGateRegister\bin\roslyn\System.Xml.XmlDocument.dll
+D:\Code\MaterialGateRegister\bin\roslyn\System.Xml.XPath.dll
+D:\Code\MaterialGateRegister\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\Code\MaterialGateRegister\bin\roslyn\vbc.exe
+D:\Code\MaterialGateRegister\bin\roslyn\vbc.exe.config
+D:\Code\MaterialGateRegister\bin\roslyn\vbc.rsp
+D:\Code\MaterialGateRegister\bin\roslyn\VBCSCompiler.exe
+D:\Code\MaterialGateRegister\bin\roslyn\VBCSCompiler.exe.config
+D:\Code\MaterialGateRegister\bin\Antlr3.Runtime.dll
+D:\Code\MaterialGateRegister\bin\ClosedXML.dll
+D:\Code\MaterialGateRegister\bin\DocumentFormat.OpenXml.dll
+D:\Code\MaterialGateRegister\bin\ExcelNumberFormat.dll
+D:\Code\MaterialGateRegister\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Code\MaterialGateRegister\bin\Microsoft.Web.Infrastructure.dll
+D:\Code\MaterialGateRegister\bin\Newtonsoft.Json.dll
+D:\Code\MaterialGateRegister\bin\System.IO.Packaging.dll
+D:\Code\MaterialGateRegister\bin\System.Web.Helpers.dll
+D:\Code\MaterialGateRegister\bin\System.Web.Mvc.dll
+D:\Code\MaterialGateRegister\bin\System.Web.Optimization.dll
+D:\Code\MaterialGateRegister\bin\System.Web.Razor.dll
+D:\Code\MaterialGateRegister\bin\System.Web.WebPages.Deployment.dll
+D:\Code\MaterialGateRegister\bin\System.Web.WebPages.dll
+D:\Code\MaterialGateRegister\bin\System.Web.WebPages.Razor.dll
+D:\Code\MaterialGateRegister\bin\WebGrease.dll
+D:\Code\MaterialGateRegister\bin\ClosedXML.pdb
+D:\Code\MaterialGateRegister\bin\ClosedXML.xml
+D:\Code\MaterialGateRegister\bin\DocumentFormat.OpenXml.xml
+D:\Code\MaterialGateRegister\bin\ExcelNumberFormat.xml
+D:\Code\MaterialGateRegister\bin\System.Web.Helpers.xml
+D:\Code\MaterialGateRegister\bin\System.Web.Mvc.xml
+D:\Code\MaterialGateRegister\bin\System.Web.Optimization.xml
+D:\Code\MaterialGateRegister\bin\System.Web.Razor.xml
+D:\Code\MaterialGateRegister\bin\System.Web.WebPages.xml
+D:\Code\MaterialGateRegister\bin\System.Web.WebPages.Deployment.xml
+D:\Code\MaterialGateRegister\bin\System.Web.WebPages.Razor.xml
+D:\Code\MaterialGateRegister\bin\Newtonsoft.Json.xml
+D:\Code\MaterialGateRegister\bin\Antlr3.Runtime.pdb
+D:\Code\MaterialGateRegister\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Code\MaterialGateRegister\obj\Debug\MaterialGateRegister.csproj.AssemblyReference.cache
+D:\Code\MaterialGateRegister\obj\Debug\MaterialGateRegister.csproj.CoreCompileInputs.cache
+D:\Code\MaterialGateRegister\obj\Debug\MaterialGateRegister.csproj.CopyComplete
+D:\Code\MaterialGateRegister\obj\Debug\MaterialGateRegister.dll
+D:\Code\MaterialGateRegister\obj\Debug\MaterialGateRegister.pdb
+D:\ASPNET\Code\MaterialGateRegister\bin\MaterialGateRegister.dll.config
+D:\ASPNET\Code\MaterialGateRegister\bin\MaterialGateRegister.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\MaterialGateRegister.pdb
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\csc.exe
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\csc.exe.config
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\csc.rsp
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\csi.exe
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\csi.exe.config
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\csi.rsp
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\Microsoft.Managed.Core.targets
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\System.AppContext.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\System.Collections.Immutable.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\System.Console.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\System.Globalization.Calendars.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\System.IO.Compression.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\System.IO.Compression.ZipFile.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\System.IO.FileSystem.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\System.Net.Http.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\System.Net.Sockets.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\System.Reflection.Metadata.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\System.ValueTuple.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\System.Xml.XmlDocument.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\System.Xml.XPath.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\vbc.exe
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\vbc.exe.config
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\vbc.rsp
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\VBCSCompiler.exe
+D:\ASPNET\Code\MaterialGateRegister\bin\roslyn\VBCSCompiler.exe.config
+D:\ASPNET\Code\MaterialGateRegister\bin\Antlr3.Runtime.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\ClosedXML.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\DocumentFormat.OpenXml.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\ExcelNumberFormat.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\Microsoft.Web.Infrastructure.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\Newtonsoft.Json.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\System.IO.Packaging.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\System.Web.Helpers.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\System.Web.Mvc.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\System.Web.Optimization.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\System.Web.Razor.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\System.Web.WebPages.Deployment.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\System.Web.WebPages.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\System.Web.WebPages.Razor.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\WebGrease.dll
+D:\ASPNET\Code\MaterialGateRegister\bin\ClosedXML.pdb
+D:\ASPNET\Code\MaterialGateRegister\bin\ClosedXML.xml
+D:\ASPNET\Code\MaterialGateRegister\bin\DocumentFormat.OpenXml.xml
+D:\ASPNET\Code\MaterialGateRegister\bin\ExcelNumberFormat.xml
+D:\ASPNET\Code\MaterialGateRegister\bin\System.Web.Helpers.xml
+D:\ASPNET\Code\MaterialGateRegister\bin\System.Web.Mvc.xml
+D:\ASPNET\Code\MaterialGateRegister\bin\System.Web.Optimization.xml
+D:\ASPNET\Code\MaterialGateRegister\bin\System.Web.Razor.xml
+D:\ASPNET\Code\MaterialGateRegister\bin\System.Web.WebPages.xml
+D:\ASPNET\Code\MaterialGateRegister\bin\System.Web.WebPages.Deployment.xml
+D:\ASPNET\Code\MaterialGateRegister\bin\System.Web.WebPages.Razor.xml
+D:\ASPNET\Code\MaterialGateRegister\bin\Newtonsoft.Json.xml
+D:\ASPNET\Code\MaterialGateRegister\bin\Antlr3.Runtime.pdb
+D:\ASPNET\Code\MaterialGateRegister\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\ASPNET\Code\MaterialGateRegister\obj\Debug\MaterialGateRegister.csproj.AssemblyReference.cache
+D:\ASPNET\Code\MaterialGateRegister\obj\Debug\MaterialGateRegister.csproj.CoreCompileInputs.cache
+D:\ASPNET\Code\MaterialGateRegister\obj\Debug\MaterialGateRegister.csproj.CopyComplete
+D:\ASPNET\Code\MaterialGateRegister\obj\Debug\MaterialGateRegister.dll
+D:\ASPNET\Code\MaterialGateRegister\obj\Debug\MaterialGateRegister.pdb

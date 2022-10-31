@@ -1,0 +1,745 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .btn-primary.active {
+        background-color: forestgreen;
+    }
+</style>
+
+<header class="page-header" style="margin-top: -9px;margin-left: -11px;">
+    <h2> Roles and Permissions </h2>
+    <div class="right-wrapper pull-right">
+        <ol class="breadcrumbs">
+            <li>
+                <a href="@Url.Action("Dashboard","Login")">
+                    <i class="fa fa-home"></i>
+                </a>
+            </li>
+            <li><span>Roles and Permissions</span></li>
+        </ol>
+        <a class="sidebar-right-toggle"></a>
+    </div>
+</header>
+
+
+<div class="row" id="divnew" style="display:none;">
+    <div class="col-md-12">
+        <section class="panel form-wizard" id="w1">
+            <header class="panel-heading" style="background-color:teal;color:white;">
+                <h2 class="panel-title" style="color:white;">Role & Permission</h2>
+            </header>
+            <div class="panel-body panel-body-nopadding">
+                <div class="wizard-tabs">
+                    <ul class="wizard-steps">
+                        <li class="active">
+                            <a href="#w1-account" data-toggle="tab" class="text-center">
+                                Role
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#w1-profile" data-toggle="tab" class="text-center">
+                                Permission
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <form class="form-horizontal">
+                    <div class="tab-content">
+                        <div id="w1-account" class="tab-pane active">
+                            <div class="form-group">
+                                <input type="hidden" name="id" id="RoleID" />
+                                <label class="col-sm-2 control-label"> Role Name <span class="required">*</span></label>
+                                <div class="col-sm-4">
+                                    <input type="text" id="Role" class="form-control" title="Enter Role" placeholder="Role Name" required />
+                                </div>                              
+                            </div>
+                        </div>
+                        <div id="w1-profile" class="tab-pane">
+                            <div class="panel-body">
+                                <table id="permission_details" class="table table-bordered table-striped mb-none" style="text-align:center;">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align:center;"> Select All<br /></th>
+                                            <th style="text-align:center;"> Module </th>
+                                            <th style="text-align:center;"> View </th>
+                                            <th style="text-align:center;"> Edit </th>
+                                            <th style="text-align:center;"> Add </th>
+                                            <th style="text-align:center;"> Delete </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="details">
+                                        <tr>
+                                            <td><input type="checkbox" class="Set" value="1" name="" id="Selectall" /></td>
+                                            <td>
+                                                Settings
+                                                <input type="hidden" name="Module_name" id="Module_name" value="Settings" />
+                                            </td>
+                                            <td><input type="checkbox" class="Set" value="1" name="View_form" id="View_form" /></td>
+                                            <td><input type="checkbox" class="Set" value="1" name="Edit_form" id="Edit_form" /></td>
+                                            <td><input type="checkbox" class="Set" value="1" name="Add_form" id="Add_form" /></td>
+                                            <td><input type="checkbox" class="Set" value="1" name="Delete_form" id="Delete_form" /></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td><input type="checkbox" class="Entry" value="1" name="" id="SelectallEntry" /></td>
+                                            <td>
+                                                Material Entries
+                                                <input type="hidden" name="Module_name" id="Module_name" value="MaterialEntries" />
+                                            </td>
+                                            <td><input type="checkbox" class="Entry" value="1" name="View_form" id="View_form" /></td>
+                                            <td><input type="checkbox" class="Entry" value="1" name="Edit_form" id="Edit_form" /></td>
+                                            <td><input type="checkbox" class="Entry" value="1" name="Add_form" id="Add_form" /></td>
+                                            <td><input type="checkbox" class="Entry" value="1" name="Delete_form" id="Delete_form" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="checkbox" class="Register" value="1" name="" id="SelectallRegister" /></td>
+                                            <td>
+                                                Material Registers
+                                                <input type="hidden" name="Module_name" id="Module_name" value="MaterialRegisters" />
+                                            </td>
+                                            <td><input type="checkbox" class="Register" value="1" name="View_form" id="View_form" /></td>
+                                            <td><input type="checkbox" class="Register" value="1" name="Edit_form" id="Edit_form" /></td>
+                                            <td><input type="checkbox" class="Register" value="1" name="Add_form" id="Add_form" /></td>
+                                            <td><input type="checkbox" class="Register" value="1" name="Delete_form" id="Delete_form" /></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td><input type="checkbox" class="Pending" value="1" name="Select-all" id="SelectallPending" /></td>
+                                            <td>
+                                                Pending Registers
+                                                <input type="hidden" name="Module_name" id="Module_name" value="PendingRegisters" />
+                                            </td>
+                                            <td><input type="checkbox" class="Pending" value="1" name="View_form" id="View_form" /></td>
+                                            <td><input type="checkbox" class="Pending" value="1" name="Edit_form" id="Edit_form" /></td>
+                                            <td><input type="checkbox" class="Pending" value="1" name="Add_form" id="Add_form" /></td>
+                                            <td><input type="checkbox" class="Pending" value="1" name="Delete_form" id="Delete_form" /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <footer class="panel-footer">
+                                <div class="row">
+                                    <div class="col-sm-6 col-sm-offset-3" style="text-align:center;">
+                                        <button type="button" class="btn btn-primary submit">Submit</button>
+                                        <button type="reset" id="cancel" class="btn btn-danger cancel">Cancel</button>
+                                    </div>
+                                </div>
+                            </footer>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- Roles Details-->
+<div class="row" id="divdetails">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <section class="panel">
+            <header class="panel-heading" style="background-color:teal;color:white;">
+                @if (Session["SettingsAdd_form"].ToString() == "1")
+                {
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" id="add"><i class="fa fa-plus" aria-hidden="true"> Add New</i></button>
+                    </div>
+                }
+                <h2 class="panel-title" style="color:white;">List of Roles : </h2>
+            </header>
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="panel-body">
+
+                        <table class="table table-bordered table-striped mb-none" id="datatable-default">
+                            <thead style="background-color:teal;color:white;">
+                                <tr>
+                                    <th class="centercls"> S.No </th>
+                                    <th style="display:none;"></th>
+                                    <th> Role Name </th>
+                                    <th style="text-align:center;width:150px;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{int RowNo = 0;}
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="gradeX">
+                                        <td>
+                                            @{RowNo++;}@RowNo
+                                        </td>
+                                        <td class="ID" style="display:none;">
+                                            <span>@Html.Encode(item.id)</span>
+                                        </td>
+                                        <td class="centercls role">
+                                            <span>@Html.Encode(item.Userrole)</span>
+                                        </td>
+                                        <td style="text-align:center;">
+                                            @if (Session["SettingsEdit_form"].ToString() == "1")
+                                            {
+                                                <button class="btn btn-primary" style="margin-top: 10px" id="edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                            }
+                                            @if (Session["SettingsDelete_form"].ToString() == "1")
+                                            {
+                                                <button class="btn btn-danger" style="margin-top: 10px" id="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+<script src="~/assets/javascripts/swal.js"></script>
+<script src="~/assets/javascripts/swal_alert.js"></script>
+
+@if (@ViewBag.Message != null)
+{
+    <script type="text/javascript">
+        $(function () {
+            swal({
+                icon: "error",
+                title: "@ViewBag.Message",
+                showConfirmButton: false,
+                timer: 4500
+            })
+        });
+    </script>
+}
+
+<script type="text/javascript">
+    function sanitize(string12) {
+        const map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#x27;',
+            "/": '&#x2F;',
+        };
+        const reg = /[&<>"'/]/ig;
+        return string12.replace(reg, (match) => (map[match]));
+    }
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        var vars = [], hash;
+        var q = document.URL.split('?')[1];
+        if (q != undefined) {
+            q = q.split('&');
+            for (var i = 0; i < q.length; i++) {
+                hash = q[i].split('=');
+                vars.push(hash[1]);
+                vars[hash[0]] = hash[1];
+            }
+        }
+        var parameter = vars['ac'];
+        if (parameter == "1") {
+            swal({
+                icon: "success",
+                title: "Details Added Successfully...!",
+                showConfirmButton: true,
+                confirmButtonText: "Cerrar",
+                closeOnConfirm: false
+            })
+        }
+        else if (parameter == "2") {
+            swal({
+                icon: "success",
+                title: "Details Updated Successfully...!",
+                showConfirmButton: true,
+                confirmButtonText: "Cerrar",
+                closeOnConfirm: false
+            })
+        }
+        else if (parameter == "-1") {
+            swal({
+                icon: "error",
+                title: "Details Already Added...!",
+                showConfirmButton: false,
+                timer: 4500
+            })
+        }
+    });
+</script>
+
+<script>
+    function display_roles() {
+        add_remove_class(1);
+        $("#divnew").hide();
+        $("#divedit").hide();
+        $("#divdetails").show();
+        $("#divpermission").hide();
+    }
+    function display_Permission() {
+        add_remove_class(2);
+        $("#divnew").hide();
+        $("#divedit").hide();
+        $("#divdetails").hide();
+        $("#divpermission").show();
+
+    }
+</script>
+
+<script>
+    $("#add").click(function () {
+        $("#divnew").show();
+        $("#divedit").hide();
+        $("#divdetails").hide();
+        $("#divpermission").hide();
+        $('.submit').text('Submit');
+    });
+
+    $(".cancel").click(function () {
+        $("#divnew").hide();
+        $("#divedit").hide();
+        $("#divdetails").show();
+        $("#divpermission").hide();
+
+    });
+    function add_remove_class(val) {
+        $(".Roles").removeClass('active');
+        $(".Permissions").removeClass('active');
+
+        if (val == 1) {
+            $(".Roles").addClass('active');
+        }
+        else if (val == 2) {
+            $(".Permissions").addClass('active');
+        }
+    }
+    $(function () {
+        var url1 = '@Url.Action("getRoles","Login")';
+        $.ajax({
+            type: "POST",
+            url: url1,
+            data: '{}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                var s = '<option value="">Please Select</option>';
+                for (var i = 0; i < data.length; i++) {
+                    s += '<option value="' + data[i].id + '">' + data[i].Userrole + '</option>';
+                }
+                $("#Role_id").html(s);
+            }
+        });
+
+    });
+
+    $("#cancel_permission").click(function () {
+        $("#divnew").hide();
+        $("#divedit").hide();
+        $("#divdetails").hide();
+        $("#divpermission").hide();
+        $(".tab").show();
+        window.location = '@Url.Action("Index","Roles")';
+    });
+
+  
+    $('#Selectall').click(function (event) {
+        if (this.checked) {
+            // Iterate each checkbox
+            $('.Set').each(function () {
+                this.checked = true;
+            });
+        } else {
+            $('.Set').each(function () {
+                this.checked = false;
+            });
+        }
+    });
+    $('#SelectallEntry').click(function (event) {
+        if (this.checked) {
+            // Iterate each checkbox
+            $('.Entry').each(function () {
+                this.checked = true;
+            });
+        } else {
+            $('.Entry').each(function () {
+                this.checked = false;
+            });
+        }
+    });
+    $('#SelectallRegister').click(function (event) {
+        if (this.checked) {
+            // Iterate each checkbox
+            $('.Register').each(function () {
+                this.checked = true;
+            });
+        } else {
+            $('.Register').each(function () {
+                this.checked = false;
+            });
+        }
+    });
+    $('#SelectallPending').click(function (event) {
+        if (this.checked) {
+            // Iterate each checkbox
+            $('.Pending').each(function () {
+                this.checked = true;
+            });
+        } else {
+            $('.Pending').each(function () {
+                this.checked = false;
+            });
+        }
+    });
+</script>
+
+<script>
+
+     $("body").on("click", "#edit", function () {
+        var row = $(this).closest("tr");
+         var RoleID = row.find(".ID span").html();
+
+        $("#divnew").show();
+        $("#divdetails").hide();
+         $('.submit').text('Update');
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Edit_role", "Roles")',
+            data: '{id: ' + RoleID + '}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+
+                var role = response[0].Userrole;
+                if (role == "Admin") {
+                   swal({
+                    icon: "error",
+                    title: "Cannot Edit admin",
+                    showConfirmButton: true,
+                    timer: 4500
+                   }).then(function (result) {
+                       window.location = '@Url.Action("Index","Roles")';
+                })
+                } else {
+
+                    $('#Role').val(response[0].Userrole);
+                    $('#RoleID').val(response[0].id);
+
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("Edit_permission", "Roles")',
+                        data: '{id: ' + RoleID + '}',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response1) {
+                            for (var i = 0; i < response1.length; i++) {
+                                $("#permission_details TBODY TR").each(function () {
+                                    var row = $(this);
+                                    var permissions = {};
+                                    var Module_name = row.find("#Module_name").val();
+                                    permissions.Role_id = response.id;
+
+                                    if (Module_name == response1[i].Module_name) {
+                                        if (response1[i].Add_form == "1") {
+                                            row.find("#Add_form").prop("checked", true);
+                                        }
+                                        else {
+                                            row.find("#Add_form").prop("checked", false);
+                                        }
+                                        if (response1[i].View_form == "1") {
+                                            row.find("#View_form").prop("checked", true);
+                                        }
+                                        else {
+                                            row.find("#View_form").prop("checked", false);
+                                        }
+                                        if (response1[i].Edit_form == "1") {
+                                            row.find("#Edit_form").prop("checked", true);
+                                        }
+                                        else {
+                                            row.find("#Edit_form").prop("checked", false);
+                                        }
+                                        if (response1[i].Delete_form == "1") {
+                                            row.find("#Delete_form").prop("checked", true);
+                                        }
+                                        else {
+                                            row.find("#Delete_form").prop("checked", false);
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+            }
+            , error: function (response) {
+                if (response.status == "401") {
+                    swal({
+                        icon: "warning",
+                        title: "Token is not valid",
+                        button: true,
+                        closeModal: false
+                    })
+                  
+                }
+                else {
+                    swal({
+                        icon: "warning",
+                        title: response.responseText,
+                        button: true,
+                        closeModal: false
+                    })
+
+                }
+            }
+        });
+    });
+
+
+
+    $("body").on("click", "#delete", function ()
+    {
+        if (confirm("Do you want to Delete this role?")) {
+            var url1 = '@Url.Action("Delete_role","Roles")';
+            var url = '@Url.Action("Index","Roles")';
+            var row = $(this).closest("tr");
+            var UniqueId = row.find(".ID span").html();
+            var Role = row.find(".role span").html();
+            if (Role == "Admin") {
+
+                swal({
+                    icon: "error",
+                    title: "Cannot Delete admin",
+                    showConfirmButton: false,
+                    timer: 4500
+                }).then(function (result) {
+                    window.location = url;
+                })
+                    }
+                    else
+                    {
+                    $.ajax({
+                        type: "POST",
+                        url: url1,
+                        data: '{id: ' + UniqueId + ',Role: ' + JSON.stringify(Role) + '}',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            if (response == "1") {
+                                swal({
+                                    icon: "success",
+                                    title: "Details Deleted Successfully...!",
+                                    showConfirmButton: true,
+                                    confirmButtonText: "Cerrar",
+                                    closeOnConfirm: false
+                                }).then(function (result) {
+                                    window.location = url;
+                                })
+                            }
+                            else if (response = "-1") {
+                                swal({
+                                    icon: "error",
+                                    title: "Role is assigned to User...!",
+                                    showConfirmButton: false,
+                                    timer: 4500
+                                }).then(function (result) {
+                                    window.location = url;
+                                })
+                            }
+
+                        }
+                    });
+                }
+        }
+    });
+
+    $(document).ready(function () {
+        $(".submit").click(function (event) {
+            var permission = new Array();
+            var role = new Array();
+            var roles = {};
+
+            roles.Userrole = $('#Role').val();
+
+            var checked = $("input[type=checkbox]:checked").length;
+
+            var remval = sanitize(roles.Userrole);
+
+            var conditions = ["&lt;", "&#x2F;", "&#x27;", "&amp;", "&gt;", "&quot;"];
+            var test1 = conditions.some(el => remval.includes(el));
+            const Regx = new RegExp(/[-=!.%&~`'"<>,#/|"'`*+?^${}()|[\]\\]/g);
+            var result = Regx.test(roles.Userrole)
+            if (test1 == true) {
+                upva = 1;
+
+                return swal({
+                    icon: "error",
+                    title: "Entered Role or Role Description contain special charecters which is not allowed",
+                    button: true,
+                    timer: 4500
+                })
+
+            }
+            else if (roles.Userrole == "") {
+                swal({
+                    icon: "error",
+                    title: "Please Enter RoleName...!",
+                    button: true,
+                    timer: 4500
+                })
+                return;
+            }
+            else if (!checked) {
+                swal({
+                    icon: "error",
+                    title: "No Permission Selected...!",
+                    button: true,
+                    timer: 4500
+                })
+                return;
+            }
+
+            if ($('.submit').text() == "Update") {
+                roles.QueryType = "Update";
+            }
+            else {
+                roles.QueryType = "Insert";
+            }
+
+            roles.id = $('#RoleID').val();
+            role.push(roles);
+            $("#permission_details TBODY TR").each(function () {
+                var row = $(this);
+                var permissions = {};
+
+                permissions.Module_name = row.find("#Module_name").val();
+
+                permissions.RoleID = $('#RoleID').val();
+
+                if (row.find("#Add_form").is(":checked")) {
+                    permissions.Add_form = '1';
+                }
+                else {
+                    permissions.Add_form = '0';
+                }
+
+                if (row.find("#View_form").is(":checked")) {
+                    permissions.View_form = '1';
+                }
+                else {
+                    permissions.View_form = '0';
+                }
+
+                if (row.find("#Edit_form").is(":checked")) {
+                    permissions.Edit_form = '1';
+                }
+                else {
+                    permissions.Edit_form = '0';
+                }
+
+                if (row.find("#Delete_form").is(":checked")) {
+                    permissions.Delete_form = '1';
+                }
+                else {
+                    permissions.Delete_form = '0';
+                }
+                if ($('.submit').text() == "Update") {
+                    permissions.QueryType = "Update";
+                }
+                else {
+                    permissions.QueryType = "Insert";
+                }
+                permission.push(permissions);
+            });
+
+                            var R_url = '@Url.Action("Login", "Main")';
+                            var user1 = '@Session["Token"]' + ':' + '@Session["UserName"]';
+                            var S_url = '@Url.Action("Add_Permission", "Login")';
+                            $.ajax({
+                                type: "POST",
+                                url: S_url,
+                                data: '{permissions: ' + JSON.stringify(permission) + ',role: ' + JSON.stringify(role) + '}',
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                beforeSend: function () {
+                                    $('.loading').show();
+                                },
+                                complete: function () {
+                                    $('.loading').hide();
+                                },
+                                success: function (response) {
+                                    if (response == "2") {
+                                        swal({
+                                            icon: "success",
+                                            title: "Details Updated Successfully...!",
+                                            showConfirmButton: true,
+                                            confirmButtonText: "Cerrar",
+                                            closeOnConfirm: false
+                                        })
+                                            .then(function (result) {
+                                                window.location = '@Url.Action("Index", "Roles")';
+                                            })
+
+                                    }
+
+                                    else if (response == "1") {
+                                        swal({
+                                            icon: "success",
+                                            title: "Details Added Successfully...!",
+                                            showConfirmButton: true,
+                                            confirmButtonText: "Cerrar",
+                                            closeOnConfirm: false
+                                        })
+                                            .then(function (result) {
+                                                window.location = '@Url.Action("Index", "Roles")';
+                                            })
+
+                                    }
+                                    else if (response=="-1") {
+                                        swal({
+                                            icon: "error",
+                                            title: "Role already exist!",
+                                            button: true,
+                                            timer: 4500
+                                        }).then(function (result) {
+                                                window.location = '@Url.Action("Index", "Roles")';
+                                            })
+                                    }
+
+                                    $('.submit').text('Submit');
+                   
+                                }
+
+
+                            })
+
+
+        });
+
+        $('.updated_time').text("N/A");
+        $('.shift').text("N/A");
+
+        if ($.fn.DataTable.isDataTable('#datatable-default')) {
+            $('#datatable-default').DataTable().destroy();
+        }
+
+
+        $('#datatable-default').DataTable({
+
+            "responsive": true,
+            "autoWidth": false,
+            scrollY: true,
+            scrollX: true,
+            scroller: true
+        });
+
+    });
+</script>
+

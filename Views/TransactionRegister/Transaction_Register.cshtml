@@ -1,0 +1,2503 @@
+﻿@{
+    ViewBag.Title = "Transaction Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" type="text/css" href="~/assets/datepicker_normal/jquery-ui-1.8.19.custom.css">
+
+<header class="page-header" style="margin-top: -9px;margin-left: -11px;">
+
+    <h2> Material Register </h2>
+
+    <div class="right-wrapper pull-right">
+        <ol class="breadcrumbs">
+            <li>
+                <a href="@Url.Action("Dashboard","Login")">
+                    <i class="fa fa-home"></i>
+                </a>
+            </li>
+            <li><span>Master Transaction Register</span></li>
+        </ol>
+        <a class="sidebar-right-toggle"></a>
+    </div>
+
+</header>
+
+<style>
+    .btn-primary.active {
+        background-color: forestgreen;
+    }
+</style>
+
+<div id="tab">
+    <button class="btn btn-primary btn_re_internal" onclick="display_re_internal()">Returnable-Internal</button>
+    <button class="btn btn-primary btn_re_external" onclick="display_re_external()">Returnable-External</button>
+    <button class="btn btn-primary btn_nonre_internal" onclick="display_nonre_internal()">NonReturnable-Internal</button>
+    <button class="btn btn-primary btn_nonre_external" onclick="display_nonre_external()">NonReturnable-External</button>
+
+</div>
+
+<br />
+<br />
+
+<div class="row" id="re_internal" style="display:none">
+
+    <div class="col-md-5">
+
+        @if (Session["RegistersView_form"].ToString() == "1")
+        {
+            <section class="panel">
+
+                <header class="panel-heading" style="padding:30px !important;">                   
+                </header>
+
+                <div class="panel-body" id="div_re_internal">
+                    <div class="form-group">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"> From Date  <span class="required">*</span></label>
+
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control FDate space" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46 || event.charCode == 95' onpaste='return false' id="FromDate" name="FromDate" required autocomplete="off" />
+                                </div>
+
+                                <label class="col-sm-2 control-label"> End Date  <span class="required">*</span></label>
+
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control TDate space" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46 || event.charCode == 95' onpaste='return false' id="ToDate" name="ToDate" required autocomplete="off" />
+                                </div>
+
+                                <div class="col-sm2 " style="text-align:right;">
+
+                                    <button type="submit" id="btn_apply" class="btn btn-primary  ">Apply</button>
+                                    <button type="button" id="apply_cancel" class="btn btn-danger ">Refresh</button>
+
+                                </div>
+                            </div>
+                            <div class="form-group">                               
+
+                                <div class="dt-responsive table-responsive">
+
+                                    <div id="">
+
+                                        <table class="table table-bordered table-striped mb-none" id="datatable-defaultM">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center;">S.NO</th>                                                   
+                                                    <th style="min-width:150px;">Transaction Id</th>
+                                                    <th style="min-width:150px;">Material Name</th>
+                                                    <th style="min-width:100px;">Tot Qty</th>
+                                                    <th>UOM</th>
+                                                    <th style="min-width:100px;">REF DC No</th>
+                                                    <th>From</th>
+                                                    <th style="min-width:100px;">To</th>
+                                                    <th style="min-width:150px;">Timeout</th>
+                                                    <th style="min-width:100px;">VechicleNumber</th>
+                                                    <th style="min-width:100px;">Outward By</th>
+                                                    <th style="min-width:100px;">Remarks1</th>
+                                                    <th style="min-width:100px;">Received Qty</th>
+                                                    <th style="min-width:100px;">Remaining Qty</th>
+                                                    <th style="min-width:150px;">Return DC No</th>
+                                                    <th style="min-width:150px;">Timein</th>
+                                                    <th style="min-width:100px;">Inwarded By</th>
+                                                    <th>Remarks2</th>
+                                                    <th>Dept</th>
+                                                    <th class="hidden Id" style="display:none;">Id</th>
+                                                    <th class="hidden Id2" style="display:none;">Id2</th>
+                                                    <th class="hidden editid" style="display:none;">editid</th>
+                                                    <th class="hidden" style="display:none;">PendingQty</th>
+                                                    <th class="hidden" style="display:none;">ReceivedQty1</th>
+                                                    <th style="min-width:200px;text-align:center;">Action</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody class="RIO_details"></tbody>
+
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="22" id="exporti" style="text-align:right;display:none">
+                                                        <form id="form" action="@Url.Action("Export_returnable_internalmaster","TransactionRegister")" method="post">
+                                                            <input type="submit" name="btnExport"
+                                                                   value="Download" id="exportLicensing" class="btn btn-primary" />
+                                                        </form>
+                                                    </td>
+                                                    <td colspan="22" id="exporti1" style="text-align:right;display:none">
+                                                        <form id="form" action="@Url.Action("Export_daywise_internal_data","TransactionRegister")" method="post">
+                                                            <input type="submit" name="btnExport"
+                                                                   value="Download" id="exportLicensing" class="btn btn-primary" />
+                                                            <input class="fromdatei" type="hidden" value="" name="Fromdate" id="Fromdatei" />
+                                                            <input class="todatei" type="hidden" value="" name="Todate" id="Todatei" />
+
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+    </div>
+
+</div>
+<div class="row" id="re_external" style="display:none;">
+    <div class="col-md-5">
+        @if (Session["RegistersView_form"].ToString() == "1")
+        {
+            <section class="panel">
+                <header class="panel-heading" style="padding:30px !important;">
+                  
+                </header>
+                <div class="panel-body" id="div_re_external">
+                    <div class="form-group">
+                        <div class="panel-body">
+                            <div class="form-group">
+
+                                <label class="col-sm-2 control-label"> From Date  <span class="required">*</span></label>
+
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control FDate space" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46 || event.charCode == 95' onpaste='return false' id="EFromDate" name="FromDate" required autocomplete="off" />
+                                </div>
+
+                                <label class="col-sm-2 control-label"> End Date  <span class="required">*</span></label>
+
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control TDate space" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46 || event.charCode == 95' onpaste='return false' id="EToDate" name="ToDate" required autocomplete="off" />
+                                </div>
+
+                                <div class="col-sm2 " style="text-align:right;">
+                                    <button type="submit" id="btn_apply2" class="btn btn-primary  ">Apply</button>
+                                    <button type="button" id="apply_cancel2" class="btn btn-danger ">Refresh</button>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                               
+                                <div class="dt-responsive table-responsive">
+
+                                    <div id="">
+                                        <table class="table table-bordered table-striped mb-none" id="datatable-defaultE">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center;">S.NO</th>
+                                                    <th style="min-width:50px;">Transaction_id</th>
+                                                    <th style="min-width:80px;">Material Name</th>
+                                                    <th style="min-width:50px;">Tot Qty</th>
+                                                    <th>UOM</th>
+                                                    <th style="min-width:100px;">REF DC No</th>
+                                                    <th style="min-width:100px;">From</th>
+                                                    <th>To</th>
+                                                    <th style="min-width:150px;">Timein</th>
+                                                    <th style="min-width:100px;">VechicleNumber</th>
+                                                    <th style="min-width:50px;">Inwarded By</th>
+                                                    <th>Remarks1</th>
+                                                    <th style="min-width:50px;">Qty Returned</th>
+                                                    <th style="min-width:20px;">Remaining Qty</th>
+                                                    <th style="min-width:20px;">Return DC No</th>
+                                                    <th style="min-width:150px;">Time out</th>
+                                                    <th style="min-width:70px;">Outwarded By</th>
+                                                    <th>Remarks2</th>
+                                                    <th>Dept</th>
+                                                    <th class="hidden Id" style="display:none;">Id</th>
+                                                    <th class="hidden Id2" style="display:none;">Id2</th>
+                                                    <th class="hidden editid" style="display:none;">editid</th>
+                                                    <th class="hidden" style="display:none;">PendingQty3</th>
+                                                    <th class="hidden" style="display:none;">ReceivedQty1</th>
+                                                    <th style="min-width:200px;text-align:center">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="RE_details"></tbody>
+
+
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="22" id="exporte" style="text-align:right;display:none">
+                                                        <form id="form" action="@Url.Action("Export_returnable_externalmaster","TransactionRegister")" method="post">
+                                                            <input type="submit" name="btnExport"
+                                                                   value="Download" id="exportLicensing" class="btn btn-primary" />
+                                                        </form>
+                                                    </td>
+                                                    <td colspan="22" id="exporte1" style="text-align:right;display:none">
+                                                        <form id="form" action="@Url.Action("Export_daywise_externalmaster", "TransactionRegister")" method="post">
+                                                            <input type="submit" name="btnExport"
+                                                                   value="Download" id="exportLicensing" class="btn btn-primary" />
+                                                            <input class="fromdatee" type="hidden" value="" name="Fromdate" id="Fromdatei" />
+                                                            <input class="todatee" type="hidden" value="" name="Todate" id="Todatei" />
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+    </div>
+</div>
+
+<div class="row" id="nonre_internal" style="display:none;">
+    <div class="col-md-9">
+        @if (Session["RegistersView_form"].ToString() == "1")
+        {
+            <section class="panel">
+                <header class="panel-heading" style="padding:30px !important;">
+                    <h2 class="panel-title"></h2>
+                </header>
+                <div class="panel-body" id="div_nonre_internal">
+                    <div class="form-group">
+                        <div class="panel-body">
+
+                            <div class="form-group">
+
+                                <label class="col-sm-2 control-label"> From Date  <span class="required">*</span></label>
+
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control FDate space" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46 || event.charCode == 95' onpaste='return false' id="NIFromDate" name="FromDate" required autocomplete="off" />
+                                </div>
+
+                                <label class="col-sm-2 control-label"> End Date  <span class="required">*</span></label>
+
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control TDate space" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46 || event.charCode == 95' onpaste='return false' id="NIToDate" name="ToDate" required autocomplete="off" />
+                                </div>
+
+                                <div class="col-sm2 " style="text-align:right;">
+                                    <button type="submit" id="btn_apply3" class="btn btn-primary  ">Apply</button>
+                                    <button type="button" id="apply_cancel3" class="btn btn-danger ">Refresh</button>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="form-group">
+                                    
+                                    <div class="dt-responsive table-responsive">
+                                        <table class="table table-bordered table-striped mb-none" id="datatable-defaultNI">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center;">S.No</th>
+                                                    <th>Transaction_id</th>
+                                                    <th>Material Name</th>
+                                                    <th>Tot Qty</th>
+                                                    <th>UOM</th>
+                                                    <th style="min-width:100px;">REF DC No</th>
+                                                    <th>From</th>
+                                                    <th>To</th>
+                                                    <th>Remarks1</th>
+                                                    <th style="min-width:150px;">Time out</th>
+                                                    <th>Outwarded By</th>
+                                                    <th>Dept</th>
+                                                    <th>VechicleNo</th>
+                                                    <th style="display:none">id</th>
+                                                    <th class="hidden Id2" style="display:none;">Id2</th>
+                                                    <th style="min-width:200px;text-align:center">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="NI_details"></tbody>
+
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="14" id="exportni" style="text-align:right;display:none">
+                                                        <form id="form" action="@Url.Action("Export_nonreturnable_internalmaster", "TransactionRegister")" method="post">
+                                                            <input type="submit" name="btnExport"
+                                                                   value="Download" id="exportLicensing" class="btn btn-primary" />
+                                                        </form>
+                                                    </td>
+                                                    <td colspan="14" id="exportni1" style="text-align:right;display:none">
+                                                        <form id="form" action="@Url.Action("Export_daywise_nonreint", "TransactionRegister")" method="post">
+                                                            <input type="submit" name="btnExport"
+                                                                   value="Download" id="exportLicensing" class="btn btn-primary" />
+                                                            <input class="fromdateni" type="hidden" value="" name="Fromdate" id="Fromdatei" />
+                                                            <input class="todateni" type="hidden" value="" name="Todate" id="Todatei" />
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+    </div>
+</div>
+
+
+<div class="row" id="nonre_external" style="display:none;">
+    <div class="col-md-9">
+        @if (Session["RegistersView_form"].ToString() == "1")
+        {
+            <section class="panel">
+                <header class="panel-heading" style="padding:30px !important;">
+                    <h2 class="panel-title"></h2>
+                </header>
+                <div class="panel-body" id="nonre_external">
+                    <div class="form-group">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"> From Date  <span class="required">*</span></label>
+
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control FDate space" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46 || event.charCode == 95' onpaste='return false' id="NEFromDate" name="FromDate" required autocomplete="off" />
+                                </div>
+
+                                <label class="col-sm-2 control-label"> End Date  <span class="required">*</span></label>
+
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control TDate space" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46 || event.charCode == 95' onpaste='return false' id="NEToDate" name="ToDate" required autocomplete="off" />
+                                </div>
+
+                                <div class="col-sm2 " style="text-align:right;">
+                                    <button type="submit" id="btn_apply4" class="btn btn-primary  ">Apply</button>
+                                    <button type="button" id="apply_cancel4" class="btn btn-danger ">Refresh</button>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="form-group">
+                                   
+                                    <div class="dt-responsive table-responsive">
+                                        <table class="table table-bordered table-striped mb-none" id="datatable-defaultNE">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center;">S.No</th>
+                                                    <th>Transaction_id</th>
+                                                    <th>Material Name</th>
+                                                    <th>Tot Qty</th>
+                                                    <th>UOM</th>
+                                                    <th style="min-width:100px;">REF DC No</th>
+                                                    <th style="min-width:100px;">From</th>
+                                                    <th>To</th>
+                                                    <th>Remarks1</th>
+                                                    <th style="min-width:150px;">Time in</th>
+                                                    <th>Inwardedby By</th>
+                                                    <th>VechicleNo</th>
+                                                    <th>Dept</th>
+
+                                                    <th style="display:none">id</th>
+                                                    <th class="hidden Id2" style="display:none;">Id2</th>
+                                                    <th style="min-width: 200px; text-align: center">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="NE_details"></tbody>
+
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="14" id="exportne" style="text-align:right;display:none">
+                                                        <form id="form" action="@Url.Action("Export_nonreturnable_externalmaster", "TransactionRegister")" method="post">
+                                                            <input type="submit" name="btnExport"
+                                                                   value="Download" id="exportLicensing" class="btn btn-primary" />
+                                                        </form>
+                                                    </td>
+                                                    <td colspan="14" id="exportne1" style="text-align:right;display:none">
+                                                        <form id="form" action="@Url.Action("Export_daywise_nonreext", "TransactionRegister")" method="post">
+                                                            <input type="submit" name="btnExport"
+                                                                   value="Download" id="exportLicensing" class="btn btn-primary" />
+                                                            <input class="fromdatene" type="hidden" value="" name="Fromdate" id="Fromdatei" />
+                                                            <input class="todatene" type="hidden" value="" name="Todate" id="Todatei" />
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+<script src="~/assets/javascripts/swal.js"></script>
+<script src="~/assets/javascripts/swal_alert.js"></script>
+<script src="~/assets/datepicker_normal/datepicker_normal_jquery.min.js"></script>
+<script src="~/assets/datepicker_normal/jquery-ui-1.8.19.custom.min.js"></script>
+
+
+<script>
+
+    $(function () {
+
+        var dateToday = new Date();
+        var yrRange = (dateToday.getFullYear() - 50) + ":" + (dateToday.getFullYear());
+
+        $(".datepic").datepicker({
+            numberOfMonths: 1,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: yrRange,
+            autoclose: true,
+            format: 'yyyy-mm-dd'
+        });
+    });
+
+    $(function () {
+        var todaydt = new Date();
+        $(".FDate").datepicker({
+            autoclose: true,
+            endDate: todaydt,
+            format: 'yyyy-mm-dd',
+
+        }).on('changeDate', function (selected) {
+            var minDate = new Date(selected.date);
+            minDate.setDate(minDate.getDate());
+            $('.TDate').datepicker('setStartDate', minDate);
+        });
+
+        var Fdate = $(".FDate").val();
+
+        $(".TDate").datepicker({
+            autoclose: true,
+            startDate: Fdate,
+            endDate: todaydt,
+            format: 'yyyy-mm-dd',
+
+        }).on('changeDate', function (selected) {
+            var minDate = new Date(selected.date);
+            minDate.setDate(minDate.getDate());
+            $('.FDate').datepicker('setEndDate', minDate);
+        });
+
+
+
+    });
+
+    $(function () {
+        $('.FDate').keypress(function (event) {
+            event.preventDefault();
+            return false;
+        });
+    });
+
+    $(function () {
+        $('.TDate').keypress(function (event) {
+            event.preventDefault();
+            return false;
+        });
+    });
+
+
+    $("#apply_cancel").click(function (event) {
+
+       
+        window.location = '@Url.Action("Transaction_Register","TransactionRegister")';
+
+
+    });
+
+     $("#apply_cancel2").click(function (event) {
+
+        window.location = '@Url.Action("Transaction_Register","TransactionRegister")';
+
+
+     });
+
+     $("#apply_cancel3").click(function (event) {
+
+        window.location = '@Url.Action("Transaction_Register","TransactionRegister")';
+
+
+    });
+     $("#apply_cancel4").click(function (event) {
+
+        window.location = '@Url.Action("Transaction_Register","TransactionRegister")';
+
+
+    });
+
+</script>
+
+
+@if (@ViewBag.Message != null)
+{
+    <script type="text/javascript">
+        $(function () {
+            swal({
+                icon: "error",
+                title: "@ViewBag.Message",
+                showConfirmButton: false,
+                timer: 4500
+            })
+        });
+    </script>
+}
+
+<script type="text/javascript">
+    $(function () {
+        var vars = [], hash;
+        var q = document.URL.split('?')[1];
+        if (q != undefined) {
+            q = q.split('&');
+            for (var i = 0; i < q.length; i++) {
+                hash = q[i].split('=');
+                vars.push(hash[1]);
+                vars[hash[0]] = hash[1];
+            }
+        }
+        var parameter = vars['ac'];
+        if (parameter == "1") {
+            swal({
+                icon: "success",
+                title: "Details Added Successfully...!",
+                showConfirmButton: false,
+                timer: 4500
+            })
+        }
+        else if (parameter == "2") {
+            swal({
+                icon: "success",
+                title: "Details Updated Successfully...!",
+                showConfirmButton: false,
+                timer: 4500
+            })
+        }
+        else if (parameter == "-1") {
+            swal({
+                icon: "error",
+                title: "Log Details Already Added...!",
+                showConfirmButton: false,
+                timer: 4500
+            })
+        }
+        else if (parameter == "4") {
+            swal({
+                icon: "error",
+                title: "Email ID is Required...!",
+                showConfirmButton: false,
+                timer: 4500
+            })
+        }
+        else if (parameter == "4") {
+            swal({
+                icon: "error",
+                title: "Name & Role is Required...!",
+                showConfirmButton: false,
+                timer: 4500
+            })
+        }
+
+    });
+</script>
+
+<script>
+
+    function add_remove_class(val) {
+
+        $(".btn_re_internal").removeClass('active');
+        $(".btn_re_external").removeClass('active');
+        $(".btn_nonre_internal").removeClass('active');
+        $(".btn_nonre_external").removeClass('active');
+        if (val == 1) {
+            $(".btn_re_internal").addClass('active');
+        }
+        else if (val == 2) {
+            $(".btn_re_external").addClass('active');
+        }
+        else if (val == 3) {
+            $(".btn_nonre_internal").addClass('active');
+        }
+        else if (val == 4) {
+            $(".btn_nonre_external").addClass('active');
+        }
+
+    }
+
+//---------------------
+
+        $("#cancel_reint").click(function () {
+            $("#re_internal").show();
+            $("#re_external").hide();
+            $("#divedit_reint").hide();
+            $("#divedit_reext").hide();
+
+        });
+        $("#cancel_reext").click(function () {
+            $("#re_internal").hide();
+            $("#re_external").show();
+            $("#divedit_reint").hide();
+            $("#divedit_reext").hide();
+
+        });
+
+//-----function--------
+
+    function display_re_internal() {
+
+        add_remove_class(1);
+        $("#exporti").show();
+        $("#exporti1").hide();
+            $("#divedit_reint").hide();
+            $("#divedit_reext").hide();
+            $("#re_internal").show();
+            $("#re_external").hide();
+            $("#nonre_internal").hide();
+            $("#nonre_external").hide();
+
+        var url3 = '@Url.Action("Get_internal_master", "TransactionRegister")';
+        var user1 = '@Session["Token"]' + ':' + '@Session["UserName"]';
+        $.ajax({
+            type: "POST",
+            url: url3,
+            data: '{}',
+            headers: {
+                Authorization: 'Bearer ' + user1
+            },
+            dataType: "json",
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (response) {
+                $('.loading').hide();
+                if (response != "") {
+                    if ($.fn.DataTable.isDataTable('#datatable-defaultM')) {
+                        $('#datatable-defaultM').DataTable().destroy();
+                    }
+
+                    var rowsCnt = document.getElementById("datatable-defaultM").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                    if (rowsCnt > 0) {
+                        for (var i = 0; i < rowsCnt; i++) {
+                            document.getElementById("datatable-defaultM").deleteRow(1);
+                        }
+                    }
+                    for (var i = 0; i < response.length; i++) {
+
+                        var editper = '@Session["RegistersEdit_form"]';
+                        var deleteper = '@Session["RegistersDelete_form"]';
+                        var newRow = $("<tr>");
+                        var cols = '';
+                            var n = ($('.RIO_details tr').length) + 1;
+                            cols += "<td><input style='display: none' type='hidden' value='" + n + "' class=' form-control ' /> <p>" + n + "</p> </td>";
+                        cols += "<td class='Transaction_id3'> <input style='display: none' value='" + response[i].Transaction_id + "' class=' form-control Transaction_id3 transid' readonly /> <span>" + response[i].Transaction_id + "</span> </td>";
+                        cols += "<td class=''><input style='display: none' value='" + response[i].Material_name + "' class='form-control Material_name3' readonly/> <span class='err_iqty'>" + response[i].Material_name + "</span></td>";
+                        cols += "<td class='Qty3'><input data-decimal='2'' oninput='enforceNumberValidation(this)' onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode ==46 || event.charcode == 95' onpaste='return false' style='display:none;padding:0px'  id='Qtyedit' value='" + response[i].Qty + "' class='form-control col-sm-3 Qty3 checkdot'/> <span>" + response[i].Qty + "</span ></td>";
+                        cols += "<td class=''><input style='display: none' value='" + response[i].UOM + "' class=' form-control UOM3' readonly/> <span>" + response[i].UOM + "</span></td>";
+                        cols += "<td class=''><input style='display: none'  value='" + response[i].RefDCNo + "' class=' form-control RefDCNo3' readonly/> <span>" + response[i].RefDCNo + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].M_From + "' class=' form-control M_From3 ' readonly/> <span>" + response[i].M_From + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].M_To + "' class=' col-md-6 form-control M_To3' readonly/> <span>" + response[i].M_To + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Timeout + "' class='form-control Timeout3' readonly/> <span>" + response[i].Timeout + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].EDR + "' class='form-control EDR3' readonly/> <span>" + response[i].EDR + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Outwardedby + "' class='form-control Outwardedby3' readonly /> <span>" + response[i].Outwardedby + "</span></td>";
+                        cols += "<td> <input style='display: none'  value='" + response[i].Remarks + "' class='form-control Remarks3' readonly/><span>" + response[i].Remarks + "</span></td>";
+                        cols += "<td class='ReceivedQty3'><input  style='display: none' data-decimal='2'' oninput='enforceNumberValidation(this)' onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode ==46 || event.charcode == 95' onpaste='return false' value='" + response[i].ReceivedQty + "' id='Receivedin' class='form-control ReceivedQty3 checkdot' /> <span class='err_rece'>" + response[i].ReceivedQty + "</span></td>";
+                        cols += "<td class='RemainingQty3'><input  style='display: none' value='" + response[i].RemainingQty + "' id='Remainingin' class='form-control RemainingQty3 rem3' readonly/><span class='remain_qty err_rem'>" + response[i].RemainingQty + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].ReturnDCNo + "' class='form-control ReturnDCNo3' readonly /><span>" + response[i].ReturnDCNo + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Timein + "' class='form-control Timein3' readonly/><span>" + response[i].Timein + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Inwardedby + "' class='form-control Inwardedby3' readonly /><span>" + response[i].Inwardedby + "</span></td>";
+                        cols += "<td><input  style='display:none' value='" + response[i].Remarks2 + "' class='form-control Remarks2I' /><span>" + response[i].Remarks2 + "</span></td>";
+                        cols += "<td><input  style='display:none' value='" + response[i].Dept + "' class='form-control Dept1' readonly/><span>" + response[i].Dept + "</span></td>";
+                        cols += "<td class='hidden ID'><input type='hidden' value='" + response[i].id + "' class='form-control ID'/></td>";
+                        cols += "<td class='hidden ID2'><input type='hidden' value='" + response[i].id2 + "' class='form-control ID2'/></td>";
+                        cols += "<td class='hidden editid'><input type='hidden' value='" + response[i].editid + "' class='form-control editid'/></td>";
+
+                        cols += "<td class='hidden PendingQty3'><input type='hidden' value='" + response[i].PendingQty + "' class='form-control PendingQty3'/></td>";
+                        cols += "<td class='hidden ReceivedQty1'><input type='hidden' value='" + response[i].ReceivedQty1 + "' class='form-control ReceivedQty1'/></td>";
+                        cols += "<td style='width: 250px;'>"
+                        if (response[i].id == response[i].Lastupdated) {
+                            if (editper == "1") {
+                                cols += "<button type='button' id='btnedit' style='float:left;/*display:block; */width:70px;margin-bottom:1px;/*display:none*/'  class='btn btn-primary edit_reinter'>Edit</button >";
+                                cols += "<button type='button'  style=' display:none; width:70px;margin-bottom:1px' class='btn btn-primary update_reinter'>Update </button>";
+                            }
+                            if (deleteper == "1") {
+                                cols += "<button type='button' id='btndelete' style='display:block;width:70px;float:right;margin_left:10px;' /*onclick ='delete_intre(" + response[i].id + ")'*/ class='btn btn-danger delete_retinter'>Delete</button >";
+                                cols += "<button type='button' style='  /*display:none*/;width:70px;float:right;display:none' class='btn btn-danger cancel_retinter'>Cancel </button>";
+                            }
+                        }
+
+                        cols += "</td>";
+                        newRow.append(cols);
+
+                        $(".RIO_details").append(newRow);
+                    }
+
+                    $('#datatable-defaultM').DataTable({
+                        "responsive": true
+                    });
+                } else {
+                    if ($.fn.DataTable.isDataTable('#datatable-defaultM')) {
+                        $('#datatable-defaultM').DataTable().destroy();
+                    }
+                    var rowsCnt = document.getElementById("datatable-defaultM").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                    if (rowsCnt > 0) {
+                        for (var i = 0; i < rowsCnt; i++) {
+                            document.getElementById("datatable-defaultM").deleteRow(1);
+                        }
+                    }
+                    var newRow = $("<tr>");
+                    var cols = '';
+                    cols += "<td colspan='20' style='text-align: center'><p> No data available </p></td>";
+                    cols += "<td>"
+                    newRow.append(cols);
+                    $(".RIO_details").append(newRow);
+                }
+                var url1 = '@Url.Action("Transaction_Register", "TransactionRegister")';
+            },
+            error: function (response) {
+
+            }
+        });
+
+    }
+
+    function display_re_external() {
+        add_remove_class(2);
+        $("#exporte").show();
+        $("#exporte1").hide();
+        $("#re_external").show();
+        $("#nonre_internal").hide();
+        $("#nonre_external").hide();
+        $("#divedit_reint").hide();
+        $("#divedit_reext").hide();
+        $("#EFromDate").val("");
+        $("#EToDate").val("");
+        var url3 = '@Url.Action("Get_external_master", "TransactionRegister")';
+        var user1 = '@Session["Token"]' + ':' + '@Session["UserName"]';
+        $.ajax({
+            type: "POST",
+            url: url3,
+            data: '{}',
+            headers: {
+                Authorization: 'Bearer ' + user1
+            },
+            dataType: "json",
+            beforeSend: function () {
+            $('.loading').show();
+            },
+            success: function (response) {
+                $('.loading').hide();
+                $("#re_internal").hide();
+                if (response != "") {
+                    if ($.fn.DataTable.isDataTable('#datatable-defaultE')) {
+                        $('#datatable-defaultE').DataTable().destroy();
+                    }
+                    var rowsCnt = document.getElementById("datatable-defaultE").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                    if (rowsCnt > 0) {
+                        for (var i = 0; i < rowsCnt; i++) {
+                            document.getElementById("datatable-defaultE").deleteRow(1);
+                        }
+                    }
+                    for (var i = 0; i < response.length; i++) {
+
+                        var editper1 = '@Session["RegistersEdit_form"]';
+                        var deleteper1 = '@Session["RegistersDelete_form"]';
+                        var newRow = $("<tr>");
+                        var cols = '';
+                        var n = ($('.RE_details tr').length) + 1;
+                        cols += "<td>" + n + "</td>";
+                        cols += "<td class='Transaction_id4'><input style='display: none' value='" + response[i].Transaction_id + "' class=' form-control Transaction_id4 transid' readonly /> <span>" + response[i].Transaction_id + "</span> </td>";
+                        cols += "<td class=''><input style='display: none'  value='" + response[i].Material_name + "' class='form-control Material_name4' readonly/> <span>" + response[i].Material_name + "</span></td>";
+                        cols += "<td class='Qty4'><input style='display: none;padding:0px' data-decimal='2'' oninput='enforceNumberValidation(this)' onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode ==46 || event.charcode == 95' onpaste='return false'  value='" + response[i].Qty + "' class=' form-control Qty4 checkdot' /> <span>" + response[i].Qty + "</span></td>";
+                        cols += "<td class=''><input style='display: none'  value='" + response[i].UOM + "' class=' form-control UOM4' readonly/> <span>" + response[i].UOM + "</span></td>";
+                        cols += "<td class=''><input style='display: none'  value='" + response[i].RefDCNo + "' class=' form-control RefDCNo4' readonly/> <span>" + response[i].RefDCNo + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].M_From + "' class=' form-control M_From4 ' readonly /> <span>" + response[i].M_From + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].M_To + "' class=' col-md-6 form-control M_To4' readonly /> <span>" + response[i].M_To + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Timein + "' class='form-control Timein4' readonly/> <span>" + response[i].Timein + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].EDR + "' class='form-control EDR4' readonly/> <span>" + response[i].EDR + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Inwardedby + "' class='form-control Inwardedby4' readonly/> <span>" + response[i].Inwardedby + "</span></td>";
+                        cols += "<td> <input style='display: none'  value='" + response[i].Remarks + "' class='form-control Remarks' readonly/><span>" + response[i].Remarks + "</span></td>";
+                        cols += "<td class='ReceivedQty4'><input  style='display: none' data-decimal='2'' oninput='enforceNumberValidation(this)' onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode ==46 || event.charcode == 95' onpaste='return false' value='" + response[i].ReturnedQty + "' class='form-control ReceivedQty4 checkdot' /> <span class='errorext'>" + response[i].ReturnedQty + "</span></td>";
+                        cols += "<td class='RemainingQty4'><input  style='display: none' value='" + response[i].RemainingQty + "' class='form-control RemainingQty4' readonly /><span class='remain_qty1'>" + response[i].RemainingQty + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].ReturnDCNo + "' class='form-control ReturnDCNo4' readonly/><span>" + response[i].ReturnDCNo + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Timeout + "' class='form-control Timeout4' readonly/><span>" + response[i].Timeout + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Outwardedby + "' class='form-control Outwardedby4' readonly/><span>" + response[i].Outwardedby + "</span></td>";
+                        cols += "<td><input style='display:none' value='" + response[i].Remarks2 + "' class='form-control Remarks2'/><span>" + response[i].Remarks2 + "</span></td>";
+
+                        cols += "<td><input  style='display:none' value='" + response[i].Dept + "' class='form-control Dept4' readonly/><span>" + response[i].Dept + "</span></td>";
+                        cols += "<td class='hidden ID'><input style='display:none' value='" + response[i].id + "' class='form-control ID'/></td>";
+                        cols += "<td class='hidden IDE'><input style='display:none' value='" + response[i].id2 + "' class='form-control IDE'/></td>";
+                        cols += "<td class='hidden editid'><input style='display:none' value='" + response[i].editid + "' class='form-control editid'/></td>";
+                        cols += "<td class='hidden PendingQty4'><input type='hidden' value='" + response[i].PendingQty + "' class='form-control PendingQty4'/></td>";
+                        cols += "<td class='hidden ReceivedQty1'><input type='hidden' value='" + response[i].ReceivedQty1 + "' class='form-control ReceivedQty1'/></td>";
+                        cols += "<td style='width: 200px;'>"
+                        if (response[i].id == response[i].Lastupdated) {
+                            if (editper1 == "1") {
+                                cols += "<button type='button'  style=' /*display:block;*/ width:70px;margin-bottom:1px'  class='btn btn-primary edit_reinter'>Edit</button >";
+                                cols += "<button type='button'  style=' display:none; width:70px;margin-bottom:1px;margin-right:10px' class='btn btn-primary update_reinter'>Update</button >";
+                            }
+                            if (deleteper1 == "1") {
+                                cols += "<button type='button' style=' /*display:block;*/width:70px;margin-left:10px' /*onclick ='delete_extre(" + response[i].id + ")'*/ class='btn btn-danger delete_retexter'>Delete</button >";
+                                cols += "<button type='button' style='display:none;width:70px' class='btn btn-danger cancel_retinter'>Cancel</button >";
+                            }
+                        }
+                        cols += "</td>";
+
+                        newRow.append(cols);
+                        $(".RE_details").append(newRow);
+                    }
+
+                    $('#datatable-defaultE').DataTable({
+                        "responsive": true
+                    });
+                }
+                else {
+                    if ($.fn.DataTable.isDataTable('#datatable-defaultE')) {
+                        $('#datatable-defaultE').DataTable().destroy();
+                    }
+                    var rowsCnt = document.getElementById("datatable-defaultE").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                    if (rowsCnt > 0) {
+                        for (var i = 0; i < rowsCnt; i++) {
+                            document.getElementById("datatable-defaultE").deleteRow(1);
+                        }
+                    }
+                    var newRow = $("<tr>");
+                    var cols = '';
+                    cols += "<td colspan='20' style='text-align: center'><p> No data available </p></td>";
+                    cols += "<td>"
+                    newRow.append(cols);
+                    $("RE_details").append(newRow);
+                }
+                var url1 = '@Url.Action("Transaction_Register", "TransactionRegister")';
+            },
+            error: function (response) {
+
+            }
+        });
+    }
+
+    function display_nonre_internal() {
+        add_remove_class(3);
+        $("#exportni").show();
+        $("#exportni1").hide();
+        $("#re_external").hide();
+        $("#nonre_internal").show();
+        $("#nonre_external").hide();
+        $("#divedit_reext").hide();
+        $("#divedit_reint").hide();
+        $("#NIFromDate").val("");
+        $("#NIToDate").val("");
+
+        var url3 = '@Url.Action("Get_noninternal_master","TransactionRegister")';
+        var user1 = '@Session["Token"]' + ':' + '@Session["UserName"]';
+        $.ajax({
+            type: "POST",
+            url: url3,
+            data: '{}',
+            headers: {
+                Authorization: 'Bearer ' + user1
+            },
+            dataType: "json",
+            beforeSend: function () {
+            $('.loading').show();
+            },
+            success: function (response) {
+                $('.loading').hide();
+                $("#re_internal").hide();
+                if (response != "") {
+                    if ($.fn.DataTable.isDataTable('#datatable-defaultNI')) {
+                        $('#datatable-defaultNI').DataTable().destroy();
+                    }
+                    var rowsCnt = document.getElementById("datatable-defaultNI").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                    if (rowsCnt > 0) {
+                        for (var i = 0; i < rowsCnt; i++) {
+                            document.getElementById("datatable-defaultNI").deleteRow(1);
+                        }
+                    }
+                    for (var i = 0; i < response.length; i++) {
+                        var editper2 = '@Session["RegistersEdit_form"]';
+                        var deleteper2 = '@Session["RegistersDelete_form"]';
+                        var newRow = $("<tr>");
+                        var cols = '';
+                        var n = ($('.NI_details tr').length) + 1;
+                        //---------------
+
+                        cols += "<td><input style='display: none' type='hidden' value='" + n + "' class=' form-control ' /> <p>" + n + "</p></td>";
+                        cols += "<td class=''> <input style='display: none' value='" + response[i].Transaction_id + "' class=' form-control Transaction_id5' readonly /> <span>" + response[i].Transaction_id + "</span> </td>";
+                        cols += "<td class=''><input style='display: none'  value='" + response[i].Material_name + "' class='form-control Material_name5' readonly/> <span>" + response[i].Material_name + "</span></td>";
+                        cols += "<td class='Qty5'><input style='display: none' data-decimal='2'' oninput='enforceNumberValidation(this)' onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode ==46 || event.charcode == 95' onpaste='return false'  value='" + response[i].Qty + "' class=' form-control Qty5 checkdot' /> <span>" + response[i].Qty + "</span></td>";
+                        cols += "<td class=''><input style='display: none'  value='" + response[i].UOM + "' class=' form-control UOM5' readonly/> <span>" + response[i].UOM + "</span></td>";
+                        cols += "<td class=''><input style='display: none'  value='" + response[i].RefDCNo + "' class=' form-control RefDCNo5' readonly /> <span>" + response[i].RefDCNo + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].M_From + "' class=' form-control M_From5' readonly/> <span>" + response[i].M_From + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].M_To + "' class=' col-md-6 form-control M_To5' readonly /> <span>" + response[i].M_To + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Remarks + "' class='form-control Remarks5' /> <span>" + response[i].Remarks + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Timeout + "' class='form-control Timeout5' readonly /> <span>" + response[i].Timeout + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Outwardedby + "' class='form-control Outwardedby5' readonly /> <span>" + response[i].Outwardedby + "</span></td>";
+                        cols += "<td><input  style='display:none' value='" + response[i].Dept + "' class='form-control Dept5' readonly/><span>" + response[i].Dept + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].VechicleNo + "' class='form-control VechicleNo5' readonly /> <span>" + response[i].VechicleNo + "</span></td>";
+                        cols += "<td class='hidden ID'><input  style='display:none' value='" + response[i].id + "' class='form-control ID' /></td>";
+                        cols += "<td class='hidden ID2'><input  style='display:none' value='" + response[i].id2 + "' class='form-control ID2' /></td>";
+                        cols += "<td>"
+                        if (editper2 == "1") {
+                            cols += "<button type='button'  style=' /*display:block; */width:70px;margin-bottom:1px;margin-right:10px'  class='btn btn-primary edit_reinter'>Edit</button >";
+                            cols += "<button type='button'  style=' display:none; width:70px;margin-bottom:1px;margin-right:10px' class='btn btn-primary update_reinter'>Update</button >";
+                        }
+                        if (deleteper2 == "1") {
+                            cols += "<button type='button' style=' /* display:block;*/width:70px' onclick ='delete_nonintre(" + response[i].id + ")' class='btn btn-danger delete_nonretinter'>Delete</button >";
+                            cols += "<button type='button' style='  display:none;width:70px' class='btn btn-danger cancel_retinter'>Cancel</button >";
+                        }
+                        cols += "</td>";
+
+                        //-----------------
+
+                        newRow.append(cols);
+                        $(".NI_details").append(newRow);
+                    }
+
+                    $('#datatable-defaultNI').DataTable({
+                        "responsive": true
+                    });
+                } else {
+                    if ($.fn.DataTable.isDataTable('#datatable-defaultNI')) {
+                        $('#datatable-defaultNI').DataTable().destroy();
+                    }
+                    var rowsCnt = document.getElementById("datatable-defaultNI").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                    if (rowsCnt > 0) {
+                        for (var i = 0; i < rowsCnt; i++) {
+                            document.getElementById("datatable-defaultNI").deleteRow(1);
+                        }
+                    }
+                    var newRow = $("<tr>");
+                    var cols = '';
+                    cols += "<td colspan='15' style='text-align: center'><p> No data available </p></td>";
+                    cols += "<td>"
+                    newRow.append(cols);
+                    $(".NI_details").append(newRow);
+                }
+
+                var url1 = '@Url.Action("Transaction_Register", "TransactionRegister")';
+            },
+            error: function (response) {
+
+            }
+        });
+    }
+
+    function display_nonre_external() {
+
+        add_remove_class(4);
+
+        $("#exportne").show();
+        $("#exportne1").hide();
+
+        $("#re_external").hide();
+        $("#nonre_internal").hide();
+        $("#nonre_external").show();
+        $("#divedit_reext").hide();
+        $("#divedit_reint").hide();
+        $("#NEFromDate").val("");
+        $("#NEToDate").val("");
+
+        var url3 = '@Url.Action("Get_nonexternal_master", "TransactionRegister")';
+        var user1 = '@Session["Token"]' + ':' + '@Session["UserName"]';
+        $.ajax({
+            type: "POST",
+            url: url3,
+            data: '{}',
+            headers: {
+                Authorization: 'Bearer ' + user1
+            },
+            dataType: "json",
+
+            beforeSend: function () {
+            $('.loading').show();
+            },
+            success: function (response) {
+                $('.loading').hide();
+                $("#re_internal").hide();
+                if (response != "") {
+                    if ($.fn.DataTable.isDataTable('#datatable-defaultNE')) {
+                        $('#datatable-defaultNE').DataTable().destroy();
+                    }
+                    var rowsCnt = document.getElementById("datatable-defaultNE").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                    if (rowsCnt > 0) {
+                        for (var i = 0; i < rowsCnt; i++) {
+                            document.getElementById("datatable-defaultNE").deleteRow(1);
+                        }
+                    }
+                    for (var i = 0; i < response.length; i++) {
+                        var editper3 = '@Session["RegistersEdit_form"]';
+                        var deleteper3 = '@Session["RegistersDelete_form"]';
+                        var newRow = $("<tr>");
+                        var cols = '';
+                        var n = ($('.NE_details tr').length) + 1;
+                        cols += "<td><input style='display: none' type='hidden' value='" + n + "' class=' form-control ' /> <p>" + n + "</p></td>";
+                        cols += "<td class=''> <input style='display: none' value='" + response[i].Transaction_id + "' class=' form-control Transaction_id6' readonly /> <span>" + response[i].Transaction_id + "</span> </td>";
+                        cols += "<td class=''><input style='display: none'  value='" + response[i].Material_name + "' class='form-control Material_name6' readonly/> <span>" + response[i].Material_name + "</span></td>";
+                        cols += "<td class='Qty6'><input style='display: none' data-decimal='2'' oninput='enforceNumberValidation(this)' onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode ==46 event.charcode == 95' onpaste='return false'  value='" + response[i].Qty + "' class=' form-control Qty5 checkdot' /> <span>" + response[i].Qty + "</span></td>";
+                        cols += "<td class=''><input style='display: none'  value='" + response[i].UOM + "' class=' form-control UOM6'readonly/> <span>" + response[i].UOM + "</span></td>";
+                        cols += "<td class=''><input style='display: none'  value='" + response[i].RefDCNo + "' class=' form-control RefDCNo6' readonly/> <span>" + response[i].RefDCNo + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].M_From + "' class=' form-control M_From6 ' readonly/> <span>" + response[i].M_From + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].M_To + "' class=' col-md-6 form-control M_To6' readonly /> <span>" + response[i].M_To + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Remarks + "' class='form-control Remarks6' /> <span>" + response[i].Remarks + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Timein + "' class='form-control Timein6' readonly/> <span>" + response[i].Timein + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Inwardedby + "' class='form-control Inwardedby6' readonly/> <span>" + response[i].Inwardedby + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].VechicleNo + "' class='form-control VechicleNo6' readonly /> <span>" + response[i].VechicleNo + "</span></td>";
+                        cols += "<td><input  style='display:none' value='" + response[i].Dept + "' class='form-control Dept6' readonly/><span>" + response[i].Dept + "</span></td>";
+                        cols += "<td class='hidden ID'><input  style='display:none' value='" + response[i].id + "' class='form-control ID' readonly /></td>";
+                        cols += "<td class='hidden ID2'><input  style='display:none' value='" + response[i].id2 + "' class='form-control ID2' readonly /></td>";
+                        cols += "<td>"
+                        if (editper3 == "1") {
+                            cols += "<button type='button'  style=' /*display:block;*/ width:70px;margin-bottom:1px;margin-right:10px'  class='btn btn-primary edit_reinter'>Edit</button >";
+                            cols += "<button type='button'  style=' display:none; width:70px;margin-bottom:1px;margin-right:10px' class='btn btn-primary update_reinter'>Update</button >";
+                        }
+                        if (deleteper3 == "1") {
+                            cols += "<button type='button' style=' /* display:block;*/width:70px' onclick ='delete_nonextre(" + response[i].id + ")' class='btn btn-danger delete_nonretexter'>Delete</button >";
+                            cols += "<button type='button' style='  display:none;width:70px' class='btn btn-danger cancel_retinter'>Cancel</button >";
+                        }
+                        cols += "</td>";
+                        newRow.append(cols);
+
+                        $(".NE_details").append(newRow);
+
+                    }
+                    $('#datatable-defaultNE').DataTable({
+                        "responsive": true
+                    });
+                }
+                else {
+                    if ($.fn.DataTable.isDataTable('#datatable-defaultNE')) {
+                        $('#datatable-defaultNE').DataTable().destroy();
+                    }
+                    var rowsCnt = document.getElementById("datatable-defaultNE").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                    if (rowsCnt > 0) {
+                        for (var i = 0; i < rowsCnt; i++) {
+                            document.getElementById("datatable-defaultNE").deleteRow(1);
+                        }
+                    }
+                    var newRow = $("<tr>");
+                    var cols = '';
+                    cols += "<td colspan='15' style='text-align: center'><p> No data available </p></td>";
+                    cols += "<td>"
+                    newRow.append(cols);
+                    $(".NE_details").append(newRow);
+                }
+
+                var url1 = '@Url.Action("Transaction_Register", "TransactionRegister")';
+            },
+            error: function (response) {
+
+            }
+        });
+    }
+
+ //------non return external--------------------------------------------------------------------------------------------
+
+
+    $("body").on("click", "#datatable-defaultNE .edit_reinter", function () {
+
+        debugger;
+        var row = $(this).closest("tr");
+        $("td", row).each(function () {
+            if ($(this).find("input").length > 0) {
+                $(this).find("input").show();
+                $(this).find("span").hide();
+            }
+        });
+        row.find(".update_reinter").show();
+        row.find(".cancel_retinter").show();
+        row.find(".delete_nonretexter").hide();
+        row.find(".edit_reinter").hide();
+        $(this).hide();
+    });
+
+
+
+//-----Update event handler----
+
+    $("body").on("click", "#datatable-defaultNE .update_reinter", function ()
+    {
+  var error_count = 0;
+        var row = $(this).closest("tr");
+        $("td", row).each(function () {
+            if ($(this).find("input").length > 0) {
+                var span = $(this).find("span");
+                var input = $(this).find("input");
+                span.html(input.val());
+                span.show();
+                input.hide();
+            }
+
+        });
+
+        row.find(".edit_reinter").show();
+        row.find(".delete_nonretexter").show();
+        row.find(".cancel_retinter").hide();
+        row.find(".update_reinter").hide();
+
+
+        $(this).hide();
+        var Qty = row.find(".Qty6").find("input").val();
+        if (Qty == "") {
+            error_count = 1;
+        }
+
+
+        var nonreextobj = {
+            Id: row.find(".ID").find("input").val(),
+            Qty: row.find(".Qty6").find("input").val(),
+            Remarks: row.find(".Remarks6").val()
+
+        };
+        if (error_count == 0) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Update_non_returnable_external_inward", "TransactionRegister")',
+                data: JSON.stringify(nonreextobj),
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response) {
+                       swal({
+                                icon: "success",
+                                title: "Details Updated Successfully...!",
+                                showConfirmButton: true,
+                                confirmButtonText: "Cerrar",
+                                closeOnConfirm: false
+                            }).then(function (result) {
+                                window.location = '@Url.Action("Transaction_Register","TransactionRegister")';
+                            })
+                        }
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        } else {
+            alert("FILL THE REQUIRED FILEDS");
+            window.location = '@Url.Action("Transaction_Register","TransactionRegister")';
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    $(this).find("input").show();
+                    $(this).find("span").hide();
+                }
+            });
+            row.find(".update_reinter").show();
+            row.find(".cancel_retinter").show();
+            row.find(".delete_nonretexter").hide();
+            row.find(".edit_reinter").hide();
+
+        }
+    });
+
+
+
+//-----Cancel event handler-----
+
+
+    $("body").on("click", "#datatable-defaultNE  .cancel_retinter", function () {
+        var row = $(this).closest("tr");
+        $("td", row).each(function () {
+            if ($(this).find("input").length > 0) {
+                var span = $(this).find("span");
+                var input = $(this).find("input");
+                input.val(span.html());
+                span.show();
+                input.hide();
+            }
+        });
+        row.find(".edit_reinter").show();
+        row.find(".delete_nonretexter").show();
+        row.find(".update_reinter").hide();
+        row.find(".cancel_retinter").hide();
+        $(this).hide();
+        window.location = '@Url.Action("Transaction_Register","TransactionRegister")';
+    });
+
+
+
+//------Delete event handler----
+
+
+
+    function delete_nonextre(id) {
+        if (confirm("Do you want to delete this row?")) {
+            var url1 = '@Url.Action("Delete_nonreexter","TransactionRegister")';
+
+            var row = $(this).closest("tr");
+            var Id = row.find(".ID").find("input").val();
+
+            $.ajax({
+                type: "POST",
+                url: url1,
+                data: '{id: ' + id + '}',
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (response) {
+                    if ($("#datatable-defaultNE  tr").length > 2) {
+                        row.remove();
+                    } else {
+                        row.find(".edit_reinter").hide();
+                        row.find(".delete_retinter").hide();
+                        row.find("span").html(' ');
+                    }
+                    if (response == "ok") {
+                        swal({
+                            icon: "success",
+                            title: "Details Deleted Successfully...!",
+                            button: true,
+                            timer: 4500
+                        }).then(function (result) {
+                            window.location = '@Url.Action("Transaction_Register","TransactionRegister")';
+                        })
+                    }
+                }
+            });
+        }
+    }
+
+//------apply function--------
+
+
+    $("#btn_apply4").click(function (event) {
+        $("#exportne1").show();
+        $("#exportne").hide();
+        $("#re_external").hide();
+        $("#nonre_internal").hide();
+        $("#nonre_external").show();
+        $("#divedit_reext").hide();
+        $("#divedit_reint").hide();
+        var url1 = '@Url.Action("Get_daywise_Non_return_external_data", "TransactionRegister")';
+        var FromDate = $("#NEFromDate").val();
+        var ToDate = $("#NEToDate").val();
+        $(".fromdatene").val(FromDate);
+        $(".todatene").val(ToDate);
+        if (FromDate == '' || FromDate == null) {
+
+            swal({
+                icon: "warning",
+                title: "Please Select FromDate...!",
+                button: true,
+                timer: 4500
+            })
+        }
+        else if (ToDate == '' || ToDate == null) {
+            swal({
+                icon: "warning",
+                title: "Please Select ToDate...!",
+                button: true,
+                timer: 4500
+            })
+        }
+        else {
+
+            var data = {
+                "QueryType": 'Getdaywise_nonexternal',
+                "FromDate": FromDate,
+                "ToDate": ToDate,
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: url1,
+                data: data,
+                dataType: "json",
+                beforeSend: function () {
+                    $('.loading').show();
+                },
+                success: function (response) {
+                    $('.loading').hide();
+                    $("#nonre_external").show();
+                    if (response.length != "0") {
+                        if ($.fn.DataTable.isDataTable('#datatable-defaultNE')) {
+                            $('#datatable-defaultNE').DataTable().destroy();
+                        }
+
+                        var rowsCnt = document.getElementById("datatable-defaultNE").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                        if (rowsCnt > 0) {
+                            for (var i = 0; i < rowsCnt; i++) {
+                                document.getElementById("datatable-defaultNE").deleteRow(1);
+                            }
+                        }
+                        for (var i = 0; i < response.length; i++) {
+                            var editper3 = '@Session["RegistersEdit_form"]';
+                            var deleteper3 = '@Session["RegistersDelete_form"]';
+                            var newRow = $("<tr>");
+                            var cols = '';
+                            var n = ($('.NE_details tr').length) + 1;
+                            cols += "<td><input style='display: none' type='hidden' value='" + n + "' class=' form-control ' /> <p>" + n + "</p></td>";
+                            cols += "<td class=''> <input style='display: none' value='" + response[i].Transaction_id + "' class=' form-control Transaction_id6' readonly /> <span>" + response[i].Transaction_id + "</span> </td>";
+                            cols += "<td class=''><input style='display: none'  value='" + response[i].Material_name + "' class='form-control Material_name6' readonly /> <span>" + response[i].Material_name + "</span></td>";
+                            cols += "<td class='Qty6'><input style='display: none' data-decimal='2'' oninput='enforceNumberValidation(this)' onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode ==46' onpaste='return false'  value='" + response[i].Qty + "' class=' form-control Qty5 checkdot' /> <span>" + response[i].Qty + "</span></td>";
+                            cols += "<td class=''><input style='display: none'  value='" + response[i].UOM + "' class=' form-control UOM6' readonly/> <span>" + response[i].UOM + "</span></td>";
+                            cols += "<td class=''><input style='display: none'  value='" + response[i].RefDCNo + "' class=' form-control RefDCNo6' readonly/> <span>" + response[i].RefDCNo + "</span></td>";
+                            cols += "<td><input style='display: none'  value='" + response[i].M_From + "' class=' form-control M_From6 ' readonly /> <span>" + response[i].M_From + "</span></td>";
+                            cols += "<td><input style='display: none'  value='" + response[i].M_To + "' class=' col-md-6 form-control M_To6' readonly/> <span>" + response[i].M_To + "</span></td>";
+                            cols += "<td><input style='display: none'  value='" + response[i].Remarks + "' class='form-control Remarks6' /> <span>" + response[i].Remarks + "</span></td>";
+                            cols += "<td><input style='display: none'  value='" + response[i].Timein + "' class='form-control Timein6' readonly /> <span>" + response[i].Timein + "</span></td>";
+                            cols += "<td><input style='display: none'  value='" + response[i].Inwardedby + "' class='form-control Inwardedby6' readonly /> <span>" + response[i].Inwardedby + "</span></td>"
+                            cols += "<td><input style='display: none'  value='" + response[i].VechicleNo + "' class='form-control VechicleNo6' readonly /> <span>" + response[i].VechicleNo + "</span></td>"
+                            cols += "<td><input  style='display:none' value='" + response[i].Dept + "' class='form-control Dept6' readonly/><span>" + response[i].Dept + "</span></td>";
+                            cols += "<td class='hidden ID'><input  style='display:none' value='" + response[i].id + "' class='form-control ID' readonly /></td>";
+                            cols += "<td class='hidden ID2'><input  style='display:none' value='" + response[i].id2 + "' class='form-control ID2' readonly /></td>";
+                            cols += "<td>"
+                            if (editper3 == "1") {
+                                cols += "<button type='button'  style=' /*display:block;*/ width:70px;margin-bottom:1px;margin-right:10px'  class='btn btn-primary edit_reinter'>Edit</button >";
+                                cols += "<button type='button'  style=' display:none; width:70px;margin-bottom:1px;margin-right:10px' class='btn btn-primary update_reinter'>Update</button >";
+                            }
+                            if (deleteper3 == "1") {
+                                cols += "<button type='button' style='  /*display:block;*/width:70px' onclick ='delete_nonextre(" + response[i].id + ")' class='btn btn-danger delete_nonretexter'>Delete</button >";
+                                cols += "<button type='button' style='  display:none;width:70px' class='btn btn-danger cancel_retinter'>Cancel</button >";
+                            }
+                            cols += "</td>";
+                            newRow.append(cols);
+                            $(".NE_details").append(newRow);
+                        }
+                        $('#datatable-defaultNE').DataTable({
+                            "responsive": true
+                        });
+                    }
+                    else {
+                        if ($.fn.DataTable.isDataTable('#datatable-defaultNE')) {
+                            $('#datatable-defaultNE').DataTable().destroy();
+                        }
+
+                        var rowsCnt = document.getElementById("datatable-defaultNE").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                        if (rowsCnt > 0) {
+                            for (var i = 0; i < rowsCnt; i++) {
+                                document.getElementById("datatable-defaultNE").deleteRow(1);
+                            }
+                            var newRow = $("<tr>");
+                            var cols = '';
+                            cols += "<td colspan='15' style='text-align: center'><p> No data available </p></td>";
+                            cols += "<td>"
+                            newRow.append(cols);
+                            $(".NE_details").append(newRow);
+                        }
+                    }
+
+                    var url1 = '@Url.Action("Transaction_Register", "TransactionRegister")';
+                },
+                error: function (response) {
+
+
+                }
+            });
+        }
+    });
+
+
+//-------------------non return internal--------------------------------------------------------------------------------
+
+    $("body").on("click", "#datatable-defaultNI .edit_reinter", function () {
+
+        debugger;
+        var row = $(this).closest("tr");
+        $("td", row).each(function () {
+            if ($(this).find("input").length > 0) {
+                $(this).find("input").show();
+                $(this).find("span").hide();
+
+            }
+        });
+        row.find(".update_reinter").show();
+        row.find(".cancel_retinter").show();
+        row.find(".delete_nonretinter").hide();
+        row.find(".edit_reinter").hide();
+        $(this).hide();
+    });
+
+
+     //Update event handler.
+
+    $("body").on("click", "#datatable-defaultNI .update_reinter", function () {
+        var error_count = 0;
+        var row = $(this).closest("tr");
+        $("td", row).each(function () {
+            if ($(this).find("input").length > 0) {
+                var span = $(this).find("span");
+                var input = $(this).find("input");
+                span.html(input.val());
+                span.show();
+                input.hide();
+            }
+
+        });
+
+        row.find(".edit_reinter").show();
+        row.find(".delete_nonretinter").show();
+        row.find(".cancel_retinter").hide();
+        row.find(".update_reinter").hide();
+
+        $(this).hide();
+
+        var Qty = row.find(".Qty5").find("input").val();
+
+        if (Qty == "") {
+            error_count = 1;
+        }
+
+       var nonreintobj = {
+            Id: row.find(".ID").find("input").val(),
+           Qty: row.find(".Qty5").find("input").val(),
+           Remarks: row.find(".Remarks5").val()
+        };
+        if (error_count == 0) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Update_non_returnable_internal_outward", "TransactionRegister")',
+            data: JSON.stringify(nonreintobj),
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+               if (response) {
+                       swal({
+                                icon: "success",
+                                title: "Details Updated Successfully...!",
+                                showConfirmButton: true,
+                                confirmButtonText: "Cerrar",
+                                closeOnConfirm: false
+                            }).then(function (result) {
+                                window.location = '@Url.Action("Transaction_Register","TransactionRegister")';
+                            })
+                        }
+                },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+        else {
+            alert("FILL THE REQUIRED FIELDS");
+            window.location = '@Url.Action("Transaction_Register","TransactionRegister")';
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    $(this).find("input").show();
+                    $(this).find("span").hide();
+                }
+            });
+            row.find(".update_reinter").show();
+            row.find(".cancel_retinter").show();
+            row.find(".delete_nonretinter").hide();
+            row.find(".edit_reinter").hide();
+        }
+
+    });
+
+
+//---Cancel event handler-----
+
+
+    $("body").on("click", "#datatable-defaultNI .cancel_retinter", function () {
+        var row = $(this).closest("tr");
+        $("td", row).each(function () {
+            if ($(this).find("input").length > 0) {
+                var span = $(this).find("span");
+                var input = $(this).find("input");
+                input.val(span.html());
+                span.show();
+                input.hide();
+            }
+        });
+        row.find(".edit_reinter").show();
+        row.find(".delete_nonretinter").show();
+        row.find(".update_reinter").hide();
+        row.find(".cancel_retinter").hide();
+        $(this).hide();
+       window.location = '@Url.Action("Transaction_Register","TransactionRegister")';
+    });
+
+
+//---Delete event handler-----
+
+    function delete_nonintre(id) {
+
+        if (confirm("Do you want to delete this row?")) {
+            @*var url2 = '@Url.Action("Get_noninternal_master","TransactionRegister")';*@
+            var url1 = '@Url.Action("Delete_nonreinter","TransactionRegister")';
+            var row = $(this).closest("tr");
+            /* var Id = row.find(".ID").find("input").val();*/
+
+            $.ajax({
+                type: "POST",
+                url: url1,
+                data: '{id: ' + id + '}',
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (response) {
+                    if ($("#datatable-defaultNI  tr").length > 2) {
+                        row.remove();
+                    } else {
+                        row.find(".edit_reinter").hide();
+                        row.find(".delete_retinter").hide();
+                        row.find("span").html(' ');
+                    }
+                    if (response == "ok") {
+                        swal({
+                            icon: "success",
+                            title: "Details Deleted Successfully...!",
+                            button: true,
+                            timer: 4500
+                        })
+                       window.location = '@Url.Action("Transaction_Register","TransactionRegister")';
+                    }
+                }
+            });
+        }
+    }
+
+        //------apply function--------
+
+
+    $("#btn_apply3").click(function (event) {
+        $("#nonre_internal").show();
+        $("#exportni1").show();
+        $("#exportni").hide();
+        var url1 = '@Url.Action("Get_daywise_Non_return_internal_data", "TransactionRegister")';
+        var FromDate = $("#NIFromDate").val();
+        var ToDate = $("#NIToDate").val();
+        $(".fromdateni").val(FromDate);
+        $(".todateni").val(ToDate);
+        if (FromDate == '' || FromDate == null) {
+
+            swal({
+                icon: "warning",
+                title: "Please Select FromDate...!",
+                button: true,
+                timer: 4500
+            })
+        }
+        else if (ToDate == '' || ToDate == null) {
+            swal({
+                icon: "warning",
+                title: "Please Select ToDate...!",
+                button: true,
+                timer: 4500
+            })
+        }
+        else {
+            var data = {
+                "QueryType": 'Getdaywise_noninternal',
+                "FromDate": FromDate,
+                "ToDate": ToDate,
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: url1,
+                data: data,
+                dataType: "json",
+                beforeSend: function () {
+                    $('.loading').show();
+                },
+                success: function (response) {
+                    $('.loading').hide();
+                    $("#re_internal").hide();
+                    if (response.length != "0") {
+                        if ($.fn.DataTable.isDataTable('#datatable-defaultNI')) {
+                            $('#datatable-defaultNI').DataTable().destroy();
+                        }
+                        var rowsCnt = document.getElementById("datatable-defaultNI").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                        if (rowsCnt > 0) {
+                            for (var i = 0; i < rowsCnt; i++) {
+                                document.getElementById("datatable-defaultNI").deleteRow(1);
+                            }
+                        }
+                        for (var i = 0; i < response.length; i++) {
+                            var editper2 = '@Session["RegistersEdit_form"]';
+                            var deleteper2 = '@Session["RegistersDelete_form"]';
+                            var newRow = $("<tr>");
+                            var cols = '';
+                            var n = ($('.NI_details tr').length) + 1;
+                            //---------------
+
+                            cols += "<td><input style='display: none' type='hidden' value='" + n + "' class=' form-control ' /> <p>" + n + "</p></td>";
+                            cols += "<td class=''> <input style='display: none' value='" + response[i].Transaction_id + "' class=' form-control Transaction_id5' readonly /> <span>" + response[i].Transaction_id + "</span> </td>";
+                            cols += "<td class=''><input style='display: none'  value='" + response[i].Material_name + "' class='form-control Material_name5' readonly/> <span>" + response[i].Material_name + "</span></td>";
+                            cols += "<td class='Qty5'><input style='display: none' data-decimal='2'' oninput='enforceNumberValidation(this)' onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode ==46' onpaste='return false'  value='" + response[i].Qty + "' class=' form-control Qty5 checkdot' /> <span>" + response[i].Qty + "</span></td>";
+                            cols += "<td class=''><input style='display: none'  value='" + response[i].UOM + "' class=' form-control UOM5' readonly/> <span>" + response[i].UOM + "</span></td>";
+                            cols += "<td class=''><input style='display: none'  value='" + response[i].RefDCNo + "' class=' form-control RefDCNo5' readonly/> <span>" + response[i].RefDCNo + "</span></td>";
+                            cols += "<td><input style='display: none'  value='" + response[i].M_From + "' class=' form-control M_From5' readonly/> <span>" + response[i].M_From + "</span></td>";
+                            cols += "<td><input style='display: none'  value='" + response[i].M_To + "' class=' col-md-6 form-control M_To5' readonly /> <span>" + response[i].M_To + "</span></td>";
+                            cols += "<td><input style='display: none'  value='" + response[i].Remarks + "' class='form-control Remarks5' /> <span>" + response[i].Remarks + "</span></td>";
+                            cols += "<td><input style='display: none'  value='" + response[i].Timeout + "' class='form-control Timeout5' readonly/> <span>" + response[i].Timeout + "</span></td>";
+                            cols += "<td><input style='display: none'  value='" + response[i].Outwardedby + "' class='form-control Outwardedby5' readonly/> <span>" + response[i].Outwardedby + "</span></td>";
+                            cols += "<td><input  style='display:none' value='" + response[i].Dept + "' class='form-control Dept5' readonly/><span>" + response[i].Dept + "</span></td>";
+                            cols += "<td><input style='display: none'  value='" + response[i].VechicleNo + "' class='form-control VechicleNo5' readonly/> <span>" + response[i].VechicleNo + "</span></td>";
+                            cols += "<td class='hidden ID'><input  style='display:none' value='" + response[i].id + "' class='form-control ID' /></td>";
+                            cols += "<td class='hidden ID2'><input  style='display:none' value='" + response[i].id2 + "' class='form-control ID2' /></td>";
+                            cols += "<td>"
+                            if (editper2 == "1") {
+                                cols += "<button type='button'  style=' /*display:block;*/ width:70px;margin-bottom:1px;margin-right:10px'  class='btn btn-primary edit_reinter'>Edit</button >";
+                                cols += "<button type='button'  style=' display:none; width:70px;margin-bottom:1px;margin-right:10px' class='btn btn-primary update_reinter'>Update</button >";
+                            }
+                            if (deleteper2 == "1") {
+                                cols += "<button type='button' style='  /*display:block;*/width:70px' onclick ='delete_nonintre(" + response[i].id + ")' class='btn btn-danger delete_nonretinter'>Delete</button >";
+                                cols += "<button type='button' style='  display:none;width:70px' class='btn btn-danger cancel_retinter'>Cancel</button >";
+                            }
+                            cols += "</td>";
+
+                            //-----------------
+
+                            newRow.append(cols);
+                            $(".NI_details").append(newRow);
+                        }
+
+                        $('#datatable-defaultNI').DataTable({
+                            "responsive": true
+                        });
+                    }
+                    else {
+                        if ($.fn.DataTable.isDataTable('#datatable-defaultNI')) {
+                            $('#datatable-defaultNI').DataTable().destroy();
+                        }
+                        var rowsCnt = document.getElementById("datatable-defaultNI").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                        if (rowsCnt > 0) {
+                            for (var i = 0; i < rowsCnt; i++) {
+                                document.getElementById("datatable-defaultNI").deleteRow(1);
+                            }
+                        }
+                        var newRow = $("<tr>");
+                        var cols = '';
+                        cols += "<td colspan='15' style='text-align: center'><p> No data available </p></td>";
+                        cols += "<td>"
+                        newRow.append(cols);
+                        $(".NI_details").append(newRow);
+                    }
+                    var url1 = '@Url.Action("Transaction_Register", "TransactionRegister")';
+                },
+                error: function (response) {
+
+                }
+            });
+
+        }
+    });
+ //----------------external----------------------------------------------------------------------------------------------
+
+    $("body").on("click", "#datatable-defaultE .edit_reinter", function () {
+
+        debugger;
+        var row = $(this).closest("tr");
+        $("td", row).each(function () {
+            if ($(this).find("input").length > 0) {
+                $(this).find("input").show();
+                $(this).find("span").hide();
+            }
+        });
+        row.find(".update_reinter").show();
+        row.find(".cancel_retinter").show();
+        row.find(".delete_retexter").hide();
+        row.find(".edit_reinter").hide();
+        $(this).hide();
+    });
+
+
+    //Update event handler.
+
+    $("body").on("click", "#datatable-defaultE .update_reinter", function ()
+    {
+
+          var error_count = 0;
+        var row = $(this).closest("tr");
+        $("td", row).each(function () {
+            if ($(this).find("input").length > 0) {
+                var span = $(this).find("span");
+                var input = $(this).find("input");
+                span.html(input.val());
+                span.show();
+                input.hide();
+            }
+
+        });
+
+        row.find(".edit_reinter").show();
+        row.find(".delete_retexter").show();
+        row.find(".cancel_retinter").hide();
+        row.find(".update_reinter").hide();
+
+        $(this).hide();
+        var remqty = row.find(".RemainingQty4").find("input").val();
+        if (remqty == "") {
+
+            error_count = 1;
+
+        }
+
+        var recqty = row.find(".ReceivedQty4").find("input").val();
+        if (recqty == "" || recqty == "0") {
+            error_count = 1;
+        }
+        var pending = row.find(".PendingQty4").find("input").val();
+        if (parseFloat(recqty) > parseFloat(pending)) {
+            swal({
+
+                icon: "error",
+                title: "ReturnedQty should be lesser than PendingQty!",
+                button: true,
+                timer: 4500
+            })
+            error_count = 1;
+        }
+        var Qty = row.find(".Qty4").find("input").val();
+        if (Qty == "") {
+            error_count = 1;
+        }
+        if (parseFloat(Qty) < parseFloat(recqty)) {
+            swal({
+                icon: "error",
+                title: "Receivedqty should be lesser than Totalqty!",
+                button: true,
+                timer: 4500
+            })
+            error_count = 1;
+        }
+
+           
+        var transid = row.find(".Transaction_id4").find("input").val();
+        var trans = transid.substr(0,3);
+
+         var reextobj = {
+             id: row.find(".ID").find("input").val(),
+             Id2: row.find(".editid").find("input").val(),
+             RemainingQty: row.find(".RemainingQty4").find("input").val(),
+             Remarks2: row.find(".Remarks2").val(),
+            ReturnedQty: row.find(".ReceivedQty4").find("input").val(),
+            Qty:row.find(".Qty4").find("input").val(),
+            PendingQty: row.find(".PendingQty4").find("input").val(),
+             Transaction_id: trans
+        };
+        if (error_count == 0) {
+            $.ajax({
+                url: '@Url.Action("Update_returnable_external_inward", "TransactionRegister")',
+                data: JSON.stringify(reextobj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response) {
+                       swal({
+                                icon: "success",
+                                title: "Details Updated Successfully...!",
+                                showConfirmButton: true,
+                                confirmButtonText: "Cerrar",
+                                closeOnConfirm: false
+                            }).then(function (result) {
+                                window.location = '@Url.Action("Transaction_Register","TransactionRegister")';
+                            })
+                        }
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+        else {
+            alert("FILL THE REQUIRED FIELDS");
+            window.location = '@Url.Action("Transaction_Register","TransactionRegister")';
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    $(this).find("input").show();
+                    $(this).find("span").hide();
+                }
+            });
+            row.find(".update_reinter").show();
+            row.find(".cancel_retinter").show();
+            row.find(".delete_retexter").hide();
+            row.find(".edit_reinter").hide();
+
+        }
+
+    });
+
+
+
+
+//--Cancel event handler----
+
+    $("body").on("click", "#datatable-defaultE .cancel_retinter", function () {
+        var row = $(this).closest("tr");
+        $("td", row).each(function () {
+            if ($(this).find("input").length > 0) {
+                var span = $(this).find("span");
+                var input = $(this).find("input");
+                input.val(span.html());
+                span.show();
+                input.hide();
+            }
+        });
+        row.find(".edit_reinter").show();
+        row.find(".delete_retexter").show();
+        row.find(".update_reinter").hide();
+        row.find(".cancel_retinter").hide();
+        $(this).hide();
+        window.location = '@Url.Action("Transaction_Register","TransactionRegister")';
+    });
+
+
+
+//----delete function----
+
+    $("body").on("click", "#datatable-defaultE .delete_retexter", function () {
+        if (confirm("Do you want to delete this row?")) {
+            var url1 = '@Url.Action("Delete_reexter", "TransactionRegister")';
+            var row = $(this).closest("tr");
+            var Id = row.find(".ID").find("input").val();
+            var Transcationid = row.find(".Transaction_id4").find("input").val();
+            var trans = Transcationid.substr(0, 3);
+
+            var mydata = {
+                "id": Id,
+                "Transaction_id": trans
+            };
+
+            $.ajax({
+                type: "POST",
+                url: url1,
+                data: JSON.stringify(mydata),
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (response) {
+                    if ($("#datatable-defaultE tr").length > 2) {
+                        row.remove();
+                    } else {
+                        row.find(".edit_reinter").hide();
+                        row.find(".delete_retexter").hide();
+                        row.find("span").html(' ');
+                    }
+                    if (response == "ok") {
+                        swal({
+                            icon: "success",
+                            title: "Details Deleted Successfully...!",
+                            button: true,
+                            timer: 4500
+                        }).then(function (result) {
+                            window.location = '@Url.Action("Transaction_Register","TransactionRegister")';
+                        })
+                    }
+                }
+            });
+        }
+    });
+
+
+ //------apply function--------
+
+
+    $("#btn_apply2").click(function (event) {
+
+        $("#exporte1").show();
+        $("#exporte").hide();
+        var url1 = '@Url.Action("Get_daywise_external_data", "TransactionRegister")';
+        var EFromDate = $("#EFromDate").val();
+        var EToDate = $("#EToDate").val();
+        $(".fromdatee").val(EFromDate);
+        $(".todatee").val(EToDate);
+        if (EFromDate == '' || EFromDate == null) {
+
+            swal({
+                icon: "warning",
+                title: "Please Select FromDate...!",
+                button: true,
+                timer: 4500
+            })
+        }
+        else if (EToDate == '' || EToDate == null) {
+            swal({
+                icon: "warning",
+                title: "Please Select ToDate...!",
+                button: true,
+                timer: 4500
+            })
+        }
+        else {
+
+            var data = {
+                "QueryType": 'Getdaywise_External',
+                "FromDate": EFromDate,
+                "ToDate": EToDate,
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: url1,
+                data: data,
+                dataType: "json",
+                beforeSend: function () {
+                    $('.loading').show();
+                },
+
+                success: function (response) {
+                    $('.loading').hide();
+                    $("#re_internal").hide();
+                    if (response != "") {
+                        if ($.fn.DataTable.isDataTable('#datatable-defaultE')) {
+                            $('#datatable-defaultE').DataTable().destroy();
+                        }
+                        var rowsCnt = document.getElementById("datatable-defaultE").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                        if (rowsCnt > 0) {
+                            for (var i = 0; i < rowsCnt; i++) {
+                                document.getElementById("datatable-defaultE").deleteRow(1);
+                            }
+                        }
+                        for (var i = 0; i < response.length; i++) {
+                            var editper1 = '@Session["RegistersEdit_form"]';
+                            var deleteper1 = '@Session["RegistersDelete_form"]';
+                            var newRow = $("<tr>");
+                            var cols = '';
+                            var n = ($('.RE_details tr').length) + 1;
+
+                            cols += "<td>" + n + "</td>";
+                            cols += "<td class='Transaction_id4'><input style='display: none' value='" + response[i].Transaction_id + "' class=' form-control Transaction_id4' readonly /> <span>" + response[i].Transaction_id + "</span> </td>";
+                            cols += "<td class=''><input style='display: none'  value='" + response[i].Material_name + "' class='form-control Material_name4' readonly/> <span>" + response[i].Material_name + "</span></td>";
+                            cols += "<td class='Qty4'><input style='display: none;padding:0px' data-decimal='2'' oninput='enforceNumberValidation(this)' onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode ==46 || event.charcode == 95' onpaste='return false'  value='" + response[i].Qty + "' class=' form-control Qty4 checkdot' /> <span>" + response[i].Qty + "</span></td>";
+                            cols += "<td class=''><input style='display: none'  value='" + response[i].UOM + "' class=' form-control UOM4' readonly/> <span>" + response[i].UOM + "</span></td>";
+                            cols += "<td class=''><input style='display: none'  value='" + response[i].RefDCNo + "' class=' form-control RefDCNo4' readonly/> <span>" + response[i].RefDCNo + "</span></td>";
+                            cols += "<td><input style='display: none'  value='" + response[i].M_From + "' class=' form-control M_From4 ' readonly /> <span>" + response[i].M_From + "</span></td>";
+                            cols += "<td><input style='display: none'  value='" + response[i].M_To + "' class=' col-md-6 form-control M_To4' readonly /> <span>" + response[i].M_To + "</span></td>";
+                            cols += "<td><input style='display: none'  value='" + response[i].Timein + "' class='form-control Timein4' readonly/> <span>" + response[i].Timein + "</span></td>";
+                            cols += "<td><input style='display: none'  value='" + response[i].EDR + "' class='form-control EDR4' readonly/> <span>" + response[i].EDR + "</span></td>";
+                            cols += "<td><input style='display: none'  value='" + response[i].Inwardedby + "' class='form-control Inwardedby4' readonly/> <span>" + response[i].Inwardedby + "</span></td>";
+                            cols += "<td> <input style='display: none'  value='" + response[i].Remarks + "' class='form-control Remarks readonly'/><span>" + response[i].Remarks + "</span></td>";
+                            cols += "<td class='ReceivedQty4'><input  style='display: none' data-decimal='2'' oninput='enforceNumberValidation(this)' onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode ==46 || event.charcode == 95' onpaste='return false' value='" + response[i].ReturnedQty + "' class='form-control ReceivedQty4 checkdot' /> <span>" + response[i].ReturnedQty + "</span></td>";
+                            cols += "<td class='RemainingQty4'><input  style='display: none' value='" + response[i].RemainingQty + "' class='form-control RemainingQty4' readonly /><span class='remain_qty1'>" + response[i].RemainingQty + "</span></td>";
+                            cols += "<td><input style='display: none'  value='" + response[i].ReturnDCNo + "' class='form-control ReturnDCNo4' readonly/><span>" + response[i].ReturnDCNo + "</span></td>";
+                            cols += "<td><input style='display: none'  value='" + response[i].Timeout + "' class='form-control Timeout4' readonly/><span>" + response[i].Timeout + "</span></td>";
+                            cols += "<td><input style='display: none'  value='" + response[i].Outwardedby + "' class='form-control Outwardedby4' readonly/><span>" + response[i].Outwardedby + "</span></td>";
+                            cols += "<td><input style='display:none' value='" + response[i].Remarks2 + "' class='form-control Remarks2'/><span>" + response[i].Remarks2 + "</span></td>";
+
+                            cols += "<td><input  style='display:none' value='" + response[i].Dept + "' class='form-control Dept4' readonly/><span>" + response[i].Dept + "</span></td>";
+                            cols += "<td class='hidden ID'><input style='display:none' value='" + response[i].id + "' class='form-control ID'/></td>";
+                            cols += "<td class='hidden IDE'><input style='display:none' value='" + response[i].id2 + "' class='form-control IDE'/></td>";
+                            cols += "<td class='hidden editid'><input style='display:none' value='" + response[i].editid + "' class='form-control editid'/></td>";
+                            cols += "<td class='hidden PendingQty4'><input type='hidden' value='" + response[i].PendingQty + "' class='form-control PendingQty4'/></td>";
+                            cols += "<td class='hidden ReceivedQty1'><input type='hidden' value='" + response[i].ReceivedQty1 + "' class='form-control ReceivedQty1'/></td>";
+                            cols += "<td style='width: 200px;'>"
+                            if (response[i].id == response[i].Lastupdated) {
+                                if (editper1 == "1") {
+                                    cols += "<button type='button'  style=' /*display:block;*/ width:70px;margin-bottom:1px;margin-right:10px'  class='btn btn-primary edit_reinter'>Edit</button >";
+                                    cols += "<button type='button'  style=' display:none; width:70px;margin-bottom:1px;margin-right:10px' class='btn btn-primary update_reinter'>Update</button >";
+                                }
+                                if (deleteper1 == "1") {
+                                    cols += "<button type='button' style=' /* display:block;*/width:70px' class='btn btn-danger delete_retexter'>Delete</button >";
+                                    cols += "<button type='button' style='  display:none;width:70px' class='btn btn-danger cancel_retinter'>Cancel</button >";
+                                }
+                            }
+                            cols += "</td>";
+
+                            newRow.append(cols);
+                            $(".RE_details").append(newRow);
+                        }
+                        $('#datatable-defaultE').DataTable({
+                            "responsive": true
+                        });
+                    } else {
+                        if ($.fn.DataTable.isDataTable('#datatable-defaultE')) {
+                            $('#datatable-defaultE').DataTable().destroy();
+                        }
+                        var rowsCnt = document.getElementById("datatable-defaultE").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                        if (rowsCnt > 0) {
+                            for (var i = 0; i < rowsCnt; i++) {
+                                document.getElementById("datatable-defaultE").deleteRow(1);
+                            }
+                        }
+                        var newRow = $("<tr>");
+                        var cols = '';
+                        cols += "<td colspan='20' style='text-align: center'><p> No data available </p></td>";
+                        cols += "<td>"
+                        newRow.append(cols);
+                        $(".RE_details").append(newRow);
+                    }
+                    var url1 = '@Url.Action("Transaction_Register", "TransactionRegister")';
+                },
+                error: function (response) {
+
+                }
+
+            });
+        }
+    });
+
+
+//---------------------internal--------------------------------------------------------------------------------------------
+
+    $("body").on("click", "#datatable-defaultM .edit_reinter", function () {
+
+        debugger;
+        var row = $(this).closest("tr");
+        $("td", row).each(function () {
+            if ($(this).find("input").length > 0) {
+                $(this).find("input").show();
+                $(this).find("span").hide();
+            }
+        });
+        row.find(".update_reinter").show();
+        row.find(".cancel_retinter").show();
+        row.find(".delete_retinter").hide();
+        row.find(".edit_reinter").hide();
+        $(this).hide();
+
+    });
+
+//------Update event handler--------
+
+    $("body").on("click", "#datatable-defaultM .update_reinter", function ()
+    {
+          var error_count = 0;
+        var row = $(this).closest("tr");
+        $("td", row).each(function () {
+            if ($(this).find("input").length > 0) {
+                var span = $(this).find("span");
+                var input = $(this).find("input");
+                span.html(input.val());
+                span.show();
+                input.hide();
+            }
+        });
+        row.find(".edit_reinter").show();
+        row.find(".delete_retinter").show();
+        row.find(".cancel_retinter").hide();
+        row.find(".update_reinter").hide();
+        $(this).hide();
+        var remqty = row.find(".RemainingQty3").find("input").val();
+        if (remqty == "") {
+
+            error_count = 1;
+
+        }
+        var Qty = row.find(".Qty3").find("input").val(); 
+
+        if (Qty == "") {
+            error_count = 1;
+        }
+        var recqty = row.find(".ReceivedQty3").find("input").val();
+        if (recqty == "" || recqty == "0") {
+            error_count = 1;
+        }
+        var pending = row.find(".PendingQty3").find("input").val(); 
+        if (parseFloat(recqty) > parseFloat(pending)) {
+            swal({
+                icon: "error",
+                title: "Receivedqty should be lesser than PendingQty!",
+                button: true,
+                timer: 4500
+            })
+            error_count = 1;
+        }
+        if (parseFloat(Qty) < parseFloat(recqty)) {
+            swal({
+                icon: "error",
+                title: "Receivedqty should be lesser than Totalqty!",
+                button: true,
+                timer: 4500
+            })
+            error_count = 1;
+        }
+            var Qty = row.find(".Qty3").find("input").val();
+        var transid = row.find(".Transaction_id3").find("input").val();
+        var trans = transid.substr(0, 3);
+
+            if (Qty == "" ) {
+                error_count = 1;
+
+            }
+       var reintobj = {
+           Id: row.find(".ID").find("input").val(),
+           Remarks2: row.find(".Remarks2I").val(),
+           Id2: row.find(".editid").find("input").val(),
+            RemainingQty: row.find(".RemainingQty3").find("input").val(),
+            ReceivedQty: row.find(".ReceivedQty3").find("input").val(),
+            Qty: row.find(".Qty3").find("input").val(),
+            PendingQty: row.find(".PendingQty3").find("input").val(),
+           Transaction_id: trans
+        };
+        if (error_count == 0) {
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Update_returnable_internal_outward","TransactionRegister")',
+                data: JSON.stringify(reintobj),
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                   if (response) {
+                       swal({
+                                icon: "success",
+                                title: "Details Updated Successfully...!",
+                                showConfirmButton: true,
+                                confirmButtonText: "Cerrar",
+                                closeOnConfirm: false
+                            }).then(function (result) {
+                                window.location = '@Url.Action("Transaction_Register","TransactionRegister")';
+                            })
+                        }
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+        else {
+            alert("FILL THE REQUIRED FIELDS");
+            window.location = '@Url.Action("Transaction_Register","TransactionRegister")';
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    var span = $(this).find("span");
+                    var input = $(this).find("input");
+                    span.html(input.val());
+                    span.show();
+                    input.hide();
+                }
+
+            });
+            row.find(".edit_reinter").show();
+            row.find(".delete_retinter").show();
+            row.find(".cancel_retinter").hide();
+            row.find(".update_reinter").hide();
+
+        }
+
+    });
+
+
+
+
+//---Cancel event handler---------
+
+    $("body").on("click", "#datatable-defaultM .cancel_retinter", function () {
+        var row = $(this).closest("tr");
+        $("td", row).each(function () {
+            if ($(this).find("input").length > 0) {
+                var span = $(this).find("span");
+                var input = $(this).find("input");
+                input.val(span.html());
+                span.show();
+                input.hide();
+            }
+        });
+        row.find(".edit_reinter").show();
+        row.find(".delete_retinter").show();
+        row.find(".update_reinter").hide();
+        row.find(".cancel_retinter").hide();
+        $(this).hide();
+        window.location = '@Url.Action("Transaction_Register","TransactionRegister")';
+    });
+
+
+
+//------Delete function--------
+
+    $("body").on("click", "#datatable-defaultM .delete_retinter", function () {
+
+        if (confirm("Do you want to delete this row?")) {
+            var url1 = '@Url.Action("Delete_reinter", "TransactionRegister")';
+            var row = $(this).closest("tr");
+            var Id = row.find(".ID").find("input").val();
+            var Transcationid=row.find(".Transaction_id3").find("input").val();
+            var trans = Transcationid.substr(0, 3);
+
+            var mydata = {
+                "id": Id,
+                "Transaction_id": trans
+            };
+
+            $.ajax({
+                type: "POST",
+                url: url1,
+                data: JSON.stringify(mydata),
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (response) {
+                    if ($("#datatable-defaultM  tr").length > 2) {
+                        row.remove();
+                    } else {
+                        row.find(".edit_reinter").hide();
+                        row.find(".delete_retinter").hide();
+                        row.find("span").html(' ');
+                    }
+                    if (response == "ok") {
+                        swal({
+                            icon: "success",
+                            title: "Details Deleted Successfully...!",
+                            button: true,
+                            timer: 4500
+                        }).then(function (result) {
+                            window.location = '@Url.Action("Transaction_Register","TransactionRegister")';
+                        })
+                    }
+                }
+            });
+        }
+    });
+
+    function enforceNumberValidation(ele) {
+        if ($(ele).data('decimal') != null) {
+            var decimal = parseInt($(ele).data('decimal')) || 0;
+            var val = $(ele).val();
+            if (decimal > 0) {
+                var splitVal = val.split('.');
+                if (splitVal.length == 2 && splitVal[1].length > decimal) {
+                    $(ele).val(splitVal[0] + '.' + splitVal[1].substr(0, decimal));
+                }
+            } else if (decimal == 0) {
+                var splitVal = val.split('.');
+                if (splitVal.length > 1) {
+                    $(ele).val(splitVal[0]);
+                }
+            }
+        }
+    }
+
+
+//------apply function--------
+
+    $("#btn_apply").click(function (event) {
+        $("#exporti1").show();
+        $("#exporti").hide();
+        var url1 = '@Url.Action("Get_daywise_internal_data", "TransactionRegister")';
+        var FromDate = $("#FromDate").val();
+        var ToDate = $("#ToDate").val();
+        $(".fromdatei").val(FromDate);
+        $(".todatei").val(ToDate);
+
+        if (FromDate == '' || FromDate == null) {
+
+            swal({
+                icon: "warning",
+                title: "Please Select FromDate...!",
+                button: true,
+                timer: 4500
+            })
+        }
+        else if (ToDate == '' || ToDate == null) {
+            swal({
+                icon: "warning",
+                title: "Please Select ToDate...!",
+                button: true,
+                timer: 4500
+            })
+        }
+        else {
+
+            var data = {
+                "QueryType": 'Getdaywise_internal',
+                "FromDate": FromDate,
+                "ToDate": ToDate,
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: url1,
+                data: data,
+                dataType: "json",
+                beforeSend: function () {
+                    $('.loading').show();
+                },
+                success: function (response) {
+                    $('.loading').hide();
+                    if (response.length !="0") {
+                        if ($.fn.DataTable.isDataTable('#datatable-defaultM')) {
+                            $('#datatable-defaultM').DataTable().destroy();
+                        }
+
+                        var rowsCnt = document.getElementById("datatable-defaultM").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                        if (rowsCnt > 0) {
+                            for (var i = 0; i < rowsCnt; i++) {
+                                document.getElementById("datatable-defaultM").deleteRow(1);
+                            }
+                        }
+                        for (var i = 0; i < response.length; i++) {
+                            var editper = '@Session["RegistersEdit_form"]';
+                            var deleteper = '@Session["RegistersDelete_form"]';
+                            var newRow = $("<tr>");
+                            var cols = '';
+                            var n = ($('.RIO_details tr').length) + 1;
+                            cols += "<td><input style='display: none' type='hidden' value='" + n + "' class=' form-control ' /> <p>" + n + "</p> </td>";
+                            cols += "<td class='Transaction_id3'> <input style='display: none' value='" + response[i].Transaction_id + "' class=' form-control Transaction_id3 transid' readonly /> <span>" + response[i].Transaction_id + "</span> </td>";
+                            cols += "<td class=''><input style='display: none' value='" + response[i].Material_name + "' class='form-control Material_name3' readonly/> <span class='err_iqty'>" + response[i].Material_name + "</span></td>";
+                            cols += "<td class='Qty3'><input data-decimal='2'' oninput='enforceNumberValidation(this)' onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode ==46 || event.charcode == 95' onpaste='return false' style='display:none;padding:0px'  id='Qtyedit' value='" + response[i].Qty + "' class='form-control col-sm-3 Qty3 checkdot'/> <span>" + response[i].Qty + "</span ></td>";
+                            cols += "<td class=''><input style='display: none' value='" + response[i].UOM + "' class=' form-control UOM3' readonly/> <span>" + response[i].UOM + "</span></td>";
+                            cols += "<td class=''><input style='display: none'  value='" + response[i].RefDCNo + "' class=' form-control RefDCNo3' readonly/> <span>" + response[i].RefDCNo + "</span></td>";
+                            cols += "<td><input style='display: none'  value='" + response[i].M_From + "' class=' form-control M_From3 ' readonly/> <span>" + response[i].M_From + "</span></td>";
+                            cols += "<td><input style='display: none'  value='" + response[i].M_To + "' class=' col-md-6 form-control M_To3' readonly/> <span>" + response[i].M_To + "</span></td>";
+                            cols += "<td><input style='display: none'  value='" + response[i].Timeout + "' class='form-control Timeout3' readonly/> <span>" + response[i].Timeout + "</span></td>";
+                            cols += "<td><input style='display: none'  value='" + response[i].EDR + "' class='form-control EDR3' readonly/> <span>" + response[i].EDR + "</span></td>";
+                            cols += "<td><input style='display: none'  value='" + response[i].Outwardedby + "' class='form-control Outwardedby3' readonly /> <span>" + response[i].Outwardedby + "</span></td>";
+                            cols += "<td> <input style='display: none'  value='" + response[i].Remarks + "' class='form-control Remarks3' readonly/><span>" + response[i].Remarks + "</span></td>";
+                            cols += "<td class='ReceivedQty3'><input  style='display: none' data-decimal='2'' oninput='enforceNumberValidation(this)' onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode ==46 || event.charcode == 95' onpaste='return false' value='" + response[i].ReceivedQty + "' id='Receivedin' class='form-control ReceivedQty3 checkdot' /> <span class='err_rece'>" + response[i].ReceivedQty + "</span></td>";
+                            cols += "<td class='RemainingQty3'><input  style='display: none' value='" + response[i].RemainingQty + "' id='Remainingin' class='form-control RemainingQty3 rem3' readonly/><span class='remain_qty err_rem'>" + response[i].RemainingQty + "</span></td>";
+                            cols += "<td><input style='display: none'  value='" + response[i].ReturnDCNo + "' class='form-control ReturnDCNo3' readonly /><span>" + response[i].ReturnDCNo + "</span></td>";
+                            cols += "<td><input style='display: none'  value='" + response[i].Timein + "' class='form-control Timein3' readonly/><span>" + response[i].Timein + "</span></td>";
+                            cols += "<td><input style='display: none'  value='" + response[i].Inwardedby + "' class='form-control Inwardedby3' readonly /><span>" + response[i].Inwardedby + "</span></td>";
+                            cols += "<td><input  style='display:none' value='" + response[i].Remarks2 + "' class='form-control Remarks2I' /><span>" + response[i].Remarks2 + "</span></td>";
+                            cols += "<td><input  style='display:none' value='" + response[i].Dept + "' class='form-control Dept1' readonly/><span>" + response[i].Dept + "</span></td>";
+                            cols += "<td class='hidden ID'><input type='hidden' value='" + response[i].id + "' class='form-control ID'/></td>";
+                            cols += "<td class='hidden ID2'><input type='hidden' value='" + response[i].id2 + "' class='form-control ID2'/></td>";
+                            cols += "<td class='hidden editid'><input type='hidden' value='" + response[i].editid + "' class='form-control editid'/></td>";
+                            cols += "<td class='hidden PendingQty3'><input type='hidden' value='" + response[i].PendingQty + "' class='form-control PendingQty3'/></td>";
+                            cols += "<td class='hidden ReceivedQty1'><input type='hidden' value='" + response[i].ReceivedQty1 + "' class='form-control ReceivedQty1'/></td>";
+                            cols += "<td style='width: 250px;'>"
+                            if (response[i].id == response[i].Lastupdated) {
+                                if (editper == "1") {
+                                    cols += "<button type='button' id='btnedit' style='float:left;/*display:block;*/ width:70px;margin-bottom:1px;margin-right:10px/*display:none*/'  class='btn btn-primary edit_reinter'>Edit</button >";
+                                    cols += "<button type='button'  style=' display:none; width:70px;margin-bottom:1px;margin-right:10px' class='btn btn-primary update_reinter'>Update</button >";
+                                }
+                                if (deleteper == "1") {
+                                    cols += "<button type='button' id='btndelete' style='/*display:block;*/width:70px;float:right;margin_left:5px;' class='btn btn-danger delete_retinter'>Delete</button >";
+                                    cols += "<button type='button' style='  /*display:none*/;width:70px;float:right;display:none' class='btn btn-danger cancel_retinter'>Cancel</button >";
+                                }
+                            }
+
+                            cols += "</td>";
+                            newRow.append(cols);
+                            $(".RIO_details").append(newRow);
+
+                        }
+
+                        $('#datatable-defaultM').DataTable({
+                            "responsive": true
+                        });
+                }
+                    else {
+                        if ($.fn.DataTable.isDataTable('#datatable-defaultM')) {
+                            $('#datatable-defaultM').DataTable().destroy();
+                        }
+
+                        var rowsCnt = document.getElementById("datatable-defaultM").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                        if (rowsCnt > 0) {
+                            for (var i = 0; i < rowsCnt; i++) {
+                                document.getElementById("datatable-defaultM").deleteRow(1);
+                            }
+                        }
+                        var newRow = $("<tr>");
+                        var cols = '';
+                        cols += "<td colspan='20' style='text-align: center'><p> No data available </p></td>";
+                        cols += "<td>"
+                        newRow.append(cols);
+                        $(".RIO_details").append(newRow);
+                    }
+                    var url1 = '@Url.Action("Transaction_Register", "TransactionRegister")';
+                },
+                error: function (response) {
+
+
+                }
+
+            });
+        }
+    });
+
+
+//----------------------------
+
+
+    $("body").on("keyup", "#datatable-defaultM .ReceivedQty3", function () {
+
+        var tr = $(this).closest("tr");
+        $(".Qty3").attr('readonly', true);
+        var receivedqty = tr.find(".ReceivedQty3").find("input").val(); 
+        var receivedqty1 = tr.find(".err_rece").html();        
+        var totalqty = tr.find(".Qty3").find("input").val();  
+        var TotalReceived = tr.find('.ReceivedQty1').find("input").val();
+        var x = parseFloat(TotalReceived) - parseFloat(receivedqty1);
+        var Pending = (parseFloat(totalqty)) - (parseFloat(x));
+        var PendingQty = tr.find('.PendingQty3').find("input").val();       
+        if (parseFloat(Pending) >= parseFloat(receivedqty)) {
+            var RemainingQty = Pending - receivedqty;
+            var Rema1 = parseFloat((RemainingQty).toFixed(2));          
+            tr.find('.RemainingQty3').val(Rema1);
+            tr.find('.remain_qty').html(Rema1);
+        }
+        else
+        {
+            tr.find('.RemainingQty3').val('0');
+            tr.find('.remain_qty').html('0');
+
+        }
+
+    });
+
+    $("body").on("keyup", "#datatable-defaultM .Qty3", function () {
+
+        var tr = $(this).closest("tr");
+        $(".ReceivedQty3").attr('readonly', true);
+        var TotalReceived = tr.find('.ReceivedQty1').find("input").val();
+        var totalqty = tr.find(".Qty3").find("input").val();  
+        var ReceivedQty = tr.find(".ReceivedQty3").find("input").val();       
+        var PendingQty = (parseFloat(totalqty)) - (parseFloat(TotalReceived));            
+        var pend = parseFloat(PendingQty).toFixed(2);        
+        if (parseInt(totalqty) >= parseInt(TotalReceived)) {
+            var RemainingQty = totalqty - TotalReceived;         
+            var Rema1 = parseFloat((RemainingQty).toFixed(2));
+            tr.find('.RemainingQty3').val(Rema1);
+            tr.find('.remain_qty').html(Rema1);
+
+        } else {
+            tr.find('.RemainingQty3').val('0');
+            tr.find('.remain_qty').html('0');
+
+        }
+
+    });
+
+
+    $("body").on("keyup", "#datatable-defaultE .ReceivedQty4", function () {
+
+        var tr = $(this).closest("tr");
+        $(".Qty4").attr('readonly', true);
+        var receivedqty = tr.find(".ReceivedQty4").find("input").val();
+        var receivedqty1 = tr.find(".errorext").html();
+        var TotalReceived = tr.find('.ReceivedQty1').find("input").val();
+        var totalqty = tr.find(".Qty4").find("input").val();
+        var x = parseFloat(TotalReceived) - parseFloat(receivedqty1);
+        var Pending = (parseFloat(totalqty)) - (parseFloat(x));
+        var PendingQty = tr.find('.PendingQty4').find("input").val();       
+        if (parseFloat(Pending) >= parseFloat(receivedqty)) {
+            var RemainingQty = Pending - receivedqty;
+            var Rema1 = parseFloat((RemainingQty).toFixed(2));
+           /* tr.find('.PendingQty4').val(Rema1);*/
+            tr.find('.RemainingQty4').val(Rema1);
+            tr.find('.remain_qty').html(Rema1);
+        }
+        else {
+            tr.find('.RemainingQty4').val('0');
+            tr.find('.remain_qty').html('0');
+        }
+    });
+
+    $("body").on("keyup", "#datatable-defaultE .Qty4", function () {
+
+        var tr = $(this).closest("tr");
+        $(".ReceivedQty4").attr('readonly', true);
+        var TotalReceived = tr.find('.ReceivedQty1').find("input").val();
+        var totalqty = tr.find(".Qty4").find("input").val();
+        var ReceivedQty = tr.find(".ReceivedQty4").find("input").val();
+        var PendingQty = parseFloat(totalqty) - parseFloat(TotalReceived);
+        var pend = parseFloat((PendingQty).toFixed(2));           
+        if (parseInt(totalqty) >= parseInt(TotalReceived))
+        {
+            var RemainingQty = totalqty - TotalReceived;
+            var Rema1 = parseFloat((RemainingQty).toFixed(2));
+            tr.find('.RemainingQty4').val(Rema1);
+            tr.find('.remain_qty1').html(Rema1);
+        }
+        else
+        {
+            tr.find('.RemainingQty4').val('0');
+            tr.find('.remain_qty1').html('0');
+
+        }
+    });
+
+
+    //Check for double dots in decimal textbox
+    $(document).on("input", ".checkdot", function () {
+        var original = '';
+        if ($(this).val().replace(/[^.]/g, "").length > 1) {
+            $(this).val(original);
+        } else {
+            original = $(this).val();
+        }
+    });
+</script>
+
+
+

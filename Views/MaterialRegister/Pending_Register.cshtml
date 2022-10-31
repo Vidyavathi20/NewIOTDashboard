@@ -1,0 +1,1030 @@
+﻿@{
+    ViewBag.Title = "Pending Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" type="text/css" href="~/assets/datepicker_normal/jquery-ui-1.8.19.custom.css">
+<style>
+    .btn-primary.active {
+        background-color: forestgreen;
+    }
+</style>
+<header class="page-header" style="margin-top: -9px;margin-left: -11px;">
+    <h2> Pending Register </h2>
+    <div class="right-wrapper pull-right">
+        <ol class="breadcrumbs">
+            <li>
+                <a href="@Url.Action("Dashboard","Login")">
+                    <i class="fa fa-home"></i>
+                </a>
+            </li>
+            <li><span>Material Register</span></li>
+        </ol>
+        <a class="sidebar-right-toggle"></a>
+    </div>
+</header>
+
+<div class="tab">
+    <button class="btn btn-primary btn_re_internal" onclick="display_re_internal()">Returnable-Internal</button>
+    <button class="btn btn-primary btn_re_external" onclick="display_re_external()">Returnable-External</button>   
+</div>
+
+<br />
+<br />
+
+<div class="row" id="re_internal" style="display:none;">
+    <div class="col-md-12">
+        @if (Session["PendingRegistersView_form"].ToString() == "1")
+        {
+            <section class="panel" id="heading">
+                <header class="panel-heading" style="padding:30px !important">
+                    <div class="panel-actions">
+                        <input type="button" value="Show Only Pending Materials" class="btn btn-primary" id="show_pending" />
+
+                    </div>
+                    <h2 class="panel-title"></h2>
+                </header>
+                <div class="panel-body" id="div_re_internal">
+                    <div class="form-group">
+                        <div class="panel-body">
+                            <div class="form-group" id="date_internal">
+                                <label class="col-sm-2 control-label"> From Date  <span class="required">*</span></label>
+
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control FromDate space" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46 || event.charCode == 95' onpaste='return false' id="FromDate" name="FromDate" required autocomplete="off" />
+                                </div>
+
+                                <label class="col-sm-2 control-label"> End Date  <span class="required">*</span></label>
+
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control ToDate space" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46 || event.charCode == 95' onpaste='return false' id="ToDate" name="ToDate" required autocomplete="off" />
+                                </div>
+
+                                <div class="col-sm2 " style="text-align:right;">
+                                    <button type="submit" id="btn_apply" class="btn btn-primary">Apply</button>
+                                    <button type="button" id="apply_cancel" class="btn btn-danger">Refresh</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="dt-responsive table-responsive">
+                                    <table class="table table-bordered table-striped mb-none" id="datatable-default">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center;">S.No</th>
+                                                <th>REF DC No</th>
+                                                <th>From</th>
+                                                <th style="width:150px;">To</th>
+                                                <th style="width:150px;">Timeout</th>
+                                                <th style="width:100px;">Vechicle No</th>
+                                                <th>Outward By</th>
+                                                <th>Pending Item</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="RIO_details"></tbody>
+                                        <tfoot id="tfoot1">
+                                            <tr>
+                                                <td colspan="9" id="internal" style="text-align:right;display:none">
+                                                    <form id="form" action="@Url.Action("Export_Returnable_internal","MaterialRegister")" method="post">
+                                                        <input type="submit" name="btnExport"
+                                                               value="Download" id="exportLicensing" class="btn btn-primary pen_int" />                                                        
+                                                    </form>
+
+                                                </td>
+                                                <td colspan="9" id="internal1" style="text-align:right;display:none">
+                                                    <form id="form" action="@Url.Action("Exportpending_Returnable_internal","MaterialRegister")" method="post">
+                                                        <input type="submit" name="btnExport"
+                                                               value="Download" id="exportLicensing" class="btn btn-primary" />
+                                                    </form>
+
+                                                </td>
+                                                <td colspan="9" id="Daywise" style="text-align:right;display:none">
+                                                    <form id="form" action="@Url.Action("Exportdatewise_Returnable_internal","MaterialRegister")" method="post">
+                                                        <input type="submit" name="btnExport"
+                                                               value="Download" id="exportLicensing" class="btn btn-primary" />
+                                                        <input class="datewisef" value="" type="hidden" name="Fromdate" id="Fromdatei" />
+                                                        <input class="datewiset" value="" type="hidden" name="Todate" id="Todatei" />
+                                                    </form>
+
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+    </div>
+</div>
+
+<div class="row" id="re_external" style="display:none;">
+    <div class="col-md-12">
+        @if (Session["PendingRegistersView_form"].ToString() == "1")
+        {
+            <section class="panel">
+                <header class="panel-heading" style="padding:30px !important">
+                    <div class="panel-actions">
+                        <button type="submit" class="btn btn-primary" id="show_pendingexternal">
+                            Show Only Pending Materials
+                        </button>
+                    </div>
+                    <h2 class="panel-title"></h2>
+                </header>
+                <div class="panel-body" id="div_re_external">
+                    <div class="form-group">
+                        <div class="panel-body">
+                            <div class="form-group" id="date_external">
+                                <label class="col-sm-2 control-label"> From Date  <span class="required">*</span></label>
+
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control FromDate1 space" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46 || event.charCode == 95' onpaste='return false' id="FromDate1" name="FromDate" required autocomplete="off" />
+                                </div>
+
+                                <label class="col-sm-2 control-label"> End Date  <span class="required">*</span></label>
+
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control ToDate1 space" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46 || event.charCode == 95' onpaste='return false' id="ToDate1" name="ToDate" required autocomplete="off" />
+                                </div>
+
+                                <div class="col-sm2 " style="text-align:right;">
+                                    <button type="submit" id="btn_applyext" class="btn btn-primary">Apply</button>
+                                    <button type="button" id="apply_cancelext" class="btn btn-danger">Refresh</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="dt-responsive table-responsive">
+                                    <table class="table table-bordered table-striped mb-none" id="datatable-default2">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center;">S.No</th>
+                                                <th>REF DC No</th>
+                                                <th style="width:150px;">From</th>
+                                                <th>To</th>
+                                                <th style="width:150px;">Timein</th>
+                                                <th style="width:100px;">Vechicle NO</th>
+                                                <th>Inwarded By</th>
+                                                <th>Pending Item</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="RE_details"></tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="9" id="external1" style="text-align:right;display:none">
+                                                    <form id="form" action="@Url.Action("Exportpending_Returnable_external","MaterialRegister")" method="post">
+                                                        <input type="submit" name="btnExport"
+                                                               value="Download" id="exportLicensing1" class="btn btn-primary" />
+                                                    </form>
+                                                </td>
+                                                <td colspan="9" id="Daywise1" style="text-align:right;display:none">
+                                                    <form id="form" action="@Url.Action("Exportdatewise_Returnable_external","MaterialRegister")" method="post">
+                                                        <input type="submit" name="btnExport"
+                                                               value="Download" id="exportLicensing2" class="btn btn-primary" />
+                                                        <input class="fromdatee" type="hidden" value="" name="Fromdate" id="Fromdatee" />
+                                                        <input class="todatee" type="hidden" value="" name="Todate" id="Todatee" />
+
+                                                    </form>
+                                                </td>
+                                                <td colspan="9" id="external" style="text-align:right;display:none">
+                                                    <form id="form" action="@Url.Action("Export_Returnable_external", "MaterialRegister")" method="post">
+                                                        <input type="submit" name="btnExport"
+                                                               value="Download" id="exportLicensing" class="btn btn-primary" />
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+    </div>
+</div>
+
+
+<div class="modal fade" id="Return_internal_model" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;margin-left: 50px;">
+    <div class="modal-dialog" role="document" style="width:80%;">
+        <div class="modal-content" style="margin-top:150px;">
+            <div class="modal-header" style="padding: 30px 50px !important;border-bottom: 0 !important;">
+                <h5 class="modal-title" id="exampleModalLabel"> Material List :</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: right;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <section class="panel">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <div class="dt-responsive table-responsive">
+                                        <table class="table table-bordered table-striped mb-none" id="datatable-default1">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center;">S.No</th>
+                                                    <th>Material</th>
+                                                    <th>Tot Qty</th>
+                                                    <th>UOM</th>
+                                                    <th>Received Qty</th>
+                                                    <th>Pending Qty</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="RIO_list"></tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="6" style="text-align:right;">
+                                                        <form id="form" action="@Url.Action("Export_Returnable_internal_list","MaterialRegister")" method="post">
+                                                            <input type="hidden" name="RefDCNo" id="IRefDCNo" />
+                                                            <input type="hidden" name="M_To" id="M_Toex" />
+                                                            <input type="submit" name="btnExport"
+                                                                   value="Download" id="exportLicensing" class="btn btn-primary" />
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Return_external_model" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%;margin-left: 50px;">
+    <div class="modal-dialog" role="document" style="width:80%;">
+        <div class="modal-content" style="margin-top:150px;">
+            <div class="modal-header" style="padding: 30px 50px !important;border-bottom: 0 !important;">
+                <h5 class="modal-title" id="exampleModalLabel"> Material List :</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: right;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <section class="panel">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <table class="table table-bordered table-striped mb-none" id="datatable-default3">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center;">S.No</th>
+                                                <th>Material</th>
+                                                <th>Tot Qty</th>
+                                                <th>UOM</th>
+                                                <th>Return Qty</th>
+                                                <th>Pending Qty</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="REIO_list"></tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="6" style="text-align:right;">
+                                                    <form id="form" action="@Url.Action("Export_Returnable_external_list","MaterialRegister")" method="post">
+                                                        <input type="hidden" name="RefDCNo" id="ERefDCNo" />
+                                                        <input type="hidden" name="M_From" id="M_Fromex" />
+                                                        <input type="submit" name="btnExport"
+                                                               value="Download" id="exportLicensing" class="btn btn-primary" />
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/assets/javascripts/swal.js"></script>
+<script src="~/assets/javascripts/swal_alert.js"></script>
+<script src="~/assets/datepicker_normal/datepicker_normal_jquery.min.js"></script>
+<script src="~/assets/datepicker_normal/jquery-ui-1.8.19.custom.min.js"></script>
+
+<script>    
+    $(function () {
+        
+        var dateToday = new Date();
+        var yrRange = (dateToday.getFullYear() - 50) + ":" + (dateToday.getFullYear());
+
+        $(".datepic").datepicker({
+            numberOfMonths: 1,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: yrRange,
+            autoclose: true,
+            format: 'yyyy-mm-dd'
+        });
+    });
+
+    $(function () {
+        var todaydt = new Date();
+        $(".FromDate").datepicker({
+            autoclose: true,
+            endDate: todaydt,
+            format: 'yyyy-mm-dd',
+
+        }).on('changeDate', function (selected) {
+            var minDate = new Date(selected.date);
+            minDate.setDate(minDate.getDate());
+            $('.ToDate').datepicker('setStartDate', minDate);
+        });
+
+        var Fdate = $(".FromDate").val();
+
+        $(".ToDate").datepicker({
+            autoclose: true,
+            startDate: Fdate,
+            endDate: todaydt,
+            format: 'yyyy-mm-dd',
+
+        }).on('changeDate', function (selected) {
+            var minDate = new Date(selected.date);
+            minDate.setDate(minDate.getDate());
+            $('.FromDate').datepicker('setEndDate', minDate);
+            });
+
+
+        $(".FromDate1").datepicker({
+            autoclose: true,
+            endDate: todaydt,
+            format: 'yyyy-mm-dd',
+
+        }).on('changeDate', function (selected) {
+            var minDate = new Date(selected.date);
+            minDate.setDate(minDate.getDate());
+            $('.ToDate1').datepicker('setStartDate', minDate);
+        });
+
+        var Fdate1 = $(".FromDate1").val();
+
+        $(".ToDate1").datepicker({
+            autoclose: true,
+            startDate: Fdate1,
+            endDate: todaydt,
+            format: 'yyyy-mm-dd',
+
+        }).on('changeDate', function (selected) {
+            var minDate = new Date(selected.date);
+            minDate.setDate(minDate.getDate());
+            $('.FromDate1').datepicker('setEndDate', minDate);
+        });
+
+    });
+
+    $(function () {
+        $('.space').keypress(function (event) {
+            event.preventDefault();
+            return false;
+        });
+    });
+
+    $(document).on("keydown", ".space", function (evt) {
+        var caretPos = $(this)[0].selectionStart
+        if (evt.keyCode == 32 && caretPos == 0) {
+            return false;
+        }
+    });
+</script>
+
+
+@if (@ViewBag.Message != null)
+{
+    <script type="text/javascript">
+        $(function () {
+            swal({
+                icon: "error",
+                title: "@ViewBag.Message",
+                showConfirmButton: false,
+                timer: 4500
+            })
+        });
+    </script>
+}
+
+<script type="text/javascript">
+
+    $("#apply_cancel").click(function () {
+        window.location = '@Url.Action("Pending_Register","MaterialRegister")';
+    });
+    $("#apply_cancelext").click(function () {
+         window.location = '@Url.Action("Pending_Register","MaterialRegister")';
+    });
+
+
+    $("#btn_apply").click(function (event) {
+        $("#internal1").hide();
+        $("#internal").hide();
+        $("#Daywise").show();      
+
+        var url1 = '@Url.Action("Get_daywise_data","MaterialRegister")';
+        var FromDate = $("#FromDate").val();
+        var Enddate = $("#ToDate").val();
+        $(".datewisef").val(FromDate);
+        $(".datewiset").val(Enddate);
+        if (FromDate == '' || FromDate == null) {
+
+            swal({
+                icon: "warning",
+                title: "Please Select FromDate...!",
+                button: true,
+                timer: 4500
+            })
+        }
+        else if (Enddate == '' || Enddate == null) {
+            swal({
+                icon: "warning",
+                title: "Please Select ToDate...!",
+                button: true,
+                timer: 4500
+            })
+        }
+        else {
+
+            $.ajax({
+                type: "POST",
+                url: url1,
+                data: { FromDate: FromDate, ToDate: Enddate },
+                dataType: "json",
+                beforeSend: function () {
+                    $('.loading').show();
+                },               
+                success: function (response) {
+                    $('.loading').hide();
+                    if ($.fn.DataTable.isDataTable('#datatable-default')) {
+                        $('#datatable-default').DataTable().destroy();
+                    }
+
+                    var rowsCnt = document.getElementById("datatable-default").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                    if (rowsCnt > 0) {
+                        for (var i = 0; i < rowsCnt; i++) {
+                            document.getElementById("datatable-default").deleteRow(1);
+                        }
+                    }
+
+                    for (var i = 0; i < response.length; i++) {
+
+                        var newRow = $("<tr>");
+                        var cols = '';
+                        var n = ($('.RIO_details tr').length) + 1;
+                        cols += "<td>" + n + "</td>";
+                        cols += "<td> <input type='hidden' value='" + response[i].RefDCNo + "' class='eRefDCNo' /> " + response[i].RefDCNo + "</td>";                      
+                        cols += "<td> " + response[i].M_From + "</td>";
+                        cols += "<td> <input type='hidden' value='" + response[i].M_To + "' class='M_To' /> " + response[i].M_To + "</td>";
+                        cols += "<td> " + response[i].Timeout + "</td>";
+                        cols += "<td> " + response[i].EDR + "</td>";
+                        cols += "<td> " + response[i].Outwardedby + "</td>";
+                        cols += "<td> "  + response[i].Pending_item + "</td>";
+                        cols += "<td> <input type='button' value='View' data-toggle='modal' data-target='#Return_internal_model' class='btn btn-primary Re_internal_view' /> </td>";
+                        cols += "</tr>";
+                        newRow.append(cols);
+                        $(".RIO_details").append(newRow);                        
+                    }
+
+
+                    $('#datatable-default').DataTable({
+                        "responsive": true
+                    });
+                },
+                error: function (response) {
+
+                }
+            });
+        }
+    });
+
+    $("#btn_applyext").click(function (event) {
+        $("#external1").hide();
+        $("#external").hide();
+        $("#Daywise1").show();
+        var url1 = '@Url.Action("Get_daywise_externalpending","MaterialRegister")';
+        var FromDate = $("#FromDate1").val();
+        var Enddate = $("#ToDate1").val();
+        $(".fromdatee").val(FromDate);
+        $(".todatee").val(Enddate);
+        if (FromDate == '' || FromDate == null) {
+
+            swal({
+                icon: "warning",
+                title: "Please Select FromDate...!",
+                button: true,
+                timer: 4500
+            })
+        }
+        else if (Enddate == '' || Enddate == null) {
+            swal({
+                icon: "warning",
+                title: "Please Select ToDate...!",
+                button: true,
+                timer: 4500
+            })
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: url1,
+                data: { FromDate: FromDate, ToDate: Enddate },
+                dataType: "json",
+                beforeSend: function () {
+                    $('.loading').show();
+                },               
+                success: function (response) {
+                    $('.loading').hide();
+                    if ($.fn.DataTable.isDataTable('#datatable-default2')) {
+                        $('#datatable-default2').DataTable().destroy();
+                    }
+                    var rowsCnt = document.getElementById("datatable-default2").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                    if (rowsCnt > 0) {
+                        for (var i = 0; i < rowsCnt; i++) {
+                            document.getElementById("datatable-default2").deleteRow(1);
+                        }
+                    }
+
+                    for (var i = 0; i < response.length; i++) {
+
+                        var newRow = $("<tr>");
+                        var cols = '';
+                        var n = ($('.RE_details tr').length) + 1;
+                        cols += "<td>" + n + "</td>";
+                        cols += "<td> <input type='hidden' value='" + response[i].RefDCNo + "' class='eRefDCNo' /> " + response[i].RefDCNo + "</td>";
+                        cols += "<td> <input type='hidden' value='" + response[i].M_From + "' class='M_From' /> " + response[i].M_From + "</td>";
+                        cols += "<td> " + response[i].M_To + "</td>";
+                        cols += "<td> " + response[i].Timein + "</td>";
+                        cols += "<td> " + response[i].EDR + "</td>";
+                        cols += "<td> " + response[i].Inwardedby + "</td>";
+                        cols += "<td> " + response[i].Pending_item + "</td>";
+                        cols += "<td> <input type='button' value='View' data-toggle='modal' data-target='#Return_external_model' class='btn btn-primary Re_external_view' /> </td>";
+                        cols += "</tr>";
+                        newRow.append(cols);
+                        $(".RE_details").append(newRow);
+                        $("#heading").show();
+                    }
+
+                    $('#datatable-default2').DataTable({
+                        "responsive": true
+                    });
+                },
+                error: function (response) {
+
+                }
+            });
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    function add_remove_class(val) {
+        $(".btn_re_internal").removeClass('active');
+        $(".btn_re_external").removeClass('active');
+        if (val == 1) {
+            $(".btn_re_internal").addClass('active');
+        }
+        else if (val == 2) {
+            $(".btn_re_external").addClass('active');
+        }
+
+    }
+
+    $('body').delegate('#show_pending', 'click', function ()
+    {
+        $("#date_internal").hide();
+        $("#re_internal").show();
+        $("#internal1").show();
+        $("#internal").hide();
+        $("#Daywise").hide();
+        document.getElementById("show_pending").style.backgroundColor = "forestgreen";
+        var tr = $(this).parent().parent();
+
+        var url3 = '@Url.Action("Show_Pending_Returnable_internal", "MaterialRegister")';
+        var user1 = '@Session["Token"]' + ':' + '@Session["UserName"]';
+
+        $.ajax({
+            type: "POST",
+            url: url3,
+            data: '{}',
+            headers: {
+                Authorization: 'Bearer ' + user1
+            },
+            dataType: "json",
+            beforeSend: function () {
+                $('.loading').show();
+            },           
+            success: function (response) {
+                $('.loading').hide();
+                if ($.fn.DataTable.isDataTable('#datatable-default')) {
+                    $('#datatable-default').DataTable().destroy();
+                }
+                var rowsCnt = document.getElementById("datatable-default").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                if (rowsCnt > 0) {
+                    for (var i = 0; i < rowsCnt; i++) {
+                        document.getElementById("datatable-default").deleteRow(1);
+                    }
+                }
+
+                for (var i = 0; i < response.length; i++) {
+
+                    var newRow = $("<tr>");
+                    var cols = '';
+                    var n = ($('.RIO_details tr').length) + 1;
+                    cols += "<td>" + n + "</td>";
+                    cols += "<td> <input type='hidden' value='" + response[i].RefDCNo + "' class='eRefDCNo' /> " + response[i].RefDCNo + "</td>";                 
+                    cols += "<td> " + response[i].M_From + "</td>";
+                    cols += "<td> <input type='hidden' value='" + response[i].M_To + "' class='M_To' /> " + response[i].M_To + "</td>";
+                    cols += "<td> " + response[i].Timeout + "</td>";
+                    cols += "<td> " + response[i].EDR + "</td>";
+                    cols += "<td> " + response[i].Outwardedby + "</td>";
+                    cols += "<td> " + response[i].Pending_item + "</td>";
+                    cols += "<td> <input type='button' value='View' data-toggle='modal' data-target='#Return_internal_model' class='btn btn-primary Re_internal_view' /> </td>";
+                    cols += "</tr>";
+                    newRow.append(cols);
+                    $(".RIO_details").append(newRow);
+                }
+
+                $('#datatable-default').DataTable({
+                    "responsive": true
+                });
+            },
+            error: function (response) {
+
+            }
+        });
+
+    });
+
+    $('body').delegate('#show_pendingexternal', 'click', function () {
+        $("#date_external").hide();
+        $("#re_external").show();
+        $("#external1").show();
+        $("#external").hide();
+        $("#Daywise1").hide();
+        document.getElementById("show_pendingexternal").style.backgroundColor = "forestgreen";
+
+        var url3 = '@Url.Action("Show_Pending_Returnable_external", "MaterialRegister")';
+        var user1 = '@Session["Token"]' + ':' + '@Session["UserName"]';
+
+        $.ajax({
+            type: "POST",
+            url: url3,
+            data: '{}',
+            headers: {
+                Authorization: 'Bearer ' + user1
+            },
+            dataType: "json",
+            beforeSend: function () {
+                $('.loading').show();
+            },           
+            success: function (response) {
+                $('.loading').hide();
+                $("#re_external").show();
+
+                if ($.fn.DataTable.isDataTable('#datatable-default2')) {
+                    $('#datatable-default2').DataTable().destroy();
+                }
+                var rowsCnt = document.getElementById("datatable-default2").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                if (rowsCnt > 0) {
+                    for (var i = 0; i < rowsCnt; i++) {
+                        document.getElementById("datatable-default2").deleteRow(1);
+                    }
+                }
+
+                for (var i = 0; i < response.length; i++) {                  
+                    var newRow = $("<tr>");
+                    var cols = '';
+                    var n = ($('.RE_details tr').length) + 1;
+                    cols += "<td>" + n + "</td>";
+                    cols += "<td> <input type='hidden' value='" + response[i].RefDCNo + "' class='eRefDCNo' /> " + response[i].RefDCNo + "</td>";
+                    cols += "<td> <input type='hidden' value='" + response[i].M_From + "' class='M_From' /> " + response[i].M_From + "</td>";
+                    cols += "<td> " + response[i].M_To + "</td>";
+                    cols += "<td> " + response[i].Timein + "</td>";
+                    cols += "<td> " + response[i].EDR + "</td>";
+                    cols += "<td> " + response[i].Inwardedby + "</td>";
+                    cols += "<td> " + response[i].Pending_item + "</td>";
+                    cols += "<td> <input type='button' value='View' data-toggle='modal' data-target='#Return_external_model' class='btn btn-primary Re_external_view'/> </td>";
+                    cols += "</tr>";
+                    newRow.append(cols);
+                    $(".RE_details").append(newRow);
+                }
+
+                $('#datatable-default2').DataTable({
+                    "responsive": true
+                });
+            },
+            error: function (response) {
+
+            }
+        });
+    });
+
+    function display_re_internal()
+    {
+        add_remove_class(1);
+        $("#re_external").hide();
+        $("#re_internal").show();
+        $("#internal").show();
+        $("#Daywise").hide();
+        $("#date_internal").show();       
+        $("#internal1").hide();
+        $("#FromDate").val("");
+        $("#ToDate").val("");
+        document.getElementById("show_pending").style.backgroundColor = "#0099e6";
+
+        var url3 = '@Url.Action("get_Pending_Returnable_internal","MaterialRegister")';
+        var user1 = '@Session["Token"]' + ':' + '@Session["UserName"]';
+
+        $.ajax({
+            type: "POST",
+            url: url3,
+            data: '{}',
+            headers: {
+                Authorization: 'Bearer ' + user1
+            },
+            dataType: "json",
+            beforeSend: function () {
+                $('.loading').show();
+            },           
+            success: function (response) {
+                $('.loading').hide();
+               
+                if ($.fn.DataTable.isDataTable('#datatable-default')) {
+                    $('#datatable-default').DataTable().destroy();
+                }
+                var rowsCnt = document.getElementById("datatable-default").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                if (rowsCnt > 0) {
+                    for (var i = 0; i < rowsCnt; i++) {
+                        document.getElementById("datatable-default").deleteRow(1);
+                    }
+                }
+                for (var i = 0; i < response.length; i++) {
+                    var newRow = $("<tr>");
+                    var cols = '';
+                    var n = ($('.RIO_details tr').length) + 1;
+                    cols += "<td>" + n + "</td>";
+                    cols += "<td> <input type='hidden' value='" + response[i].RefDCNo + "' class='eRefDCNo' /> " + response[i].RefDCNo + "</td>";                   
+                    cols += "<td> " + response[i].M_From + "</td>";
+                    cols += "<td> <input type='hidden' value='" + response[i].M_To + "' class='M_To' /> " + response[i].M_To + "</td>";
+                    cols += "<td> " + response[i].Timeout + "</td>";
+                    cols += "<td> " + response[i].EDR + "</td>";
+                    cols += "<td> " + response[i].Outwardedby + "</td>";
+                    cols += "<td> " + response[i].Pending_item + "</td>";                  
+                    cols += "<td> <input type='button' value='View' data-toggle='modal' data-target='#Return_internal_model' class='btn btn-primary Re_internal_view' /> </td>";
+                    cols += "</tr>";
+                    newRow.append(cols);                    
+                    $(".RIO_details").append(newRow);
+                }
+
+                $('#datatable-default').DataTable({
+                    "responsive": true
+                });
+            },
+            error: function (response) {
+
+            }
+        });
+    }
+   
+    function display_re_external()
+    {
+        add_remove_class(2);
+        $("#re_external").show();
+        $("#nonre_internal").hide();
+        $("#nonre_external").hide();
+        $("#external1").hide();
+        $("#external").show();
+        $("#re_internal").hide();
+        $("#date_external").show();
+        $("#Daywise1").hide();
+        $("#FromDate1").val("");
+        $("#ToDate1").val("");
+        document.getElementById("show_pendingexternal").style.backgroundColor = "#0099e6";
+        var url4 = '@Url.Action("get_Pending_Returnable_external", "MaterialRegister")';
+        $.ajax({
+            type: "POST",
+            url: url4,
+            data: '{}',
+            dataType: "json",
+            beforeSend: function () {
+                $('.loading').show();
+            },           
+            success: function (response) {
+                $('.loading').hide();
+                if ($.fn.DataTable.isDataTable('#datatable-default2')) {
+                    $('#datatable-default2').DataTable().destroy();
+                }
+                var rowsCnt = document.getElementById("datatable-default2").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                if (rowsCnt > 0) {
+                    for (var i = 0; i < rowsCnt; i++) {
+                        document.getElementById("datatable-default2").deleteRow(1);
+                    }
+                }
+
+                for (var i = 0; i < response.length; i++) {
+                    var newRow = $("<tr>");
+                    var cols = '';
+                    var n = ($('.RE_details tr').length) + 1;
+                    cols += "<td>" + n + "</td>";
+                    cols += "<td> <input type='hidden' value='" + response[i].RefDCNo + "' class='eRefDCNo' /> " + response[i].RefDCNo + "</td>";                   
+                    cols += "<td> <input type='hidden' value='" + response[i].M_From + "' class='M_From' /> " + response[i].M_From + "</td>";
+                    cols += "<td> " + response[i].M_To + "</td>";
+                    cols += "<td> " + response[i].Timein + "</td>";
+                    cols += "<td> " + response[i].EDR + "</td>";
+                    cols += "<td> " + response[i].Inwardedby + "</td>";
+                    cols += "<td> "  + response[i].Pending_item + "</td>";
+                    
+                    cols += "<td> <input type='button' value='View' data-toggle='modal' data-target='#Return_external_model' class='btn btn-primary Re_external_view' /> </td>";
+                    cols += "</tr>";
+                    newRow.append(cols);
+                    $(".RE_details").append(newRow);
+                }
+                $('#datatable-default2').DataTable({
+                    "responsive": true
+                });
+            },
+            error: function (response) {
+
+            }
+        });
+
+    }
+   
+    //function Reint() {
+    //    var x=
+    //    $(".DC_int").val()
+    //}
+
+    $('body').delegate('.Re_internal_view', 'click', function ()
+    {
+        var tr = $(this).parent().parent();
+        var eRefDCNo = tr.find('.eRefDCNo').val();
+        var M_To = tr.find('.M_To').val();
+
+        $("#IRefDCNo").val(eRefDCNo);
+        $("#M_Toex").val(M_To);
+
+        var user1 = '@Session["Token"]' + ':' + '@Session["UserName"]';
+
+        var Register = new Array();
+        var registers = {};
+        registers.RefDCNo = eRefDCNo;
+        registers.M_To = M_To;
+        Register.push(registers);
+
+        var url3 = '@Url.Action("get_inward_details_list", "MaterialRegister")';
+
+        $.ajax({
+            type: "POST",
+            url: url3,
+            data: '{registers: ' + JSON.stringify(Register) + '}',
+            headers: {
+                Authorization: 'Bearer ' + user1
+            },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            complete: function () {
+                $('.loading').hide();
+            },
+            success: function (response)
+            {
+
+                if ($.fn.DataTable.isDataTable('#datatable-default1')) {
+                    $('#datatable-default1').DataTable().destroy();
+                }
+
+                var rowsCnt = document.getElementById("datatable-default1").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                if (rowsCnt > 0) {
+                    for (var i = 0; i < rowsCnt; i++) {
+                        document.getElementById("datatable-default1").deleteRow(1);
+                    }
+                }
+
+                for (var i = 0; i < response.length; i++)
+                {
+                    var newRow = $("<tr>");
+                    var cols = '';
+                    var n = ($('.RIO_list tr').length) + 1;
+                    cols += "<td>" + n + "</td>";
+                    cols += "<td> " + response[i].Material_name + "</td>";
+                    cols += "<td> " + response[i].Qty + "</td>";
+                    cols += "<td> " + response[i].UOM + "</td>";
+                    cols += "<td> " + response[i].ReceivedQty + "</td>";
+                    cols += "<td> " + response[i].PendingQty + "</td>";
+                    cols += "</tr>";
+                    newRow.append(cols);
+                    $(".RIO_list").append(newRow);
+                }
+
+                $('#datatable-default1').DataTable({
+                    "responsive": true
+                });
+            },
+            error: function (response) {
+
+            }
+        });
+
+
+
+    });
+
+
+    $('body').delegate('.Re_external_view', 'click', function ()
+    {
+        var tr = $(this).parent().parent();
+        var eRefDCNo = tr.find('.eRefDCNo').val();
+        var M_From = tr.find('.M_From').val();
+
+        $("#ERefDCNo").val(eRefDCNo);
+        $("#M_Fromex").val(M_From);
+
+        var user1 = '@Session["Token"]' + ':' + '@Session["UserName"]';
+
+        var Register = new Array();
+        var registers = {};
+        registers.RefDCNo = eRefDCNo;
+        registers.M_From = M_From;
+        Register.push(registers);
+
+
+        var url3 = '@Url.Action("get_outward_details_list", "MaterialRegister")';
+
+        $.ajax({
+            type: "POST",
+            url: url3,
+            data: '{registers: ' + JSON.stringify(Register) + '}',
+            headers: {
+                Authorization: 'Bearer ' + user1
+            },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            complete: function () {
+                $('.loading').hide();
+            },
+            success: function (response)
+            {
+                if ($.fn.DataTable.isDataTable('#datatable-default3')) {
+                    $('#datatable-default3').DataTable().destroy();
+                }
+
+                var rowsCnt = document.getElementById("datatable-default3").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                if (rowsCnt > 0) {
+                    for (var i = 0; i < rowsCnt; i++) {
+                        document.getElementById("datatable-default3").deleteRow(1);
+                    }
+                }
+
+                for (var i = 0; i < response.length; i++)
+                {
+                    var newRow = $("<tr>");
+                    var cols = '';
+                    var n = ($('.REIO_list tr').length) + 1;
+                    cols += "<td>" + n + "</td>";
+                    cols += "<td> " + response[i].Material_name + "</td>";
+                    cols += "<td> " + response[i].Qty + "</td>";
+                    cols += "<td> " + response[i].UOM + "</td>";
+                    cols += "<td> " + response[i].Send_qty + "</td>";
+                    cols += "<td> " + response[i].Pending_qty + "</td>";
+                   
+                    cols += "</tr>";
+                    newRow.append(cols); 
+                    $(".REIO_list").append(newRow);
+                }
+
+                $('#datatable-default3').DataTable({
+                    "responsive": true
+                });
+            },
+            error: function (response) {
+
+            }
+        });
+
+
+
+    });
+</script>

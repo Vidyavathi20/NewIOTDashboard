@@ -1,0 +1,543 @@
+﻿@model IEnumerable<MaterialGateRegister.Models.Login>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<header class="page-header" style="margin-top: -9px;margin-left: -11px;">
+    <h2> Employee Settings </h2>
+    <div class="right-wrapper pull-right">
+        <ol class="breadcrumbs">
+            <li>
+                <a href="@Url.Action("Dashboard","Login")">
+                    <i class="fa fa-home"></i>
+                </a>
+            </li>
+            <li><span>Employee Details</span></li>
+        </ol>
+        <a class="sidebar-right-toggle"></a>
+    </div>
+</header>
+
+<div class="row" id="divnew" style="display:none">
+    <div class="col-md-12">
+        <form id="form" action="@Url.Action("Insert_employee","Employee")" method="post">
+            <section class="panel">
+                <header class="panel-heading">
+                    <div class="panel-actions">
+                    </div>
+                    <h2 class="panel-title"> New Employee</h2>
+                </header>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div>
+                            <input type="hidden" name="QueryType" value="Insert" />
+                            
+                            <label class="col-sm-2 control-label"> Employee Name <span class="required">*</span></label>
+                            <div class="col-sm-4">
+                                <input type="text" name="Employeename" id="Employeename" class="form-control space" placeholder="Name" required />
+
+                                <span id="err_name" style="color:red;font-weight:bold;"></span>
+
+                            </div>
+                            <div style="display:block">
+                            <label class="col-sm-2"> Role <span class="required">*</span></label>
+                            <div class="col-sm-3">
+                                <select class="form-control" name="Userrole" id="Role" onchange="displayemail()" required>
+                                    <option value="0">Select</option>
+                                </select>
+                                <div>
+
+                                    <span id="err_role" style="color:red;font-weight:bold;"></span>
+                                    <div id="superadmindiv" style="display:none">
+                                    <label class="col-sm-2 control-label" style="margin-left:-10px"> Superadmin</label>
+                                    <div class="col-sm-3">
+                                        <input type="checkbox" value="Yes" name="Superadmin" id="super_admin" style="margin-left:50px" />
+
+                                    </div>
+                                        </div>
+                                </div>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="form-group" id="email" style="display:none">
+                        <div>
+                            <label class="col-sm-2 control-label"> Email ID </label>
+                            <div class="col-sm-4">
+                                <input type="text" name="Emailid" id="Emailid" value="" class="form-control space" placeholder="Applicable only for Admin" />
+
+                                <span id="err_email" style="color:red;font-weight:bold;"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3" style="text-align:center;">
+                            <button type="submit" class="btn btn-primary" id="btn_submit">Submit</button>
+                            <button type="reset" id="cancel1" class="btn btn-danger cancel">Cancel</button>
+                        </div>
+                    </div>
+                </footer>
+            </section>
+        </form>
+    </div>
+</div>
+
+<div class="row" id="divdetails">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        @if (Session["SettingsView_form"].ToString() == "1")
+        {
+            <section class="panel">
+                <header class="panel-heading">
+                    @if (Session["SettingsAdd_form"].ToString() == "1")
+                    {
+                        <div class="panel-actions">
+                            <button class="btn btn-primary" id="add"><i class="fa fa-plus" aria-hidden="true"> Add New</i></button>
+                        </div>
+                    }
+                    <h2 class="panel-title" style="color:white">List of Employee</h2>
+                </header>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped mb-none" id="datatable-default" data-swf-path="assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+                                <thead>
+                                    <tr>
+                                        <th class="centercls"> S.No </th>
+                                        <th style="display:none;"></th>
+                                        <th style="display:none;"></th>
+                                        <th class="centercls">Employee</th>
+                                        <th class="centercls">Role</th>
+                                        <th class="centercls">Email ID</th>                                        
+                                        <th class="centercls">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{int RowNo = 0;}
+                                    @foreach (var item in Model)
+                                    {
+                                       
+                                    <tr class="gradeX">
+                                        <td class="centercls">
+                                            @{RowNo++;}@RowNo
+                                        </td>
+                                        <td class="ID" style="display:none;">
+                                            <span>@Html.Encode(item.id)</span>
+                                        </td>
+                                        <td class="" style="display:none;">
+                                            <span>@Html.Encode(item.Role_id)</span>
+                                        </td>
+                                        <td class="centercls">
+                                            <span>@Html.Encode(item.Employeename)</span>
+                                        </td>
+                                        <td class="centercls">
+                                            <span>@Html.Encode(item.Userrole)</span>
+                                        </td>
+                                        <td class="centercls">
+                                            <span>@Html.Encode(item.Emailid)</span>
+                                        </td>
+                                       
+                                       
+                                        <td class="centercls">
+                                            
+                                            @if (Session["SettingsEdit_form"].ToString() == "1")
+                                            {
+                                                <button class="btn btn-primary" onclick="edit_employee(@Html.Encode(item.id))" id="edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                            }
+                                            @if (Session["SettingsDelete_form"].ToString() == "1")
+                                            {
+                                                <button class="btn btn-danger" id="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                            }
+                                            
+                                        </td>
+                                    </tr>
+                                                }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+                                                    }
+        </div>
+</div>
+  
+<div class="row" id="divedit" style="display:none;">
+    <div class="col-md-12">
+        <form id="form" action="@Url.Action("Insert_employee","Employee")" method="post">
+            <section class="panel">
+                <header class="panel-heading" style="background-color:cadetblue">
+                    <div class="panel-actions">
+                    </div>
+                    <h2 class="panel-title">Edit Employee</h2>
+                </header>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <input type="hidden" name="ID" id="eID" />
+                        <input type="hidden" name="QueryType" value="Update" />
+                        <input type="hidden" name="Role_id" id="eRole_id" />
+                        <input type="hidden" name="Employeename" id="eEmployeename" />
+                        <div class="form-group" style="display:flex">
+                            <label class="col-sm-2 control-label"> Role </label>
+                            <select class="form-control" style="width:31%;margin-left:10px" name="Userrole" id="eRole" onchange="edisplayemail()" required>
+                                <option value="0">Select</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" id="email_dive" style="display:none">
+                        <div>                               
+                            <label class="col-sm-2 control-label"> Emailid </label>
+                            <div class="col-sm-4">
+                                <input type="text" name="Emailid" id="eEmailid" class="form-control space" placeholder="" />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3" style="text-align:center;">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="reset" id="cancel" class="btn btn-danger cancel">Cancel</button>
+                        </div>
+                    </div>
+                </footer>
+            </section>
+        </form>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/assets/javascripts/swal.js"></script>
+<script src="~/assets/javascripts/swal_alert.js"></script>
+<script src="~/assets/datepicker_normal/jquery-1.7.2.min.js"></script>
+<script src="~/assets/datepicker_normal/jquery-ui-1.8.19.custom.min.js"></script>
+<script type="text/javascript">
+    var dateToday = new Date();
+    var yrRange = (dateToday.getFullYear() - 50) + ":" + (dateToday.getFullYear());
+    $(".datepic").datepicker({
+        numberOfMonths: 1,
+        changeMonth: true,
+        changeYear: true,
+        yearRange: yrRange,
+    });
+</script>
+@if (@ViewBag.Message != null)
+{
+    <script type="text/javascript">
+    $(function () {
+        swal({
+            icon: "error",
+            title: "@ViewBag.Message",
+            showConfirmButton: false,
+            timer: 4500
+        })
+    });
+    </script>
+}
+
+<script type="text/javascript">
+        $(function () {
+            var vars = [], hash;
+            var q = document.URL.split('?')[1];
+            if (q != undefined) {
+                q = q.split('&');
+                for (var i = 0; i < q.length; i++) {
+                    hash = q[i].split('=');
+                    vars.push(hash[1]);
+                    vars[hash[0]] = hash[1];
+                }
+            }
+            var parameter = vars['ac'];
+            if (parameter == "1") {
+                swal({
+                    icon: "success",
+                    title: "Details Added Successfully...!",
+                    showConfirmButton: false,
+                    timer: 4500
+                })
+            }
+            else if (parameter == "2") {
+                swal({
+                    icon: "success",
+                    title: "Details Updated Successfully...!",
+                    showConfirmButton: false,
+                    timer: 4500
+                })
+            }
+            else if (parameter == "-1") {
+                swal({
+                    icon: "error",
+                    title: "Log Details or Emailid Already Added...!",
+                    showConfirmButton: false,
+                    timer: 4500
+                })
+            }
+            else if (parameter == "4") {
+                swal({
+                    icon: "error",
+                    title: "Email ID is Required...!",
+                    showConfirmButton: false,
+                    timer: 4500
+                })
+            }
+            else if (parameter == "4") {
+                swal({
+                    icon: "error",
+                    title: "Name & Role is Required...!",
+                    showConfirmButton: false,
+                    timer: 4500
+                })
+            }
+
+        });
+
+    $(document).on("keydown", ".space", function (evt) {
+        var caretPos = $(this)[0].selectionStart
+        if (evt.keyCode == 32 && caretPos == 0) {
+            return false;
+        }
+    });
+
+    function displayemail() {
+        var role = $("#Role option:selected").text();
+        if (role == "Admin") {
+            $("#email").show();
+        } else {
+            $("#email").hide();
+        }
+        var role = $("#Role option:selected").text();
+        if (role == "Admin") {
+            $("#superadmindiv").show();
+
+        } else {
+            $("#superadmindiv").hide();
+        }
+    }
+    function edisplayemail() {
+        var role = $("#eRole option:selected").text().trim();        
+        if (role == "Admin") {
+            $("#email_dive").show();
+        } else {
+            $("#email_dive").hide();
+        }
+    }
+        $(function () {
+
+            var url2 = '@Url.Action("Getrole","Employee")';
+            $.ajax({
+                type: "POST",
+                url: url2,
+                data: '{}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    var s = '<option value="">Please Select</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].id + '">' + data[i].Userrole + '</option>';
+                    }
+                    $("#Role").html(s);
+                }
+            });
+        });
+  
+</script>
+   
+ <script>
+        $("body").on("click", "#delete", function () {
+            if (confirm("Do you want to Delete this Employee?")) {
+                var url1 = '@Url.Action("Delete_emp", "Employee")';
+                var url = '@Url.Action("Index", "Employee")';
+                var row = $(this).closest("tr");
+                var UniqueId = row.find(".ID span").html();
+                $.ajax({
+                    type: "POST",
+                    url: url1,
+                    data: '{id: ' + UniqueId + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {                       
+                        if (response == "1") {
+                            swal({
+                                icon: "success",
+                                title: "Details Deleted Successfully...!",
+                                showConfirmButton: true,
+                                confirmButtonText: "Cerrar",
+                                closeOnConfirm: false
+                            }).then(function (result) {
+                                window.location = url;
+                            })
+                        }
+                        else if (response = "-1") {
+                            swal({
+                                icon: "error",
+                                title: "Cannot Delete Superadmin",
+                                showConfirmButton: false,
+                                timer: 4500
+                            }).then(function (result) {
+                                window.location = url;
+                            })
+                        }
+                    }
+                });
+            }
+        });
+
+        $("#add").click(function () {
+            $("#divnew").show();
+            $("#divedit").hide();
+            $("#divdetails").hide();
+        });
+
+        $(".cancel").click(function () {
+            $("#divnew").hide();
+            $("#divedit").hide();
+            $("#divdetails").show();
+            $("#superadmindiv").hide();
+            $("#email").hide();
+            $("#email_div").hide();
+            $("#email_dive").hide();
+
+        });
+
+
+     function edit_employee(Ref_id) {
+
+            var url2 = '@Url.Action("Edit_emp", "Employee")';
+
+            $("#divedit").show();
+            $("#divnew").hide();
+            $("#divdetails").hide();
+
+         $.ajax({
+             type: "POST",
+             url: url2,
+             data: '{id: ' + Ref_id + '}',
+             contentType: "application/json; charset=utf-8",
+             dataType: "json",
+             success: function (response) {
+                 if (response[0].Superadmin == "Yes") {
+                     $("#divedit").hide();
+                     $("#divdetails").show();
+                        swal({
+                            icon: "error",
+                            title: "Cannot Edit Superadmin",
+                            showConfirmButton: true,
+                            timer: 4500
+                        })
+                    }
+                        
+                        $('#eID').val(response[0].id);
+                        $('#eEmailid').val(response[0].Emailid);
+                        $('#eRole_id').val(response[0].Role_id);
+                        $('#eEmployeename').val(response[0].Employeename);
+                        $('#ePassword').val(response[0].Password);
+                        if (response[0].Userrole == "Admin") {
+                            $("#email_div").show();
+                        }
+                        else {
+                            $("#email_div").hide();
+                        }
+                        var url2 = '@Url.Action("Getrole","Employee")';
+                        $.ajax({
+                            type: "POST",
+                            url: url2,
+                            data: '{}',
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (data) {                                
+                                var s = '<option value="">Please Select</option>';
+                                for (var i = 0; i < data.length; i++) {
+                                    if (response[0].Userrole == data[i].Userrole) {
+
+                                        s += '<option value="' + data[i].id + '" selected=selected>' + data[i].Userrole + ' </option>';
+
+                                    }
+                                    else {
+                                        s += '<option value="' + data[i].id + '">' + data[i].Userrole + ' </option>';
+
+                                    }
+                                }
+                                $("#eRole").html(s);
+                            }
+                        });
+                    
+                },
+                error: function (response) {
+
+                }
+            });
+     }
+
+
+
+    </script>
+   
+ <script>
+        $(document).ready(function () {
+            $('.updated_time').text("N/A");
+            $('.shift').text("N/A");
+
+            if ($.fn.DataTable.isDataTable('#datatable-default')) {
+                $('#datatable-default').DataTable().destroy();
+            }
+
+            $('#datatable-default').DataTable({
+                "responsive": true,
+                "autoWidth": false,
+                scrollY: true,
+                scrollX: true,
+                scroller: true
+            });
+ 
+        });
+    </script>
+
+<script>
+    $("#btn_submit").click(function () {
+
+        var Employeename = $("#Employeename").val();
+        var Role = $("#Role").val();
+        const Regx = new RegExp(/[-=!.%&~`'"<>,#/|"'`*+?^${}()|[\]\\]/g);      // newly added
+        var result = Regx.test(Employeename)
+        if (Employeename == "")
+        {
+            document.getElementById("err_name").innerHTML = "Required";
+            return false;
+        }
+        else {
+            document.getElementById("err_name").innerHTML = "";
+        }
+
+        if (Role == "")
+        {
+            document.getElementById("err_role").innerHTML = "Required";
+            return false;
+        }
+        else {
+            document.getElementById("err_role").innerHTML = "";
+        }
+
+        if (Role == "1")
+        {
+            var Emailid = $("#Emailid").val();
+            const Regx = new RegExp(/[-=!%&~`'"<>,#/|"'`*+?^${}()|[\]\\]/g);      
+            var result1 = Regx.test(Emailid)
+            if (Emailid == "") {
+                document.getElementById("err_email").innerHTML = "Required";
+                return false;
+            }
+            else if (result1 == true) {
+                document.getElementById("err_name").innerHTML = "Invalid Email..";     
+                return false;
+            }
+            else
+            {
+                document.getElementById("err_email").innerHTML = "";
+            }
+        }
+    });
+</script>

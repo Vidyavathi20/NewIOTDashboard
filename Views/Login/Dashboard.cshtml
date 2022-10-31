@@ -1,0 +1,698 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="~/assets/datepicker_normal/jquery-ui-1.8.19.custom.css">
+<style type="text/css">
+    .labels {
+        
+        margin-bottom: 20px !important;
+        font-size: 30px;
+        font-weight: bold;
+    }
+ 
+    .widget-summary .summary .amount {
+        font-weight: 600;
+        font-size:19px;
+    }
+
+    .labels1 {
+        margin-bottom: 20px !important;
+        font-size: 20px;
+        font-weight: bold;
+    }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="~/assets/datepicker_normal/jquery-ui-1.8.19.custom.css">
+
+<section role="main" class="content-body" style="margin-bottom:-40px;margin-top:-10px;margin-left:-9.7px">
+    <header class="page-header">
+        <h2> Dashboard</h2>
+    </header>
+</section>
+<div>
+    <label class="labels" style="margin-left:40%"> Returnable Internal</label>
+</div>
+<div class="col-md-6 col-lg-12 col-xl-6">
+    <div class="row">
+        <div class="col-md-12 col-lg-6 col-xl-6" style="padding-left:1px">
+            <section class="panel panel-featured-left panel-featured-primary">
+                <div class="panel-body">
+                    <div class="widget-summary">
+                        <div class="widget-summary-col widget-summary-col-icon">
+                            <div class="summary-icon bg-primary">
+                                <i class="fa fa-arrow-circle-left" style="font-size:48px"></i>
+                            </div>
+                        </div>
+                        <div class="widget-summary-col">
+                            <div class="summary">
+                                <h4 class="title"> </h4>
+                                <div class="info">
+                                    <strong class="amount">Total Lineitems Received/DCs handled Today</strong>
+                                    <h3><a href="~/MaterialEntries/Material_Entry?params=reint" class="text-bold Receivedcount" style="margin-left:30px"></a></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="col-md-12 col-lg-6 col-xl-6" style="padding-left:0px">
+            <section class="panel panel-featured-left panel-featured-secondary">
+                <div class="panel-body">
+                    <div class="widget-summary">
+                        <div class="widget-summary-col widget-summary-col-icon">
+                            <div class="summary-icon bg-secondary">
+                                <i class="fa fa-arrow-circle-o-right" style="font-size:48px"></i>
+                            </div>
+                        </div>
+                        <div class="widget-summary-col">
+                            <div class="summary">
+                                <h4 class="title"></h4>
+                                <div class="info">
+                                    <strong class="amount" id="ri_outwarded">Total LineitemsOutwarded/DCshandled Today </strong>
+                                    <h3><a href="~/MaterialEntries/Material_Entry?params=reint" class="text-bold dccount" style="margin-left:30px"></a> </h3>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div>
+            <label class="labels" style="margin-left:40%"> Returnable External</label>
+        </div>
+        <div class="col-md-12 col-lg-6 col-xl-6" style="padding-left:1px">
+            <section class="panel panel-featured-left panel-featured-tertiary">
+                <div class="panel-body">
+                    <div class="widget-summary">
+                        <div class="widget-summary-col widget-summary-col-icon">
+                            <div class="summary-icon bg-primary">
+                                <i class="fa fa-arrow-circle-o-right" style="font-size:48px"></i>
+                            </div>
+                        </div>
+                        <div class="widget-summary-col">
+                            <div class="summary">
+                                <h4 class="title"></h4>
+                                <div class="info">
+                                    <strong class="amount">Total Lineitems Sent/DCs handled Today</strong>
+                                    <h3><a href="~/MaterialEntries/Material_Entry?params=reext" class="text-bold Receivedcountex" style="margin-left:30px"></a> </h3>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="col-md-12 col-lg-6 col-xl-6" style="padding-left:1px">
+            <section class="panel panel-featured-left panel-featured-quartenary">
+                <div class="panel-body">
+                    <div class="widget-summary">
+                        <div class="widget-summary-col widget-summary-col-icon">
+                            <div class="summary-icon bg-secondary">
+                                <i class="fa fa-arrow-circle-left" style="font-size:48px"></i>
+                            </div>
+                        </div>
+                        <div class="widget-summary-col">
+                            <div class="summary">
+                                <h4 class="title"> </h4>
+                                <div class="info">
+                                    <strong class="amount">Total Lineitems Inwarded/DCs handled Today</strong>
+                                    <h3><a href="~/MaterialEntries/Material_Entry?params=reext" class="text-bold dccountex" style="margin-left:30px"></a> </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<div>
+    <label class="labels" style="margin-left:10px"> NonReturnable Internal</label>
+</div>
+<div class="col-md-6 col-lg-12 col-xl-6">
+    <div class="row">
+        <div class="col-md-12 col-lg-6 col-xl-6">
+            <section class="panel panel-featured-left panel-featured-primary">
+                <div class="panel-body">
+                    <div class="widget-summary">
+                        <div class="widget-summary-col widget-summary-col-icon">
+                            <div class="summary-icon bg-primary">
+                                <i class="fa fa-life-ring"> </i>
+                            </div>
+                        </div>
+                        <div class="widget-summary-col">
+                            <div class="summary">
+                                <h4 class="title"> </h4>
+                                <div class="info">
+                                    <strong class="amount">Total Lineitems/DCs Handled Today</strong>
+                                    <h3><a href="~/MaterialEntries/Material_Entry?params=nonreint" class="text-bold nondccount" style="margin-left:30px"></a> </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div style="margin-top:-40px;margin-left:2px">
+            <label class="labels" style="margin-left:15px"> NonReturnable External</label>
+        </div>
+        <div class="col-md-12 col-lg-6 col-xl-6">
+            <section class="panel panel-featured-left panel-featured-secondary">
+                <div class="panel-body">
+                    <div class="widget-summary">
+                        <div class="widget-summary-col widget-summary-col-icon">
+                            <div class="summary-icon bg-primary">
+                                <i class="fa fa-life-ring" style="font-size:48px"></i>
+                            </div>
+                        </div>
+                        <div class="widget-summary-col">
+                            <div class="summary">
+                                <h4 class="title"></h4>
+                                <div class="info">
+                                    <strong class="amount" id="ri_outwarded">Total Lineitems/DCs Handled Today</strong>
+                                    <h3><a href="~/MaterialEntries/Material_Entry?params=nonreext" class="text-bold nonReceivedcountex" style="margin-left:30px"></a> </h3>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        </div>
+    </div>
+      
+<div id="overall_reint">
+    <div class="form-group" id="date_internal">
+        <label class="col-sm-2" control-label"> Monthwise overallsummary <span class="required">*</span></label>
+        <div class="col-sm-2">
+            <input type="text" class="form-control Month_reint Fromdate space" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46 || event.charCode == 95' onpaste='return false' id="FromDate" name="FromDate" required autocomplete="off" />
+            <span id="montherror" class="required" ></span>
+        </div>
+        <div class="col-sm-2 " style="text-align:right;">
+            <button type="submit" id="btn_apply" class="btn btn-primary" style="margin-bottom:1px;">Apply</button>
+            <button type="button" id="apply_cancel" class="btn btn-danger apply_cancel">Refresh</button>
+        </div>
+
+        <label class="col-sm-2 control-label"> Yearwise overallsummary  <span class="required">*</span></label>
+
+        <div class="col-sm-2">
+            <input type="text" class="form-control Year_reint Todate space" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46 || event.charCode == 95' onpaste='return false' id="ToDate" name="ToDate" required autocomplete="off" />
+            <span id="yearerror" class="required"></span>
+        </div>
+        <div class="col-sm-2" style="text-align:right;">
+            <button type="submit" id="btn_applyyear" class="btn btn-primary" style="margin-bottom:1px;">Apply</button>
+            <button type="button" id="apply_cancel" class="btn btn-danger apply_cancel">Refresh</button>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6">
+        <section class="panel panel-transparent">
+            <header class="panel-heading">
+                <div class="panel-actions">
+                    <label class="labels1"> Returnable Internal</label>
+                    <a href="#" class="fa fa-caret-down"></a>
+                    <a href="#" class="fa fa-times"></a>
+                </div>
+                <h2 class="panel-title">Overall Summary</h2>
+            </header>
+            <div class="panel-body">
+                <section class="panel">
+                    <div class="panel-body">
+                        <div class="small-chart pull-right" id="sparklineBarDash"></div>
+                        <div class="h4 text-bold mb-none overallrece_reint"></div>
+                        <p class="text-xs text-muted mb-none" style="font-size:large">Total Lineitems Handled</p>
+                    </div>
+                </section>
+                <section class="panel">
+                    <div class="panel-body">
+                        <div class="h4 text-bold mb-none overalldc_reint"></div>
+                        <p class="text-xs text-muted mb-none"  style="font-size:large">Total DCs Handled</p>
+                    </div>
+                </section>
+                <section class="panel">
+                    <div class="panel-body">
+                        <div class="h4 text-bold mb-none overallpar_reint"></div>
+                        <p class="text-xs text-muted mb-none"  style="font-size:large">Total DCs Partially Pending</p>
+                    </div>
+                </section>
+                <section class="panel">
+                    <div class="panel-body">
+                        <div class="h4 text-bold mb-none overallopen_reint"></div>
+                        <p class="text-xs text-muted mb-none"  style="font-size:large">Total DCs Open Fully</p>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </div>
+</div>
+<div class="col-xl-3 col-lg-6">
+    <section class="panel panel-transparent">
+        <header class="panel-heading">
+            <div class="panel-actions">
+                <label class="labels1"> Returnable External</label>
+                <a href="#" class="fa fa-caret-down"></a>
+                <a href="#" class="fa fa-times"></a>
+            </div>
+            <h2 class="panel-title">Overall Summary</h2>
+        </header>
+        <div class="panel-body">
+            <section class="panel">
+                <div class="panel-body">
+                    <div class="small-chart pull-right" id="sparklineBarDash"></div>
+                    <div class="h4 text-bold mb-none overalldc_reext"></div>
+                    <p class="text-xs text-muted mb-none" style="font-size:large">Total Lineitems Handled</p>
+                </div>
+            </section>
+            <section class="panel">
+                <div class="panel-body">
+                    <div class="h4 text-bold mb-none overallrece_reext"></div>
+                    <p class="text-xs text-muted mb-none" style="font-size:large">Total DCs Handled</p>
+                </div>
+            </section>
+            <section class="panel">
+                <div class="panel-body">
+                    <div class="h4 text-bold mb-none overallpar_reext"></div>
+                    <p class="text-xs text-muted mb-none" style="font-size:large">Total DCs Partially Pending</p>
+                </div>
+            </section>
+            <section class="panel">
+                <div class="panel-body">
+                    <div class="h4 text-bold mb-none overallopen_reext"></div>
+                    <p class="text-xs text-muted mb-none" style="font-size:large">Total DCs Open Fully</p>
+                </div>
+            </section>
+        </div>
+    </section>
+</div>
+
+
+<div class="col-xl-3 col-lg-6">
+    <section class="panel panel-transparent">
+        <header class="panel-heading">
+            <div class="panel-actions">
+                <label class="labels1"> NonReturnable Internal</label>
+                <a href="#" class="fa fa-caret-down"></a>
+                <a href="#" class="fa fa-times"></a>
+            </div>
+            <h2 class="panel-title">Overall Summary</h2>
+        </header>
+        <div class="panel-body">
+            <section class="panel">
+                <div class="panel-body">
+                    <div class="small-chart pull-right" id="sparklineBarDash"></div>
+                    <div class="h4 text-bold mb-none overallrece_nonreint"></div>
+                    <p class="text-xs text-muted mb-none" style="font-size:large">Total Lineitems Handled</p>
+                </div>
+            </section>
+            <section class="panel">
+                <div class="panel-body">
+                    <div class="h4 text-bold mb-none overalldc_nonreint"></div>
+                    <p class="text-xs text-muted mb-none" style="font-size:large">Total DCs Handled</p>
+                </div>
+            </section>
+        </div>
+    </section>
+</div>
+
+<div class="col-xl-3 col-lg-6">
+    <section class="panel panel-transparent">
+        <header class="panel-heading">
+            <div class="panel-actions">
+                <label class="labels1"> NonReturnable External</label>
+                <a href="#" class="fa fa-caret-down"></a>
+                <a href="#" class="fa fa-times"></a>
+            </div>
+            <h2 class="panel-title">Overall Summary</h2>
+        </header>
+        <div class="panel-body">
+            <section class="panel">
+                <div class="panel-body">
+                    <div class="small-chart pull-right" id="sparklineBarDash"></div>
+                    <div class="h4 text-bold mb-none overallrece_nonreext"></div>
+                    <p class="text-xs text-muted mb-none" style="font-size:large">Total Lineitems Handled</p>
+                </div>
+            </section>
+            <section class="panel">
+                <div class="panel-body">
+                    <div class="h4 text-bold mb-none overalldc_nonreext"></div>
+                    <p class="text-xs text-muted mb-none" style="font-size:large">Total DCs Handled</p>
+                </div>
+            </section>
+        </div>
+    </section>
+</div>
+
+<div class="col-xl-3 col-lg-6">
+    <section class="panel panel-transparent">
+        <header class="panel-heading">
+            <div class="panel-actions">
+                <a href="#" class="fa fa-caret-down"></a>
+                <a href="#" class="fa fa-times"></a>
+            </div>
+
+            <h1 class="panel-title">Todays Summary</h1>
+        </header>
+        <div class="panel-body">
+            <section class="panel">
+                <div class="panel-body">
+                    <div class="small-chart pull-right" id="sparklineBarDash"></div>
+                    <div class="h4 text-bold mb-none totalsummary"></div>
+                    <p class="text-xs text-muted mb-none" style="font-size:large">No of DCs Handled</p>
+                </div>
+            </section>
+            <section class="panel">
+                <div class="panel-body">
+                    <div class="h4 text-bold mb-none totalsummarylineitem"></div>
+                    <p class="text-xs text-muted mb-none" style="font-size:large">No of Lineitems Handled</p>
+                </div>
+            </section>
+        </div>
+    </section>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/assets/javascripts/swal.js"></script>
+<script src="~/assets/javascripts/swal_alert.js"></script>
+<script src="~/assets/datepicker_normal/datepicker_normal_jquery.min.js"></script>
+<script src="~/assets/datepicker_normal/jquery-ui-1.8.19.custom.min.js"></script>
+<script>
+
+    $(function () {
+        var dateToday = new Date();
+        var yrRange = (dateToday.getFullYear() - 50) + ":" + (dateToday.getFullYear());
+        $(".datepic").datepicker({
+            format: "mm-yyyy",
+            startView: "months",
+            minViewMode: "months"
+        });
+    });
+
+    $(function () {
+        $(".Fromdate").datepicker({
+            autoclose: true,
+            format: 'yyyy-mm',
+            startView: "months",
+            minViewMode: "months"
+        })
+        $(".Todate").datepicker({
+            autoclose: true,
+            format: 'yyyy',
+            startView: "years",
+            minViewMode: "years"
+        })
+
+    });
+
+    $(function () {
+        $('.space').keypress(function (event) {
+            event.preventDefault();
+            return false;
+        });
+    });
+
+    $(document).ready(function () {
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("daywise_in_and_out", "MaterialEntries")",
+            dataType: 'json',
+            data: {},
+            success: function (response) {
+                if (response.length != 0) {
+                    var a = response[0].Overallreceived + '/' + response[0].Overallreceiveddc;
+                    $('.Receivedcount').html(a);
+                    var b = response[0].Overalldc + '/' + response[0].Overalloutwarddc;
+                    $('.dccount').html(b);
+
+                    var e = response[0].Overallreceived2 + '/' + response[0].Overalldc2;
+                    $('.nondccount').html(e);
+
+                    var c = response[0].Overallreceived1 + '/' + response[0].Overallreceiveddc1;
+                    $('.Receivedcountex').html(c);
+                    var d = response[0].Overalldc1 + '/' + response[0].Overallinwarddc1;
+                    $('.dccountex').html(d);
+
+                    var x = response[0].Overallreceived3 + '/' + response[0].Overalldc3;
+                    $('.nonReceivedcountex').html(x);
+                }
+
+            },
+            error: function (ex) {
+
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("TotalsummaryLineitem", "MaterialEntries")",
+            dataType: 'json',
+            data: {},
+            success: function (response) {
+                if (response.length != 0) {
+                    $('.totalsummarylineitem').html(response[0].Overallreceived);
+                    $('.totalsummary').html(response[0].Overalldc);
+                }
+
+            },
+            error: function (ex) {
+
+            }
+        });
+    });
+
+     $(document).ready(function () {
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("Fullyopen_reint","MaterialEntries")",
+            dataType: 'json',
+            data: {},
+            success: function (response) {
+
+                $('.overallopen_reint').html(response[0].Overallfullyopen);
+
+                            },
+            error: function (ex) {
+
+            }
+        });
+    });
+
+
+     $(document).ready(function () {
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("Partiallypending_reint", "MaterialEntries")",
+            dataType: 'json',
+            data: {},
+            success: function (response) {
+
+                $('.overallpar_reint').html(response[0].Overallpartiallypending);
+                            },
+            error: function (ex) {
+
+            }
+        });
+     });
+
+      $(document).ready(function () {
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("Partiallypending_reext", "MaterialEntries")",
+            dataType: 'json',
+            data: {},
+            success: function (response) {
+                $('.overallpar_reext').html(response[0].Overallpartiallypending1);
+                           },
+            error: function (ex) {
+
+            }
+        });
+    });
+      $(document).ready(function () {
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("Fullyopen_reext", "MaterialEntries")",
+            dataType: 'json',
+            data: {},
+            success: function (response) {
+
+                $('.overallopen_reext').html(response[0].Overallfullyopen1);
+                            },
+            error: function (ex) {
+
+            }
+        });
+    });
+    $(document).ready(function () {
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("overall_reint", "MaterialEntries")",
+            dataType: 'json',
+            data: {},
+            success: function (response) {
+                if (response.length != 0) {
+                    $('.overalldc_reint').html(response[0].Overalldc);
+                    $('.overallrece_reint').html(response[0].Overallreceived);
+
+                    $('.overalldc_reext').html(response[0].Overalldc1);
+                    $('.overallrece_reext').html(response[0].Overallreceived1);
+
+                    $('.overalldc_nonreext').html(response[0].Overalldc3);
+                    $('.overallrece_nonreext').html(response[0].Overallreceived3);
+
+                    $('.overalldc_nonreint').html(response[0].Overalldc2);
+                    $('.overallrece_nonreint').html(response[0].Overallreceived2);
+                }
+
+            },
+            error: function (ex) {
+
+            }
+        });
+    });
+    $(".apply_cancel").click(function () {
+        $(".Fromdate").val("");
+        $(".Todate").val("");
+        window.location = "@Url.Action("Dashboard","Login")";
+
+    });
+
+
+    $("#btn_apply").click(function (event) {
+        monthyear = $(".Fromdate").val();
+        $(".Todate").val("");
+        if (monthyear == "") {
+            document.getElementById("montherror").innerHTML = "Required";
+            return false;
+        }
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("overall_monthwisereint", "MaterialEntries")",
+            dataType: 'json',
+            data: { monthyear: monthyear },
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (response) {
+                $('.loading').hide();
+                if (response.length != 0) {
+                    document.getElementById("montherror").innerHTML = "";
+                    $('.overalldc_reint').val("");
+                    $('.overallrece_reint').val("");
+                    $('.overallpar_reint').val("");
+                    $('.overallopen_reint').val("");
+                    $('.overalldc_reext').val("");
+                    $('.overallrece_reext').val("");
+                    $('.overallpar_reext').val("");
+                    $('.overallopen_reext').val("");
+                    $('.overalldc_nonreext').val("");
+                    $('.overallrece_nonreext').val("");
+                    $('.overalldc_nonreint').val("");
+                    $('.overallrece_nonreint').val("");
+                    $('.overalldc_reint').html(response[0].Overalldc);
+                    $('.overallrece_reint').html(response[0].Overallreceived);                 
+                    $('.overalldc_reext').html(response[0].Overalldc1);
+                    $('.overallrece_reext').html(response[0].Overallreceived1);                    
+                    $('.overalldc_nonreext').html(response[0].Overalldc3);
+                    $('.overallrece_nonreext').html(response[0].Overallreceived3);
+                    $('.overalldc_nonreint').html(response[0].Overalldc2);
+                    $('.overallrece_nonreint').html(response[0].Overallreceived2);
+                }
+
+            },
+            error: function (ex) {
+
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("Fullyopen_reint", "MaterialEntries")",
+            dataType: 'json',
+            data: { monthyear: monthyear },
+            success: function (response) {
+               
+                $('.overallopen_reint').html(response[0].Overall_monthfullyopen);
+                $('.overallpar_reint').html(response[0].Overall_monthpartiallypending);
+                $('.overallpar_reext').html(response[0].Overall_monthpartiallypending1);
+                $('.overallopen_reext').html(response[0].Overall_monthfullyopen1);
+
+                            },
+            error: function (ex) {
+
+            }
+        });
+
+        
+
+    });
+    $("#btn_applyyear").click(function (event) {
+        year = $(".Todate").val();
+        $(".Fromdate").val("");
+        if (year == "") {
+            document.getElementById("yearerror").innerHTML = "Required";
+            return false;
+        }
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("overall_yearwisereint", "MaterialEntries")",
+            dataType: 'json',
+            data: { year: year},
+            success: function (response) {
+                if (response.length != 0) {
+                    document.getElementById("yearerror").innerHTML = "";
+                    $('.overalldc_reint').val("");
+                    $('.overallrece_reint').val("");
+                    $('.overallpar_reint').val("");
+                    $('.overallopen_reint').val("");
+                    $('.overalldc_reext').val("");
+                    $('.overallrece_reext').val("");
+                    $('.overallpar_reext').val("");
+                    $('.overallopen_reext').val("");
+                    $('.overalldc_nonreext').val("");
+                    $('.overallrece_nonreext').val("");
+                    $('.overalldc_nonreint').val("");
+                    $('.overallrece_nonreint').val("");
+                    $('.overalldc_reint').html(response[0].Overalldc);
+                    $('.overallrece_reint').html(response[0].Overallreceived);
+                    $('.overalldc_reext').html(response[0].Overalldc1);
+                    $('.overallrece_reext').html(response[0].Overallreceived1);
+                    $('.overalldc_nonreext').html(response[0].Overalldc3);
+                    $('.overallrece_nonreext').html(response[0].Overallreceived3);
+                    $('.overalldc_nonreint').html(response[0].Overalldc2);
+                    $('.overallrece_nonreint').html(response[0].Overallreceived2);
+                }
+
+            },
+            error: function (ex) {
+
+            }
+        });
+          $.ajax({
+            type: 'POST',
+            url: "@Url.Action("Fullyopen_reint", "MaterialEntries")",
+              dataType: 'json',
+              data: { year: year },
+            success: function (response) {
+
+                $('.overallopen_reint').html(response[0].Overall_yearfullyopen);
+                $('.overallpar_reint').html(response[0].Overall_yearpartiallypending);
+                $('.overallpar_reext').html(response[0].Overall_yearpartiallypending1);
+                $('.overallopen_reext').html(response[0].Overall_yearfullyopen1);
+                            },
+            error: function (ex) {
+
+            }
+          });
+       
+    });
+
+</script>

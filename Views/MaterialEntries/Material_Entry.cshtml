@@ -1,0 +1,3436 @@
+﻿@model IEnumerable<MaterialGateRegister.Models.Returnable_Internal_outward>
+@{
+    ViewBag.Title = "Material_Entry";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .btn-primary.active {
+        background-color: forestgreen;
+    }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="~/assets/datepicker_normal/jquery-ui-1.8.19.custom.css">
+
+<header class="page-header" style="margin-top: -9px;margin-left: -11px;">
+    
+    <h2> Material Entries </h2>
+    <div class="right-wrapper pull-right">
+        <ol class="breadcrumbs">
+            <li>
+                <a href="@Url.Action("Dashboard","Login")">
+                    <i class="fa fa-home"></i>
+                </a>
+            </li>
+            <li><span>Material Register</span></li>
+        </ol>
+        <a class="sidebar-right-toggle"></a>
+    </div>
+</header>
+
+<div class="tab" style="min-width:1000px;">
+    <button class="btn btn-primary btn_re_internal" onclick="display_re_internal()">Returnable-Internal</button>
+    <button class="btn btn-primary btn_re_external" onclick="display_re_external()">Returnable-External</button>
+    <button class="btn btn-primary btn_nonre_internal" onclick="display_nonre_internal()">NonReturnable-Internal</button>
+    <button class="btn btn-primary btn_nonre_external" onclick="display_nonre_external()">NonReturnable-External</button>
+</div>
+<br />
+<br />
+
+<div class="row" id="re_internal" style="display:none;min-width:1198px;">
+    <div class="col-md-10">
+        <section class="panel">
+            <header class="panel-heading" style="width: 100%; max-width: 1000px; margin-bottom: 20px">
+
+                @if (Session["EntriesView_form"].ToString() == "1")
+                {
+                    <h2 class="panel-title">
+                        <select class="form-control select2" onchange="getvendor_reint()" style="width:500px;float:left" id="DC_No" required>
+                            <option value="">Search with Ref DC Number for receiving the Material</option>
+                        </select>
+                        <select class="form-control select2" style="width:220px;float:left;margin-left:4px" id="vendor_ret_int" required>
+                            <option value="">Vendor/Customer Name</option>
+                        </select>
+
+                        <button class="btn btn-primary" style="margin-left:6px" id="SubmitRII">Submit</button>
+
+                        @if (Session["EntriesAdd_form"].ToString() == "1")
+                        {
+                            <div class="panel-actions">
+                                <button class="btn btn-primary" id="add_reint">
+                                    <i class="fa fa-plus" aria-hidden="true"> New Entry </i>
+                                </button>
+                            </div>
+                        }
+
+                    </h2>
+                }
+
+            </header>
+
+            <div class="panel-body" id="div_re_internal" style="display:none;">
+                <form id="internal">
+                    <div class="form-group">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div>
+                                    <input type="hidden" name="QueryType" value="Insert" />
+                                    <label class="col-sm-2 control-label"> From <span class="required ">*</span></label>
+                                    <div class="col-sm-4">
+                                        <input type="text" id="M_From" value="TEAL" class="form-control" readonly placeholder="TEAL" />
+                                        <span class="required" id="M_Frome"></span>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label"> REF DC No <span class="required ">*</span></label>
+                                    <div class="col-sm-4">
+                                        <input type="text" id="RefDCNo" value="" class="form-control space" placeholder="" />
+                                        <span class="required" id="RefDCNoe"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    <label class="col-sm-1 control-label"> TO <span class="required Toe">*</span></label>
+                                    <div class="col-sm-4" style="margin-left:75px">
+                                        <select name="M_To" id="RM_To2" class="form-control select2 space">
+                                            <option>Select</option>
+                                        </select>
+                                        <span class="required" id="M_Toe"></span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button class="btn btn-primary addcustomer" type="button" data-toggle='modal' data-target='#addcustomer' name="addvendor1" id="addvendor">
+                                            <i class="fa fa-plus" aria-hidden="true"> Add </i>
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div>
+                                    <label class="col-sm-2 control-label"> VechicleNumber </label>
+                                    <div class="col-sm-4">
+                                        <input type="text" id="EDR" class="form-control space" placeholder="VechicleNumber" />
+                                    </div>
+
+                                    <label class="col-sm-2 control-label"> Outwarded By <span class="required ">*</span></label>
+                                    <div class="col-sm-4">
+                                        <input type="text" id="Outwardedby" name="Outwardedby" value="@Session["UserName"]" readonly class="form-control" placeholder="" />
+                                        <span class="required" id="Outwardedbye"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-primary" style="float:right" id="addmaterial_internal">Add Material</button>
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    <p style="margin-left:8px;font-weight:bold">Note: Please Enter the Line Item or Hide the item</p>
+                                </div>
+                                <table class="table" id="tbl_RIO_items">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center;width:50px;">S.NO</th>
+                                            <th style="text-align: center;width:200px;">Material Name</th>
+                                            <th style="text-align: center;width:150px;">Total Qty</th>
+                                            <th style="text-align: center;width:150px;">UOM</th>
+                                            <th style="text-align: center;width:150px;">Remarks1</th>
+                                            <th style="text-align: center;width:100px;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="RIO_details">
+                                        <tr>
+                                            <td>1</td>
+                                            <td>
+                                                <input type="text" id="material_1" name="Material_name" class="form-control Material_name space">
+                                                <span class="required err_imname"></span>
+                                            </td>
+                                            <td>
+                                                <input type="number" data-decimal="2" oninput="enforceNumberValidation(this)" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46 || event.charCode== 95' onpaste='return false' name="Qty" class="form-control Qty space checkdot">
+                                                <span class="required err_iqty"></span>
+                                            </td>
+                                            <td>
+                                                <select class="form-control UOM space" id="UOM" name="UOM" style="float:left;width:80px;">
+                                                    <option value="0">Select</option>
+                                                    <option value="Nos" selected>Nos</option>
+                                                </select>
+
+                                                <button class="btn btn-primary" type="button" data-toggle='modal' data-target='#adduom' name="adduom" id="adduom1" style="float:right;">
+                                                    <i class="fa fa-plus" aria-hidden="true"> Add </i>
+                                                </button>
+
+                                                <span id="eUOM" class="required"></span>
+                                                <span class="required err_iuom"></span>
+                                            </td>
+                                            <td>
+                                                <textarea class="form-control Remarks space" name="Remarks1" rows="2"></textarea>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-danger remCF">Hide</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <footer class="panel-footer">
+                            <div class="row">
+                                <div class="col-sm-6 col-sm-offset-3" style="text-align:center;">
+                                    <button type="button" class="btn btn-primary submit">Submit</button>
+                                    <button type="reset" id="cancel_re_internal" class="btn btn-danger">Cancel</button>
+                                </div>
+                            </div>
+                        </footer>
+                    </div>
+                </form>
+
+            </div>
+        </section>
+    </div>
+</div>
+
+
+<div class="modal fade" id="addcustomer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="width:50%;">
+        <div class="modal-content" style="margin-top:200px;">
+            <div class="modal-header" style="padding: 30px 50px !important;border-bottom: 0 !important;">
+                <h5 class="modal-title" id="exampleModalLabel"> Add Vendor</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: right;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body" style="margin-bottom:40px">
+                <div class="col-sm-4">
+                    <input type="hidden" name="QueryType" value="Insert" />
+                    <label class="control-label">Customer Name<span class="required ">*</span></label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" id="Customername1" name="Customername" class="form-control space" placeholder="Name" required />
+                </div>
+                <span id="cusname" class="required"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" onclick="Addvendor()">Submit</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="adduom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="width:50%;">
+        <div class="modal-content" style="margin-top:200px;">
+            <div class="modal-header" style="padding: 30px 50px !important;border-bottom: 0 !important;">
+                <h5 class="modal-title" id="exampleModalLabel"> Add UOM</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: right;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body" style="margin-bottom:40px">
+
+                <div class="col-sm-3">
+                    <input type="hidden" name="QueryType" value="Insert" />
+                    <label class="control-label">UOM<span class="required ">*</span></label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" id="UOMmodel" onkeypress="return allowOnlyLetters(event,this);" name="UOM" class="form-control space" placeholder="UOM" required />
+                </div>
+                <span id="eOM" class="required"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" onclick="Adduom()">Submit</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row" id="re_external" style="display: none; min-width: 1000px;">
+    <div class="col-md-12">
+        <section class="panel">
+            <header class="panel-heading" style="width: 100%;max-width: 1100px;">
+                @if (Session["EntriesAdd_form"].ToString() == "1")
+                {
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" id="add_re_external">
+                            <i class="fa fa-plus" aria-hidden="true"> New Entry </i>
+                        </button>
+                    </div>
+                }
+                @if (Session["EntriesView_form"].ToString() == "1")
+                {
+
+                    <h2 class="panel-title">
+                        <select class="form-control select2" onclick="getvendor_reext()" style="width:500px;float:left" id="DC_No1">
+                            <option value="">Search with Ref DC Number for receiving the Material</option>
+                        </select>
+                        <select class="form-control select2" style="width:220px;float:left;margin-left:4px" id="vendor_ret_ext">
+                            <option value="">Vendor/Customer Name</option>
+                        </select>
+                        <button class="btn btn-primary" style="margin-left:6px" id="SubmitREI">Submit</button>
+                    </h2>
+                }
+
+            </header>
+            <div class="panel-body" id="div_re_external" style="display:none;">
+                <form id="external">
+                    <div class="form-group">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div>
+                                    <input type="hidden" name="QueryType" value="Insert" />
+                                    <label class="col-sm-2 control-label"> From <span class="required">*</span></label>
+                                    <div class="col-sm-3">
+                                        <select name="M_From" id="RM_From" class="form-control select2">
+                                            <option>Select</option>
+                                        </select>
+                                        <span class="required" id="M_Frome1"></span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button class="btn btn-primary addcustomer" type="button" data-toggle='modal' data-target='#addcustomer' name="addvendor1" id="addvendor">
+                                            <i class="fa fa-plus" aria-hidden="true"> Add </i>
+                                        </button>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    <label class="col-sm-2 control-label"> REF DC No <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="RefDCNo" id="RefDCNo1" value="" class="form-control space" placeholder="" required />
+                                    </div>
+                                    <span class="required" id="RefDCNoe1"></span>
+                                </div>
+                                <div style="margin-top:-20px">
+                                    <label class="col-sm-2 control-label"> TO <span class="required">*</span> </label>
+                                    <div class="col-sm-4">
+                                        <input type="text" id="M_To" value="TEAL" class="form-control space" readonly placeholder="TEAL" required />
+                                    </div>
+                                    <span class="required" id="M_Toe1"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div>
+                                    <label class="col-sm-2 control-label"> VechicleNumber</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" id="EDR1" class="form-control space" placeholder="VechicleNumber" />
+                                    </div>
+                                </div>
+                                <label class="col-sm-2 control-label"> Inwarded By <span class="required">*</span></label>
+                                <div class="col-sm-4">
+                                    <input type="text" id="Inwardedby" value="@Session["UserName"]" readonly class="form-control space" placeholder="" required />
+                                </div>
+                                <span class="required" id="Inwardedbye"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" id="add_materiale_external" style="float:right;"> Add Material</button>
+                        </div>
+
+                        <div class="form-group">
+                            <div>
+                                <p style="margin-left:8px;font-weight:bold">Note: Please Enter the Line Item or Hide the item</p>
+                            </div>
+                            <table class="table" id="tbl_REO_items">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center;">S.NO</th>
+                                        <th style="text-align: center;">Material Name</th>
+                                        <th style="text-align: center;">Total Qty</th>
+                                        <th style="text-align: center;">UOM</th>
+                                        <th style="text-align: center;">Remarks1</th>
+                                        <th style="text-align: center;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="REO_details">
+                                    <tr>
+                                        <td>1</td>
+
+                                        <td>
+                                            <input type="text" id="materiale_1" name="Material_name" class="form-control Material_name space">
+                                        </td>
+                                        <td>
+                                            <input type="number" data-decimal="2" oninput="enforceNumberValidation(this)" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode ==46 || event.charCode ==95' onpaste='return false' name="Qty" class="form-control Qty space checkdot">
+                                        </td>
+                                        <td>
+                                            <select class="form-control UOM" id="UOM" name="UOM" style="float:left;width:120px;">
+                                                <option value="0">Select</option>
+                                                <option value="Nos" selected>Nos</option>
+                                            </select>
+
+                                            <button class="btn btn-primary" type="button" data-toggle='modal' data-target='#adduom' name="adduom" id="adduom1" style="float:right;">
+                                                <i class="fa fa-plus" aria-hidden="true"> Add </i>
+                                            </button>
+
+                                            <span id="eUOM" class="required"></span>
+                                            <span class="required err_iuom"></span>
+
+                                        </td>
+                                        <td>
+                                            <textarea class="form-control Remarks space" name="Remarks" rows="2"> </textarea>
+                                        </td>
+
+                                        <td>
+                                            <button type="button" class="btn btn-danger remCF">Hide</button>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <footer class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-offset-3" style="text-align:center;">
+                                <button type="button" id="submitexternal" class="btn btn-primary">Submit</button>
+                                <button type="reset" id="cancel_re_external" class="btn btn-danger">Cancel</button>
+                            </div>
+                        </div>
+                    </footer>
+
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div class="row" id="nonre_internal" style="display: none; min-width: 1000px;">
+    <div class="col-md-12">
+        <section class="panel">
+            <header class="panel-heading" style="width: 100%;max-width:1135px;padding:30px !important;margin-bottom:20px">
+                @if (Session["EntriesAdd_form"].ToString() == "1")
+                {
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" id="add_nonre_internal">
+                            <i class="fa fa-plus" aria-hidden="true"> New Entry </i>
+                        </button>
+                    </div>
+                }
+
+                <h2 class="panel-title">
+                </h2>
+            </header>
+            <div class="panel-body" id="div_nonre_internal" style="display:none;">
+                <form id="noninternal">
+                    <div class="form-group">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div>
+                                    <input type="hidden" name="QueryType" value="Insert" />
+                                    <label class="col-sm-2 control-label"> From <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        <input type="text" id="M_From" value="TEAL" readonly class="form-control M_FromNI" placeholder="TEAL" />
+                                        <span class="required" id="eM_FromNI"></span>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label"> REF DC No <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        <input type="text" id="Ref_DCNoNI" class="form-control RefDCNoNI space" placeholder="RefDCNo" />
+                                        <span class="required" id="eRefDCNoNI"></span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    <label class="col-sm-2 control-label"> TO <span class="required">*</span> </label>
+                                    <div class="col-sm-2">
+                                        <select name="M_To" id="RM_To1" class="form-control M_ToNI select2">
+                                            <option>Select</option>
+
+                                        </select>
+                                        <span class="required" id="eM_ToNI"></span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button class="btn btn-primary addcustomer" type="button" data-toggle='modal' data-target='#addcustomer' name="addvendor1" id="addvendor">
+                                            <i class="fa fa-plus" aria-hidden="true"> Add </i>
+                                        </button>
+
+                                    </div>
+                                    <label class="col-sm-2 control-label"> Outwarded By <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        <input type="text" id="Outwardedby1" value="@Session["UserName"]" readonly class="form-control outwardedby space" placeholder="" />
+                                    </div>
+                                    <span class="required" id="eOutwardedbyNI"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    <label class="col-sm-2 control-label"> VechicleNumber </label>
+                                    <div class="col-sm-4">
+                                        <input type="text" id="VechicleNumber1" class="form-control space" placeholder="VechicleNumber" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-primary" id="add_material_non_internal" style="float:right;"> Add Material</button>
+                            </div>
+
+                            <div class="form-group">
+                                <div>
+                                    <p style="margin-left:8px;font-weight:bold">Note: Please Enter the Line Item or Hide the item</p>
+                                </div>
+                                <table class="table" id="tbl_NRI_items">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center;width:50px;">S.NO</th>
+                                            <th style="text-align: center;width:200px;">Material Name</th>
+                                            <th style="text-align: center;width:150px;">Total Qty</th>
+                                            <th style="text-align: center;width:150px;">UOM</th>
+                                            <th style="text-align: center;width:150px;">Remarks1</th>
+                                            <th style="text-align: center;width:100px;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="NRI_details">
+                                        <tr>
+                                            <td>1</td>
+
+                                            <td>
+                                                <input type="text" id="materialni_1" name="Material_name" class="form-control Material_name space">
+                                            </td>
+                                            <td>
+                                                <input type="number" data-decimal="2" oninput="enforceNumberValidation(this)" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46 || event.charCode == 95' onpaste='return false' name="Qty" class="form-control QtyN space checkdot">
+                                            </td>
+                                            <td>
+                                                <select class="form-control UOM" id="UOM" name="UOM" style="float:left;width:80px;">
+                                                    <option value="0">Select</option>
+                                                    <option value="Nos" selected>Nos</option>
+                                                </select>
+
+                                                <button class="btn btn-primary" type="button" data-toggle='modal' data-target='#adduom' name="adduom" id="adduom1" style="float:right;">
+                                                    <i class="fa fa-plus" aria-hidden="true"> Add </i>
+                                                </button>
+
+                                                <span id="eUOM" class="required"></span>
+                                                <span class="required err_iuom"></span>
+                                            <td>
+                                                <textarea class="form-control RemarksN space" name="Remarks" rows="2"></textarea>
+                                            </td>
+
+                                            <td>
+                                                <button type="button" class="btn btn-danger remCF">Hide</button>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <footer class="panel-footer">
+                            <div class="row">
+                                <div class="col-sm-6 col-sm-offset-3" style="text-align:center;">
+                                    <button type="button" class="btn btn-primary submit3">Submit</button>
+                                    <button type="reset" id="cancel_nonre_internal" class="btn btn-danger">Cancel</button>
+                                </div>
+                            </div>
+                        </footer>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div class="row" id="nonre_external" style="display: none; min-width: 1000px;">
+    <div class="col-md-12">
+        <section class="panel">
+            <header class="panel-heading" style="width: 100%;max-width:1135px;padding:30px !important;margin-bottom:20px">
+                @if (Session["EntriesAdd_form"].ToString() == "1")
+                {
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" id="add_nonre_external">
+                            <i class="fa fa-plus" aria-hidden="true"> New Entry </i>
+                        </button>
+                    </div>
+                }
+
+            </header>
+            <div class="panel-body" id="div_nonre_external" style="display:none;">
+                <form id="nonexternal">
+                    <div class="form-group">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div>
+                                    <input type="hidden" name="QueryType" value="Insert" />
+                                    <label class="col-sm-2 control-label"> From <span class="required">*</span></label>
+                                    <div class="col-sm-2">
+                                        <select name="M_From" id="RM_From4" class="form-control M_FromNE select2">
+                                            <option>Select</option>
+                                        </select>
+                                        <span class="required" id="eM_FromNE"></span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button class="btn btn-primary addcustomer" type="button" data-toggle='modal' data-target='#addcustomer' name="addvendor1" id="addvendor">
+                                            <i class="fa fa-plus" aria-hidden="true"> Add </i>
+                                        </button>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label"> REF DC No <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="RefDCNo" id="RefDCNo4" class="form-control RefDCNoNE space" placeholder="" />
+                                        <span class="required" id="eRefDCNoNE"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    <label class="col-sm-2 control-label"> TO <span class="required">*</span> </label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="M_To" id="M_To4" readonly value="TEAL" class="form-control M_ToNE space" placeholder="TEAL" />
+                                        <span class="required" id="M_ToNE"></span>
+                                    </div>
+                                    <label class="col-sm-2 control-label"> Inwarded By <span class="required">*</span></label>
+                                    <div class="col-sm-4">
+                                        <input type="text" id="Inwardedby4" value="@Session["UserName"]" readonly class="form-control InwardedbyNE" placeholder="" />
+                                    </div>
+                                    <span class="required" id="eInwardedbyNE"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    <label class="col-sm-2 control-label"> VechicleNumber </label>
+                                    <div class="col-sm-4">
+                                        <input type="text" id="VechicleNumber4" class="form-control space" placeholder="VechicleNumber" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-primary" id="add_material_non_external" style="float:right;"> Add Material</button>
+                                </div>
+
+                                <div class="form-group">
+                                    <div>
+                                        <p style="font-weight:bold">Note: Please Enter the Line Item or Hide the item</p>
+                                    </div>
+                                    <table class="table" id="tbl_NRE_items">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center;width:50px;">S.NO</th>
+                                                <th style="text-align: center;width:200px;">Material Name</th>
+                                                <th style="text-align: center;width:150px;">Total Qty</th>
+                                                <th style="text-align: center;width:150px;">UOM</th>
+                                                <th style="text-align: center;width:150px;">Remarks1</th>
+                                                <th style="text-align: center;width:100px;">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="NRE_details">
+                                            <tr>
+                                                <td>1</td>
+                                                <td>
+                                                    <input type="text" name="Material_name" id="materialne_1" class="form-control Material_name space" required>
+                                                    <span class="required err_imname"></span>
+
+                                                </td>
+                                                <td>
+                                                    <input type="number" data-decimal="2" oninput="enforceNumberValidation(this)" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46 || event.charCode == 95' onpaste='return false' name="Qty" id="Qty" class="form-control Qty space checkdot" required>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control UOM" id="UOM" name="UOM" style="float:left;width:80px;">
+                                                        <option value="0">Select</option>
+                                                        <option value="Nos" selected>Nos</option>
+                                                    </select>
+
+                                                    <button class="btn btn-primary" type="button" data-toggle='modal' data-target='#adduom' name="adduom" id="adduom1" style="float:right;">
+                                                        <i class="fa fa-plus" aria-hidden="true"> Add </i>
+                                                    </button>
+
+                                                    <span id="eUOM" class="required"></span>
+                                                    <span class="required err_iuom"></span>
+                                                </td>
+                                                <td>
+                                                    <textarea class="form-control Remarks space" name="Remarks" rows="2"></textarea>
+                                                </td>
+
+                                                <td>
+                                                    <button type="button" class="btn btn-danger remCF">Hide</button>
+                                                </td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <footer class="panel-footer">
+                                <div class="row">
+                                    <div class="col-sm-6 col-sm-offset-3" style="text-align:center;">
+                                        <button type="button" class="btn btn-primary submit4">Submit</button>
+                                        <button type="reset" id="cancel_nonre_external" class="btn btn-danger">Cancel</button>
+                                    </div>
+                                </div>
+                            </footer>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div class="panel-body" id="div_re_internalreturn" style="display:none;">
+    <form id="internalreturn">
+        <div class="form-group" id="return_internal" style="display:none;">
+            <div class="panel-body">
+                <div class="form-group">
+                    <div>
+                        <input type="hidden" name="QueryType" value="Insert" />
+                        <label class="col-sm-2 control-label"> From <span class="required">*</span></label>
+                        <div class="col-sm-4">
+                            <input type="text" id="M_From6" readonly class="form-control" placeholder="" required />
+                        </div>
+                        <label class="col-sm-2 control-label"> TO<span class="required">*</span></label>
+                        <div class="col-sm-4">
+                            <input type="text" id="M_To6" readonly class="form-control" placeholder="" required />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div>
+                        <label class="col-sm-2 control-label"> VechicleNumber </label>
+                        <div class="col-sm-4">
+                            <input type="text" id="EDR6" class="form-control" readonly placeholder="VechicleNumber" required />
+                        </div>
+
+                        <label class="col-sm-2 control-label"> Outwarded By <span class="required">*</span></label>
+                        <div class="col-sm-4">
+                            <input type="text" id="Outwardedby6" value="" readonly class="form-control" placeholder="" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div>
+                        <label class="col-sm-2 control-label"> REF DC No <span class="required">*</span></label>
+                        <div class="col-sm-4">
+                            <input type="text" id="RefDC_No7" readonly class="form-control" placeholder="" required />
+                        </div>
+
+                        <label class="col-sm-2 control-label"> Timeout <span class="required">*</span></label>
+                        <div class="col-sm-4">
+                            <input type="text" id="Timeout6" readonly class="form-control" placeholder="" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div>
+                        <label class="col-sm-2 control-label"> Return DC No <span class="required">*</span></label>
+                        <div class="col-sm-4">
+                            <input type="text" id="ReturnDC_No" class="form-control space" placeholder="" required />
+                            <span id="err_ReturnDC_No" class="required"></span>
+                        </div>
+
+                        <label class="col-sm-2 control-label"> Inwarded By <span class="required">*</span></label>
+                        <div class="col-sm-4">
+                            <input type="text" id="Inwardedby6" value="@Session["UserName"]" readonly class="form-control" placeholder="" required />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <table class="table" id="tbl_RII_items">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;">S.NO</th>
+                                <th style="text-align: center;">Material Name</th>
+                                <th style="text-align: center;">Total Qty</th>
+                                <th style="text-align: center;">UOM</th>
+                                <th style="text-align: center;">Pending Qty</th>
+                                <th style="text-align: center;">Received Qty</th>
+                                <th style="text-align: center;">Remaining Qty</th>
+                                <th style="text-align: center;">Remarks1</th>
+                                <th style="text-align: center;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="RII_details"></tbody>
+                    </table>
+                </div>
+            </div>
+            <footer class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3" style="text-align:center;">
+                        <button type="button" id="submit6" class="btn btn-primary">Submit</button>
+                        <button type="reset" id="cancel_re_internal_return" class="btn btn-danger">Cancel</button>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        <div id="error_return_internal" style="display:none;color:red;font-weight:bold;">
+        </div>
+
+    </form>
+</div>
+
+<div class="panel-body" id="div_re_externalreturn" style="display:none;">
+    <form id="externalreturn">
+        <div class="form-group" id="return_external" style="display:none;">
+            <div class="panel-body">
+                <div class="form-group">
+                    <div>
+                        <input type="hidden" name="QueryType" value="Insert" />
+                        <label class="col-sm-2 control-label"> From <span class="required">*</span></label>
+                        <div class="col-sm-4">
+                            <input type="text" id="M_From8" readonly class="form-control" placeholder="" />
+                        </div>
+                        <label class="col-sm-2 control-label "> TO <span class="required">*</span></label>
+                        <div class="col-sm-4">
+                            <input type="text" id="M_To8" readonly class="form-control" placeholder="" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div>
+                        <label class="col-sm-2 control-label"> VechicleNumber </label>
+                        <div class="col-sm-4">
+                            <input type="text" id="EDR8" readonly class="form-control" placeholder="VechicleNumber" />
+                        </div>
+
+                        <label class="col-sm-2 control-label"> Outwarded By <span class="required">*</span></label>
+                        <div class="col-sm-4">
+                            <input type="text" id="Outwardedby8" readonly value="@Session["UserName"]" class="form-control" placeholder="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div>
+                        <label class="col-sm-2 control-label"> REF DC No <span class="required">*</span></label>
+                        <div class="col-sm-4">
+                            <input type="text" id="RefDC_No8" readonly class="form-control" placeholder="" />
+                        </div>
+
+                        <label class="col-sm-2 control-label"> Timein <span class="required">*</span></label>
+                        <div class="col-sm-4">
+                            <input type="text" id="Timeout8" readonly class="form-control" placeholder="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div>
+                        <label class="col-sm-2 control-label"> Return DC No <span class="required">*</span></label>
+                        <div class="col-sm-4">
+                            <input type="text" id="ReturnDC_No8" class="form-control space" placeholder="" />
+                            <span id="err_ReturnDC_No8" class="required"></span>
+                        </div>
+
+                        <label class="col-sm-2 control-label"> Inwarded By <span class="required">*</span></label>
+                        <div class="col-sm-4">
+                            <input type="text" id="Inwardedby8" readonly class="form-control" placeholder="" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <table class="table" id="tbl_REI_items">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;">S.NO</th>
+                                <th style="text-align: center;">Material Name</th>
+                                <th style="text-align: center;">Total Qty</th>
+                                <th style="text-align: center;">UOM</th>
+                                <th style="text-align: center;">Pending Qty</th>
+                                <th style="text-align: center;">Return Qty</th>
+                                <th style="text-align: center;">Remaining Qty</th>
+                                <th style="text-align: center;">Remarks1</th>
+                                <th style="text-align: center;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="REI_details"></tbody>
+                    </table>
+                </div>
+            </div>
+            <footer class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3" style="text-align:center;">
+                        <button type="button" id="submit12" class="btn btn-primary">Submit</button>
+                        <button type="reset" id="cancel_re_external_return" class="btn btn-danger">Cancel</button>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <div id="error_return_external" style="display:none;color:red;font-weight:bold;">
+        </div>
+    </form>
+</div>
+
+<div class="row" id="re_internal10" style="display:none">
+    <div class="col-md-7">
+        @if (Session["RegistersView_form"].ToString() == "1")
+        {
+            <section class="panel">
+                <header class="panel-heading" style="padding:30px !important;">
+                </header>
+                <div class="panel-body" id="div_re_internal10">
+                    <div class="form-group">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div class="dt-responsive table-responsive">
+                                    <div id="">
+                                        <table class="table table-bordered table-striped mb-none" id="datatable-defaultM">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center;">S.NO</th>
+                                                    <th style="min-width:100px;">Transaction Id</th>
+                                                    <th style="min-width:100px;">Material Name</th>
+                                                    <th style="min-width:80px;">Tot Qty</th>
+                                                    <th>UOM</th>
+                                                    <th style="min-width:100px;">REF DC No</th>
+                                                    <th>From</th>
+                                                    <th style="min-width:100px;">To</th>
+                                                    <th style="min-width:150px;">Timeout</th>
+                                                    <th>VechicleNumber</th>
+                                                    <th style="min-width:100px;">Outward By</th>
+                                                    <th style="min-width:80px;">Remarks1</th>
+                                                    <th style="min-width:80px;">Received Qty</th>
+                                                    <th style="min-width:80px;">Remaining Qty</th>
+                                                    <th style="min-width:80px;">Return DC No</th>
+                                                    <th style="min-width:150px;">Timein</th>
+                                                    <th style="min-width:100px;">Inwarded By</th>
+                                                    <th>Remarks2</th>
+                                                    <th>Dept</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody class="RI_details"></tbody>
+                                            <tfoot>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+    </div>
+
+</div>
+<div class="row" id="re_external10" style="display:none;">
+    <div class="col-md-7">
+        @if (Session["RegistersView_form"].ToString() == "1")
+        {
+            <section class="panel">
+                <header class="panel-heading" style="padding:30px !important;">
+                </header>
+                <div class="panel-body" id="div_re_external10">
+                    <div class="form-group">
+                        <div class="panel-body">
+
+                            <div class="form-group">
+                                <div class="dt-responsive table-responsive">
+
+                                    <div id="">
+                                        <table class="table table-bordered table-striped mb-none" id="datatable-defaultE">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center;">S.NO</th>
+                                                    <th style="min-width:50px;">Transaction_id</th>
+                                                    <th style="min-width:80px;">Material Name</th>
+                                                    <th style="min-width:50px;">Tot Qty</th>
+                                                    <th>UOM</th>
+                                                    <th style="min-width:100px;">REF DC No</th>
+                                                    <th style="min-width:100px;">From</th>
+                                                    <th>To</th>
+                                                    <th style="min-width:150px;">Timein</th>
+                                                    <th style="min-width:100px;">VechicleNumber</th>
+                                                    <th style="min-width:50px;">Inwarded By</th>
+                                                    <th>Remarks1</th>
+                                                    <th style="min-width:50px;">Qty Returned</th>
+                                                    <th style="min-width:20px;">Remaining Qty</th>
+                                                    <th style="min-width:20px;">Return DC No</th>
+                                                    <th style="min-width:150px;">Time out</th>
+                                                    <th style="min-width:70px;">Outwarded By</th>
+                                                    <th>Remarks2</th>
+                                                    <th>Dept</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody class="RE_details"></tbody>
+                                            <tfoot>
+
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+    </div>
+</div>
+<div class="row" id="nonre_internal10" style="display:none;width:98%">
+    <div class="col-md-12">
+        @if (Session["RegistersView_form"].ToString() == "1")
+        {
+            <section class="panel">
+                <header class="panel-heading" style="padding:30px !important;">
+                    <h2 class="panel-title"></h2>
+                </header>
+                <div class="panel-body" id="div_nonre_internal">
+                    <div class="form-group">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div class="dt-responsive table-responsive">
+                                    <table class="table table-bordered table-striped mb-none" id="datatable-defaultNI">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center;">S.No</th>
+                                                <th>Transaction_id</th>
+                                                <th>Material Name</th>
+                                                <th>Tot Qty</th>
+                                                <th>UOM</th>
+                                                <th>REF DC No</th>
+                                                <th>From</th>
+                                                <th>To</th>
+                                                <th>Remarks1</th>
+                                                <th style="min-width:150px;">Time out</th>
+                                                <th>Outwarded By</th>
+                                                <th>Dept</th>
+                                                <th>VechicleNo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="NI_details"></tbody>
+                                        <tfoot>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+    </div>
+</div>
+
+<div class="row" id="nonre_external10" style="display: none; width: 97%">
+    <div class="col-md-12">
+        @if (Session["RegistersView_form"].ToString() == "1")
+        {
+            <section class="panel">
+                <header class="panel-heading" style="padding:30px !important;">
+                    <h2 class="panel-title"></h2>
+                </header>
+                <div class="panel-body" id="nonre_external">
+                    <div class="form-group">
+                        <div class="panel-body">
+                            <div>
+                                <div class="form-group">
+
+                                    <div class="dt-responsive table-responsive">
+                                        <table class="table table-bordered table-striped mb-none" id="datatable-defaultNE">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center;">S.No</th>
+                                                    <th>Transaction_id</th>
+                                                    <th>Material Name</th>
+                                                    <th>Tot Qty</th>
+                                                    <th>UOM</th>
+                                                    <th style="min-width:100px;">REF DC No</th>
+                                                    <th style="min-width:100px;">From</th>
+                                                    <th>To</th>
+                                                    <th>Remarks1</th>
+                                                    <th style="min-width:150px;">Time in</th>
+                                                    <th>Inwardedby By</th>
+                                                    <th>VechicleNo</th>
+                                                    <th>Dept</th>
+                                                    <th style="display:none">id</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="NE_details"></tbody>
+
+                                            <tfoot>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/assets/javascripts/swal.js"></script>
+<script src="~/assets/javascripts/swal_alert.js"></script>
+<script src="~/assets/datepicker_normal/datepicker_normal_jquery.min.js"></script>
+<script src="~/assets/datepicker_normal/jquery-ui-1.8.19.custom.min.js"></script>
+
+<script>
+    $(function () {
+        var dateToday = new Date();
+        var yrRange = (dateToday.getFullYear() - 50) + ":" + (dateToday.getFullYear());
+
+        $(".datepic").datepicker({
+            numberOfMonths: 1,
+            changeMonth: true,
+            changeYear: true,
+            yearRange: yrRange,
+            autoclose: true,
+            startDate: dateToday,
+            format: 'dd-mm-yyyy'
+        });
+    });
+    //Avoid Whitespace in front of textbox value//
+    $(document).on("keydown", ".space", function (evt) {
+        var caretPos = $(this)[0].selectionStart
+        if (evt.keyCode == 32 && caretPos == 0) {
+            return false;
+        }
+    });
+    // Avoid more than decimal value in text box//
+    function enforceNumberValidation(ele) {
+        if ($(ele).data('decimal') != null) {
+            var decimal = parseInt($(ele).data('decimal')) || 0;
+            var val = $(ele).val();
+            if (decimal > 0) {
+                var splitVal = val.split('.');
+                if (splitVal.length == 2 && splitVal[1].length > decimal) {
+
+                    $(ele).val(splitVal[0] + '.' + splitVal[1].substr(0, decimal));
+                }
+            } else if (decimal == 0) {
+                var splitVal = val.split('.');
+                if (splitVal.length > 1) {
+                    $(ele).val(splitVal[0]);
+                }
+            }
+        }
+    }
+
+
+    function allowOnlyLetters(e, t) {
+        if (window.event) {
+            var charCode = window.event.keyCode;
+        }
+        else if (e) {
+            var charCode = e.which;
+        }
+        else { return true; }
+        if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+            return true;
+        else {           
+            return false;
+        }
+    }
+</script>
+
+
+@if (@ViewBag.Message != null)
+{
+    <script type="text/javascript">
+        $(function () {
+            swal({
+                icon: "error",
+                title: "@ViewBag.Message",
+                showConfirmButton: false,
+                timer: 4500
+            })
+        });
+    </script>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var params = getUrlVars()["params"];
+        if (params == "reint") {
+            display_re_internal();
+        }
+
+        if (params == "reext") {
+            display_re_external();
+        }
+
+        if (params == "nonreint") {
+            display_nonre_internal();
+        }
+
+        if (params == "nonreext") {
+            display_nonre_external();
+        }
+    });
+
+    function getUrlVars() {
+            var vars = [], hash;
+            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for (var i = 0; i < hashes.length; i++) {
+                hash = hashes[i].split('=');
+                vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+            }
+            return vars;
+        }      
+    
+    function GetReintdc() {
+        var url2 = '@Url.Action("Get_reintDCNO","MaterialEntries")';
+        $.ajax({
+            type: "POST",
+            url: url2,
+            data: '{}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                var s = '<option value="">Search with REF DC Number for receiving the material</option>';
+                for (var i = 0; i < data.length; i++) {
+                    s += '<option value="' + data[i].RefDCNo + '">' + data[i].RefDCNo + '</option>';
+                }
+                $("#DC_No").html(s);
+
+            },
+
+        });
+
+    }
+    function GetReextdc() {
+        var url2 = '@Url.Action("Get_reextDCNO","MaterialEntries")';
+        $.ajax({
+            type: "POST",
+            url: url2,
+            data: '{}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                var s = '<option value="">Search with REF DC Number for receiving the material</option>';
+                for (var i = 0; i < data.length; i++) {
+                    s += '<option value="' + data[i].RefDCNo + '">' + data[i].RefDCNo + '</option>';
+                }
+
+                $("#DC_No1").html(s);
+            },
+
+        });
+    }
+    function Addvendor()
+    {
+        var url='@Url.Action("Addcustomer","MaterialEntries")'
+        var Customername = $("#Customername1").val();
+        var error = "Required";
+        var name = $("#Customername1").val();
+        if (name == "") {
+            document.getElementById("cusname").innerHTML = error;
+            return false;
+        }
+        else {
+            document.getElementById("cusname").innerHTML = "";     //  Newly changed line
+        }
+        $.ajax({
+            type: "POST",
+            url:url,
+            data: '{Customername: ' + JSON.stringify(Customername) + '}',
+            contentType:"application/json; charset=utf-8",
+            dataType: "json",
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            complete: function () {
+                $('.loading').hide();
+            },
+            success: function (response) {
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetVendors")',
+                    dataType: 'json',
+                    data: {},
+                    success: function (data) {
+                        $('#addcustomer').modal('hide');
+                        var s = '<option value="">Please Select</option>';
+                        for (var i = 0; i < data.length; i++) {
+                            s += '<option value="' + data[i].Id + '">' + data[i].Customer_name + ' </option>';
+                        }
+                        $("#RM_To2").html(s);
+                        $("#RM_From").html(s);
+                        $("#RM_From4").html(s);
+                        $("#RM_To1").html(s);
+                        $("#Customername1").val("");
+
+                    },
+                    error: function (ex) {
+
+                    }
+                });
+
+            }
+
+        });
+    }
+    function Adduom()
+    {
+        var url = '@Url.Action("Adduom","MaterialEntries")';
+        var UOM = $("#UOMmodel").val();
+        var error = "please fill the UOM field";
+
+        if (UOM == "") {
+            document.getElementById("eOM").innerHTML = error;    //newly changed
+            return false;
+        }
+        else {
+            document.getElementById("eOM").innerHTML = "";
+
+        }
+        $.ajax({
+            type: "POST",
+            url:url,
+            data: '{UOM: ' + JSON.stringify(UOM) + '}',
+            contentType:"application/json; charset=utf-8",
+            dataType: "json",
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            complete: function () {
+                $('.loading').hide();
+            },
+            success: function (data) {
+
+               $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetUOMs")',
+                    dataType: 'json',
+                    data: {},
+                    success: function (data) {
+                        $('#adduom').modal('hide');
+                        var s = '<option value="">Please Select</option>';
+                        for (var i = 0; i < data.length; i++) {
+                            s += '<option value="' + data[i].UOM + '">' + data[i].UOM + ' </option>';
+                        }
+                        $(".UOM").html(s);
+                        $("#UOMmodel").val("");
+                    },
+                    error: function (ex) {
+
+                    }
+                });
+            }
+
+        });
+    }
+    function hideall() {
+        $("#div_re_internal").hide();
+        $("#div_re_external").hide();
+        $("#div_nonre_internal").hide();
+        $("#div_nonre_external").hide();
+        $("#div_re_internalreturn").hide();
+        $("#div_nonre_internal").hide();
+        $("#div_nonre_external").hide();
+        $("#add_reint").hide();
+        $("#add_re_external").hide();
+        $("#add_nonre_external").hide();
+        $("#add_nonre_internal").hide();
+        $("#div_re_externalreturn").hide();
+        $("#div_re_internalreturn").hide();
+        $("#re_internal").hide();
+        $("#re_external").hide();
+        $("#nonre_internal").hide();
+        $("#nonre_external").hide();
+    }
+    $("#add_reint").click(function ()
+    {
+        hideall();
+        document.getElementById("internal").reset();
+        $("#re_internal10").hide();
+        $("#div_re_internal").show();
+        $("#re_internal").show();
+        $("#add_reint").show();
+        $("#div_re_internal10").hide();
+       $("#RM_To2").select2("val","");
+        document.getElementById("vendor_ret_int").disabled = true;
+        document.getElementById("DC_No").disabled = true;
+        document.getElementById("SubmitRII").disabled = true;
+        document.getElementById("add_reint").style.backgroundColor = "forestgreen";
+        var rowsCnt = document.getElementById("tbl_RIO_items").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+        if (rowsCnt > 0) {
+            for (var i = 0; i < rowsCnt; i++) {
+                document.getElementById("tbl_RIO_items").deleteRow(2);
+
+            }
+        }
+    });
+    $("#cancel_re_internal").click(function () {
+        hideall();
+        $("#div_re_internal10").show();
+        document.getElementById("internal").reset();
+        display_re_internal();
+        $("#add_reint").show();
+        $("#re_internal").show();
+        $("#RM_To2").select2("val", "");
+        document.getElementById("DC_No").disabled = false;
+        document.getElementById("vendor_ret_int").disabled = false;
+        document.getElementById("SubmitRII").disabled = false;
+        document.getElementById("add_reint").disabled = false;
+        document.getElementById("add_reint").style.backgroundColor = "#0099e6";
+        var rowsCnt = document.getElementById("tbl_RIO_items").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+        if (rowsCnt > 0) {
+            for (var i = 0; i < rowsCnt; i++) {
+                document.getElementById("tbl_RIO_items").deleteRow(2);
+
+            }
+        }
+    });
+    $("#cancel_re_internal_return").click(function () {
+        hideall();
+        $("#div_re_internal10").show();
+        display_re_internal();
+        $("#re_internal").show();
+        $("#add_reint").show();
+        $("#DC_No").select2("val","");
+        $("#vendor_ret_int").select2("val","");
+
+        document.getElementById("SubmitRII").disabled = false;
+
+        document.getElementById("add_reint").disabled = false;
+        document.getElementById("SubmitRII").style.backgroundColor = "#0099e6";
+
+    });
+    $("#add_re_external").click(function () {
+        hideall();
+        $("#re_external10").hide();
+        $("#re_external").show();
+        $("#div_re_external").show();
+        $("#add_re_external").show();
+        document.getElementById("external").reset();
+        $("#DC_No1").val("");
+        $("#RM_From").select2("val", "");
+        document.getElementById("vendor_ret_ext").disabled = true;
+        document.getElementById("DC_No1").disabled = true;
+        document.getElementById("SubmitREI").disabled = true;
+        document.getElementById("add_re_external").style.backgroundColor = "forestgreen";
+        var rowsCnt = document.getElementById("tbl_REO_items").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+        if (rowsCnt > 0) {
+            for (var i = 0; i < rowsCnt; i++) {
+                document.getElementById("tbl_REO_items").deleteRow(2);
+
+            }
+        }
+    });
+    $("#add_nonre_internal").click(function () {
+        hideall();
+        $("#div_nonre_internal").show();
+        $("#nonre_internal").show();
+        $("#nonre_internal10").hide();
+        document.getElementById("noninternal").reset();
+        $("#add_nonre_internal").show();
+       $("#RM_To1").select2("val", "");
+        document.getElementById("add_nonre_internal").style.backgroundColor = "forestgreen";
+        var rowsCnt = document.getElementById("tbl_NRI_items").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+        if (rowsCnt > 0) {
+            for (var i = 0; i < rowsCnt; i++) {
+                document.getElementById("tbl_NRI_items").deleteRow(2);
+
+            }
+        }
+    });
+    $("#add_nonre_external").click(function () {
+        hideall();
+        document.getElementById("nonexternal").reset();
+        $("#nonre_external10").hide();
+        $("#div_nonre_external").show();
+        $("#nonre_external").show();
+        $("#add_nonre_external").show();
+        $("#RM_From4").select2("val", "");
+
+        document.getElementById("add_nonre_external").style.backgroundColor = "forestgreen";
+        var rowsCnt = document.getElementById("tbl_NRE_items").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+        if (rowsCnt > 0) {
+            for (var i = 0; i < rowsCnt; i++) {
+                document.getElementById("tbl_NRE_items").deleteRow(2);
+
+            }
+        }
+    });
+    $("#cancel_re_external").click(function () {
+        hideall();
+        $("#div_re_external10").show();
+        display_re_external();
+        document.getElementById("external").reset();
+        $("#re_external").show();
+        $("#add_re_external").show();
+        $("#RM_From").select2("val", "");
+        document.getElementById("DC_No1").disabled = false;
+        document.getElementById("SubmitREI").disabled = false;
+        document.getElementById("add_re_internal").disabled = false;
+        document.getElementById("vendor_ret_ext").disabled = false;
+        document.getElementById("add_re_external").style.backgroundColor = "#0099e6";
+        var rowsCnt = document.getElementById("tbl_REO_items").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+        if (rowsCnt > 0) {
+            for (var i = 0; i < rowsCnt; i++) {
+                document.getElementById("tbl_REO_items").deleteRow(2);
+
+            }
+        }
+    });
+    $("#cancel_nonre_internal").click(function () {
+        hideall();
+        $("#nonre_internal").show();
+        $("#add_nonre_internal").show();
+        $("#RM_To1").select2("val", "");
+        document.getElementById("add_nonre_internal").style.backgroundColor = "#0099e6";
+        display_nonre_internal();
+        var rowsCnt = document.getElementById("tbl_NRI_items").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+        if (rowsCnt > 0) {
+            for (var i = 0; i < rowsCnt; i++) {
+                document.getElementById("tbl_NRI_items").deleteRow(2);
+
+            }
+        }
+
+    });
+    $("#cancel_re_external_return").click(function () {
+        hideall();
+        $("#div_re_external10").show();
+        display_re_external();
+        $("#re_external").show();
+        $("#DC_No1").select2("val", "");
+        $("#vendor_ret_ext").select2("val", "");
+        $("#add_re_external").show();
+        document.getElementById("SubmitREI").disabled = false;
+              document.getElementById("add_re_external").disabled = false;
+        document.getElementById("SubmitREI").style.backgroundColor = "#0099e6";
+
+    });
+    $("#cancel_nonre_external").click(function () {
+        hideall();
+        $("#add_nonre_external").show();
+        $("#nonre_external").show();
+        $("#RM_From4").select2("val", "");
+        document.getElementById("add_nonre_external").style.backgroundColor = "#0099e6";
+        display_nonre_external();
+        document.getElementById("add_nonre_external").style.backgroundColor = "forestgreen";
+        var rowsCnt = document.getElementById("tbl_NRE_items").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+        if (rowsCnt > 0) {
+            for (var i = 0; i < rowsCnt; i++) {
+                document.getElementById("tbl_NRE_items").deleteRow(2);
+
+            }
+        }
+    });
+
+    function add_remove_class(val) {
+        $(".btn_re_internal").removeClass('active');
+        $(".btn_re_external").removeClass('active');
+        $(".btn_nonre_internal").removeClass('active');
+        $(".btn_nonre_external").removeClass('active');
+        if (val == 1) {
+            $(".btn_re_internal").addClass('active');
+        }
+        else if (val == 2) {
+            $(".btn_re_external").addClass('active');
+        }
+        else if (val == 3) {
+            $(".btn_nonre_internal").addClass('active');
+        }
+        else if (val == 4) {
+            $(".btn_nonre_external").addClass('active');
+        }
+
+    }
+
+    function display_re_internal() {
+        GetReintdc();
+        add_remove_class(1);
+        hideall();
+        document.getElementById("internal").reset();
+        document.getElementById("nonexternal").reset();
+        document.getElementById("noninternal").reset();
+        document.getElementById("external").reset();
+        $("#re_internal10").show();
+        $("#nonre_internal10").hide();
+        $("#div_re_internal10").show();
+        $("#nonre_external10").hide();
+        $("#re_internal").show();
+        $("#add_reint").show();
+        $("#re_external10").hide();
+        $("#DC_No").select2("val", "");
+        $("#vendor_ret_int").select2("val", "");
+        document.getElementById("vendor_ret_int").disabled = false;
+        document.getElementById("add_reint").disabled = false;
+        document.getElementById("DC_No").disabled = false;
+        document.getElementById("SubmitRII").disabled = false;
+        document.getElementById("add_reint").style.backgroundColor = "#0099e6";
+        document.getElementById("cusname").innerHTML = "";        // newly added
+        document.getElementById("eOM").innerHTML = "";
+
+        var url3 = '@Url.Action("Get_internal_master10", "MaterialEntries")';
+        var user1 = '@Session["Token"]' + ':' + '@Session["UserName"]';
+        $.ajax({
+            type: "POST",
+            url: url3,
+            data: '{}',
+            headers: {
+                Authorization: 'Bearer ' + user1
+            },
+            dataType: "json",
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            success: function (response) {
+                $('.loading').hide();
+                if (response != "") {
+                    if ($.fn.DataTable.isDataTable('#datatable-defaultM')) {
+                        $('#datatable-defaultM').DataTable().destroy();
+                    }
+
+                    var rowsCnt = document.getElementById("datatable-defaultM").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                    if (rowsCnt > 0) {
+                        for (var i = 0; i < rowsCnt; i++) {
+                            document.getElementById("datatable-defaultM").deleteRow(1);
+                        }
+                    }
+                    for (var i = 0; i < response.length; i++) {
+
+                        var newRow = $("<tr>");
+                        var cols = '';
+                        var n = ($('.RI_details tr').length)+1;
+                        cols += "<td><input style='display: none' type='hidden' value='" + n + "' class=' form-control ' /> <p>" + n + "</p> </td>";
+                        cols += "<td class='Transaction_id3'> <input style='display: none' value='" + response[i].Transaction_id + "' class=' form-control Transaction_id3 transid' readonly /> <span>" + response[i].Transaction_id + "</span> </td>";
+                        cols += "<td class=''><input style='display: none' value='" + response[i].Material_name + "' class='form-control Material_name3' readonly/> <span class='err_iqty'>" + response[i].Material_name + "</span></td>";
+                        cols += "<td class='Qty3'><input data-decimal='2'' oninput='enforceNumberValidation(this)' onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode ==46 || event.charcode == 95' onpaste='return false' style='display:none;padding:0px'  id='Qtyedit' value='" + response[i].Qty + "' class='form-control col-sm-3 Qty3 checkdot'/> <span>" + response[i].Qty + "</span ></td>";
+                        cols += "<td class=''><input style='display: none' value='" + response[i].UOM + "' class=' form-control UOM3' readonly/> <span>" + response[i].UOM + "</span></td>";
+                        cols += "<td class=''><input style='display: none'  value='" + response[i].RefDCNo + "' class=' form-control RefDCNo3' readonly/> <span>" + response[i].RefDCNo + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].M_From + "' class=' form-control M_From3 ' readonly/> <span>" + response[i].M_From + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].M_To + "' class=' col-md-6 form-control M_To3' readonly/> <span>" + response[i].M_To + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Timeout + "' class='form-control Timeout3' readonly/> <span>" + response[i].Timeout + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].EDR + "' class='form-control EDR3' readonly/> <span>" + response[i].EDR + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Outwardedby + "' class='form-control Outwardedby3' readonly /> <span>" + response[i].Outwardedby + "</span></td>";
+                        cols += "<td> <input style='display: none'  value='" + response[i].Remarks + "' class='form-control Remarks3' readonly/><span>" + response[i].Remarks + "</span></td>";
+                        cols += "<td class='ReceivedQty3'><input  style='display: none' data-decimal='2'' oninput='enforceNumberValidation(this)' onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode ==46 || event.charcode == 95' onpaste='return false' value='" + response[i].ReceivedQty + "' id='Receivedin' class='form-control ReceivedQty3 checkdot' /> <span class='err_rece'>" + response[i].ReceivedQty + "</span></td>";
+                        cols += "<td class='RemainingQty3'><input  style='display: none' value='" + response[i].RemainingQty + "' id='Remainingin' class='form-control RemainingQty3 rem3'/><span class='remain_qty err_rem'>" + response[i].RemainingQty + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].ReturnDCNo + "' class='form-control ReturnDCNo3' readonly /><span>" + response[i].ReturnDCNo + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Timein + "' class='form-control Timein3' readonly/><span>" + response[i].Timein + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Inwardedby + "' class='form-control Inwardedby3' readonly /><span>" + response[i].Inwardedby + "</span></td>";
+                        cols += "<td><input  style='display:none' value='" + response[i].Remarks2 + "' class='form-control Remarks2I' /><span>" + response[i].Remarks2 + "</span></td>";
+                        cols += "<td><input  style='display:none' value='" + response[i].Dept + "' class='form-control Dept1' readonly/><span>" + response[i].Dept + "</span></td>";
+                       newRow.append(cols);
+                        $(".RI_details").append(newRow);
+                    }
+
+                    $('#datatable-defaultM').DataTable({
+                        "responsive": true
+                    });
+                } else {
+                    if ($.fn.DataTable.isDataTable('#datatable-defaultM')) {
+                        $('#datatable-defaultM').DataTable().destroy();
+                    }
+                    var rowsCnt = document.getElementById("datatable-defaultM").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                    if (rowsCnt > 0) {
+                        for (var i = 0; i < rowsCnt; i++) {
+                            document.getElementById("datatable-defaultM").deleteRow(1);
+                        }
+                    }
+                    var newRow = $("<tr>");
+                    var cols = '';
+                    cols += "<td colspan='20' style='text-align: center'><p> No data available </p></td>";
+                    cols += "<td>"
+                    newRow.append(cols);
+                    $(".RI_details").append(newRow);
+                }
+                var url1 = '@Url.Action("Transaction_Register", "TransactionRegister")';
+            },
+            error: function (response) {
+
+            }
+        });
+    }
+
+    function display_re_external() {
+        GetReextdc();
+        add_remove_class(2);
+        hideall();
+        document.getElementById("internal").reset();
+        document.getElementById("nonexternal").reset();
+        document.getElementById("noninternal").reset();
+        document.getElementById("external").reset();
+        $("#DC_No1").select2("val", "");
+        $("#vendor_ret_ext").select2("val", "");
+        document.getElementById("vendor_ret_ext").disabled = false;
+        document.getElementById("DC_No1").disabled = false;
+        document.getElementById("add_re_external").disabled = false;
+        $("#nonre_external10").hide();
+        document.getElementById("SubmitREI").disabled = false;
+        document.getElementById("add_re_external").style.backgroundColor = "#0099e6";
+        document.getElementById("cusname").innerHTML = "";
+        document.getElementById("eOM").innerHTML = "";
+        $("#add_re_external").show();
+        $("#nonre_internal10").hide();
+        document.getElementById("nonexternal").reset();
+        $("#re_external").show();
+        $("#re_internal10").hide();
+        $("#re_external10").show();
+
+     var url3 = '@Url.Action("Get_external_master10", "MaterialEntries")';
+        var user1 = '@Session["Token"]' + ':' + '@Session["UserName"]';
+        $.ajax({
+            type: "POST",
+            url: url3,
+            data: '{}',
+            headers: {
+                Authorization: 'Bearer ' + user1
+            },
+            dataType: "json",
+            beforeSend: function () {
+            $('.loading').show();
+            },
+            success: function (response) {
+                $('.loading').hide();
+                $("#re_internal10").hide();
+                if (response != "") {
+                    if ($.fn.DataTable.isDataTable('#datatable-defaultE')) {
+                        $('#datatable-defaultE').DataTable().destroy();
+                    }
+                    var rowsCnt = document.getElementById("datatable-defaultE").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                    if (rowsCnt > 0) {
+                        for (var i = 0; i < rowsCnt; i++) {
+                            document.getElementById("datatable-defaultE").deleteRow(1);
+                        }
+                    }
+                    for (var i = 0; i < response.length; i++) {
+
+                        var newRow = $("<tr>");
+                        var cols = '';
+                        var n = ($('.RE_details tr').length) + 1;
+                        cols += "<td>" + n + "</td>";
+                        cols += "<td class='Transaction_id4'><input style='display: none' value='" + response[i].Transaction_id + "' class=' form-control Transaction_id4 transid' readonly /> <span>" + response[i].Transaction_id + "</span> </td>";
+                        cols += "<td class=''><input style='display: none'  value='" + response[i].Material_name + "' class='form-control Material_name4' readonly/> <span>" + response[i].Material_name + "</span></td>";
+                        cols += "<td class='Qty4'><input style='display: none;padding:0px' data-decimal='2'' oninput='enforceNumberValidation(this)' onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode ==46 || event.charcode == 95' onpaste='return false'  value='" + response[i].Qty + "' class=' form-control Qty4 checkdot' /> <span>" + response[i].Qty + "</span></td>";
+                        cols += "<td class=''><input style='display: none'  value='" + response[i].UOM + "' class=' form-control UOM4' readonly/> <span>" + response[i].UOM + "</span></td>";
+                        cols += "<td class=''><input style='display: none'  value='" + response[i].RefDCNo + "' class=' form-control RefDCNo4' readonly/> <span>" + response[i].RefDCNo + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].M_From + "' class=' form-control M_From4 ' readonly /> <span>" + response[i].M_From + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].M_To + "' class=' col-md-6 form-control M_To4' readonly /> <span>" + response[i].M_To + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Timein + "' class='form-control Timein4' readonly/> <span>" + response[i].Timein + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].EDR + "' class='form-control EDR4' readonly/> <span>" + response[i].EDR + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Inwardedby + "' class='form-control Inwardedby4' readonly/> <span>" + response[i].Inwardedby + "</span></td>";
+                        cols += "<td> <input style='display: none'  value='" + response[i].Remarks + "' class='form-control Remarks' readonly/><span>" + response[i].Remarks + "</span></td>";
+                        cols += "<td class='ReceivedQty4'><input  style='display: none' data-decimal='2'' oninput='enforceNumberValidation(this)' onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode ==46 || event.charcode == 95' onpaste='return false' value='" + response[i].ReturnedQty + "' class='form-control ReceivedQty4 checkdot' /> <span>" + response[i].ReturnedQty + "</span></td>";
+                        cols += "<td class='RemainingQty4'><input  style='display: none' value='" + response[i].RemainingQty + "' class='form-control RemainingQty4' /><span class='remain_qty1'>" + response[i].RemainingQty + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].ReturnDCNo + "' class='form-control ReturnDCNo4' readonly/><span>" + response[i].ReturnDCNo + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Timeout + "' class='form-control Timeout4' readonly/><span>" + response[i].Timeout + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Outwardedby + "' class='form-control Outwardedby4' readonly/><span>" + response[i].Outwardedby + "</span></td>";
+                        cols += "<td><input style='display:none' value='" + response[i].Remarks2 + "' class='form-control Remarks2'/><span>" + response[i].Remarks2 + "</span></td>";
+
+                        cols += "<td><input  style='display:none' value='" + response[i].Dept + "' class='form-control Dept4' readonly/><span>" + response[i].Dept + "</span></td>";
+                                                newRow.append(cols);
+                        $(".RE_details").append(newRow);
+                    }
+
+                    $('#datatable-defaultE').DataTable({
+                        "responsive": true
+                    });
+                }
+                else {
+                    if ($.fn.DataTable.isDataTable('#datatable-defaultE')) {
+                        $('#datatable-defaultE').DataTable().destroy();
+                    }
+                    var rowsCnt = document.getElementById("datatable-defaultE").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                    if (rowsCnt > 0) {
+                        for (var i = 0; i < rowsCnt; i++) {
+                            document.getElementById("datatable-defaultE").deleteRow(1);
+                        }
+                    }
+                    var newRow = $("<tr>");
+                    var cols = '';
+                    cols += "<td colspan='20' style='text-align: center'><p> No data available </p></td>";
+                    cols += "<td>"
+                    newRow.append(cols);
+                    $("RE_details").append(newRow);
+                }
+            },
+            error: function (response) {
+
+            }
+        });
+    }
+
+    function display_nonre_internal() {
+        add_remove_class(3);
+        hideall();
+        $("#nonre_external10").hide();
+        document.getElementById("internal").reset();
+        document.getElementById("nonexternal").reset();
+        document.getElementById("noninternal").reset();
+        document.getElementById("external").reset();
+        $("#nonre_external").hide();
+        $("#nonre_internal10").show();
+        $("#re_internal10").hide()
+        $("#re_external10").hide();
+        $("#add_nonre_internal").show();
+        $("#nonre_internal").show();
+        document.getElementById("add_nonre_internal").style.backgroundColor = "#0099e6";
+        document.getElementById("cusname").innerHTML = "";
+        document.getElementById("eOM").innerHTML = "";
+
+        var url3 = '@Url.Action("Get_noninternal_master10", "MaterialEntries")';
+        var user1 = '@Session["Token"]' + ':' + '@Session["UserName"]';
+        $.ajax({
+            type: "POST",
+            url: url3,
+            data: '{}',
+            headers: {
+                Authorization: 'Bearer ' + user1
+            },
+            dataType: "json",
+            beforeSend: function () {
+            $('.loading').show();
+            },
+            success: function (response) {
+                $('.loading').hide();
+                $("#re_internal").hide();
+                if (response != "") {
+                    if ($.fn.DataTable.isDataTable('#datatable-defaultNI')) {
+                        $('#datatable-defaultNI').DataTable().destroy();
+                    }
+                    var rowsCnt = document.getElementById("datatable-defaultNI").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                    if (rowsCnt > 0) {
+                        for (var i = 0; i < rowsCnt; i++) {
+                            document.getElementById("datatable-defaultNI").deleteRow(1);
+                        }
+                    }
+                    for (var i = 0; i < response.length; i++) {
+                        var editper2 = '@Session["RegistersEdit_form"]';
+                        var deleteper2 = '@Session["RegistersDelete_form"]';
+                        var newRow = $("<tr>");
+                        var cols = '';
+                        var n = ($('.NI_details tr').length) + 1;
+                        cols += "<td><input style='display: none' type='hidden' value='" + n + "' class=' form-control ' /> <p>" + n + "</p></td>";
+                        cols += "<td class=''> <input style='display: none' value='" + response[i].Transaction_id + "' class=' form-control Transaction_id5' readonly /> <span>" + response[i].Transaction_id + "</span> </td>";
+                        cols += "<td class=''><input style='display: none'  value='" + response[i].Material_name + "' class='form-control Material_name5' readonly/> <span>" + response[i].Material_name + "</span></td>";
+                        cols += "<td class='Qty5'><input style='display: none' data-decimal='2'' oninput='enforceNumberValidation(this)' onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode ==46 || event.charcode == 95' onpaste='return false'  value='" + response[i].Qty + "' class=' form-control Qty5 checkdot' /> <span>" + response[i].Qty + "</span></td>";
+                        cols += "<td class=''><input style='display: none'  value='" + response[i].UOM + "' class=' form-control UOM5' readonly/> <span>" + response[i].UOM + "</span></td>";
+                        cols += "<td class=''><input style='display: none'  value='" + response[i].RefDCNo + "' class=' form-control RefDCNo5' readonly /> <span>" + response[i].RefDCNo + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].M_From + "' class=' form-control M_From5' readonly/> <span>" + response[i].M_From + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].M_To + "' class=' col-md-6 form-control M_To5' readonly /> <span>" + response[i].M_To + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Remarks + "' class='form-control Remarks5' /> <span>" + response[i].Remarks + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Timeout + "' class='form-control Timeout5' readonly /> <span>" + response[i].Timeout + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Outwardedby + "' class='form-control Outwardedby5' readonly /> <span>" + response[i].Outwardedby + "</span></td>";
+                        cols += "<td><input  style='display:none' value='" + response[i].Dept + "' class='form-control Dept5' readonly/><span>" + response[i].Dept + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].VechicleNo + "' class='form-control VechicleNo5' readonly /> <span>" + response[i].VechicleNo + "</span></td>";
+                        newRow.append(cols);
+                        $(".NI_details").append(newRow);
+                    }
+
+                    $('#datatable-defaultNI').DataTable({
+                        "responsive": true
+                    });
+                } else {
+                    if ($.fn.DataTable.isDataTable('#datatable-defaultNI')) {
+                        $('#datatable-defaultNI').DataTable().destroy();
+                    }
+                    var rowsCnt = document.getElementById("datatable-defaultNI").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                    if (rowsCnt > 0) {
+                        for (var i = 0; i < rowsCnt; i++) {
+                            document.getElementById("datatable-defaultNI").deleteRow(1);
+                        }
+                    }
+                    var newRow = $("<tr>");
+                    var cols = '';
+                    cols += "<td colspan='15' style='text-align: center'><p> No data available </p></td>";
+                    cols += "<td>"
+                    newRow.append(cols);
+                    $(".NI_details").append(newRow);
+                }
+            },
+            error: function (response) {
+
+            }
+        });
+    }
+    function display_nonre_external() {
+        add_remove_class(4);
+        hideall();
+        document.getElementById("internal").reset();
+        document.getElementById("nonexternal").reset();
+        document.getElementById("noninternal").reset();
+        document.getElementById("external").reset();
+        $("#nonre_internal10").hide();
+        $("#re_internal10").hide();
+        $("#re_external10").hide();
+        $(" #nonre_external").show();
+        $(" #nonre_external10").show();
+        $("#add_nonre_external").show();
+        document.getElementById("add_nonre_external").style.backgroundColor = "#0099e6";
+        document.getElementById("cusname").innerHTML = "";     // newly added
+        document.getElementById("eOM").innerHTML = "";         // newly added
+
+         var url3 = '@Url.Action("Get_nonexternal_master10", "MaterialEntries")';
+        var user1 = '@Session["Token"]' + ':' + '@Session["UserName"]';
+        $.ajax({
+            type: "POST",
+            url: url3,
+            data: '{}',
+            headers: {
+                Authorization: 'Bearer ' + user1
+            },
+            dataType: "json",
+
+            beforeSend: function () {
+            $('.loading').show();
+            },
+            success: function (response) {
+                $('.loading').hide();
+                $("#re_internal").hide();
+                if (response != "") {
+                    if ($.fn.DataTable.isDataTable('#datatable-defaultNE')) {
+                        $('#datatable-defaultNE').DataTable().destroy();
+                    }
+                    var rowsCnt = document.getElementById("datatable-defaultNE").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                    if (rowsCnt > 0) {
+                        for (var i = 0; i < rowsCnt; i++) {
+                            document.getElementById("datatable-defaultNE").deleteRow(1);
+                        }
+                    }
+                    for (var i = 0; i < response.length; i++) {
+                        var editper3 = '@Session["RegistersEdit_form"]';
+                        var deleteper3 = '@Session["RegistersDelete_form"]';
+                        var newRow = $("<tr>");
+                        var cols = '';
+                        var n = ($('.NE_details tr').length) + 1;
+                        cols += "<td><input style='display: none' type='hidden' value='" + n + "' class=' form-control ' /> <p>" + n + "</p></td>";
+                        cols += "<td class=''> <input style='display: none' value='" + response[i].Transaction_id + "' class=' form-control Transaction_id6' readonly /> <span>" + response[i].Transaction_id + "</span> </td>";
+                        cols += "<td class=''><input style='display: none'  value='" + response[i].Material_name + "' class='form-control Material_name6' readonly/> <span>" + response[i].Material_name + "</span></td>";
+                        cols += "<td class='Qty6'><input style='display: none' data-decimal='2'' oninput='enforceNumberValidation(this)' onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode ==46 event.charcode == 95' onpaste='return false'  value='" + response[i].Qty + "' class=' form-control Qty5 checkdot' /> <span>" + response[i].Qty + "</span></td>";
+                        cols += "<td class=''><input style='display: none'  value='" + response[i].UOM + "' class=' form-control UOM6'readonly/> <span>" + response[i].UOM + "</span></td>";
+                        cols += "<td class=''><input style='display: none'  value='" + response[i].RefDCNo + "' class=' form-control RefDCNo6' readonly/> <span>" + response[i].RefDCNo + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].M_From + "' class=' form-control M_From6 ' readonly/> <span>" + response[i].M_From + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].M_To + "' class=' col-md-6 form-control M_To6' readonly /> <span>" + response[i].M_To + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Remarks + "' class='form-control Remarks6' /> <span>" + response[i].Remarks + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Timein + "' class='form-control Timein6' readonly/> <span>" + response[i].Timein + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].Inwardedby + "' class='form-control Inwardedby6' readonly/> <span>" + response[i].Inwardedby + "</span></td>";
+                        cols += "<td><input style='display: none'  value='" + response[i].VechicleNo + "' class='form-control VechicleNo6' readonly /> <span>" + response[i].VechicleNo + "</span></td>";
+                        cols += "<td><input  style='display:none' value='" + response[i].Dept + "' class='form-control Dept6' readonly/><span>" + response[i].Dept + "</span></td>";
+                        cols += "<td class='hidden ID2'><input  style='display:none' value='" + response[i].id2 + "' class='form-control ID2' readonly /></td>";
+                        newRow.append(cols);
+                        $(".NE_details").append(newRow);
+                    }
+                    $('#datatable-defaultNE').DataTable({
+                        "responsive": true
+                    });
+                }
+                else {
+                    if ($.fn.DataTable.isDataTable('#datatable-defaultNE')) {
+                        $('#datatable-defaultNE').DataTable().destroy();
+                    }
+                    var rowsCnt = document.getElementById("datatable-defaultNE").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                    if (rowsCnt > 0) {
+                        for (var i = 0; i < rowsCnt; i++) {
+                            document.getElementById("datatable-defaultNE").deleteRow(1);
+                        }
+                    }
+                    var newRow = $("<tr>");
+                    var cols = '';
+                    cols += "<td colspan='15' style='text-align: center'><p> No data available </p></td>";
+                    cols += "<td>"
+                    newRow.append(cols);
+                    $(".NE_details").append(newRow);
+                }
+
+
+            },
+            error: function (response) {
+
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetVendors")',
+            dataType: 'json',
+            data: {},
+            success: function (data) {
+                var s = '<option value="">Please Select</option>';
+                for (var i = 0; i < data.length; i++) {
+                    s += '<option value="' + data[i].Id + '">' + data[i].Customer_name + ' </option>';
+                }
+                $("#RM_To2").html(s);
+                $("#RM_From").html(s);
+                $("#RM_From4").html(s);
+                $("#RM_To1").html(s);
+
+            },
+            error: function (ex) {
+
+            }
+        });
+
+
+        bind_uoms();
+
+
+    });
+    function bind_uoms()
+    {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetUOMs")',
+            dataType: 'json',
+            data: {},
+            success: function (data) {
+
+                var s = '<option value="">Please Select</option>';
+                for (var i = 0; i < data.length; i++) {
+                    s += '<option value="' + data[i].UOM + '">' + data[i].UOM + ' </option>';
+                }
+                $(".UOM").html(s);
+            },
+            error: function (ex) {
+
+            }
+        });
+    }
+</script>
+
+<script type="text/javascript">
+
+    $(document).ready(function ()
+    {
+        var maxAppend = 0;
+
+        $(document).on("click", "#addmaterial_internal", function (e) {
+             $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetUOMs")',
+                dataType: 'json',
+                data: {},
+                success: function (data) {
+                    var s = '';
+                    s += '<option value="">Please Select</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].UOM + '">' + data[i].UOM + ' </option>';
+                    }
+                    var n = ($('.RIO_details tr').length) + 1;
+                    var tr = '<tr id="tr' + n + '">' +
+                        '<td>' + n + '</td>' +
+
+                        '<td> <input type="text" id="material_'+ n +'" name="Material_name" class="form-control Material_name space"></td>' +
+
+                        '<td> <input type="number" data-decimal="2" oninput="enforceNumberValidation(this)" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46 || event.charCode == 95"  onpaste="return false" name="Qty" class="form-control Qty space checkdot"></td>' +
+
+                        '<td> <select class="form-control UOM space" name="UOM">' + s + '</select></td>' +
+
+                        '<td> <textarea class="form-control Remarks space" name="Remarks" rows="2"></textarea> </td>' +
+
+                        '<td> <button type="button" class="btn btn-danger remCF">Hide</button> </td>' +
+                        '</tr>';
+                    $('.RIO_details').append(tr);
+                },
+                error: function (ex) {
+
+                }
+            });
+
+        });
+
+        $(".RIO_details").on('click', '.remCF', function () {
+            $(this).parent().parent().remove();
+            totalval();
+        });
+
+    });
+
+    $(document).on('click', '.submit', function (e) {
+
+        var RefDCNo = $("#RefDCNo").val();
+        if (RefDCNo == "") {
+            document.getElementById("RefDCNoe").innerHTML = "Required";
+            return false;
+        }
+
+        var M_To = $("#RM_To2").val();
+        if (M_To == "") {
+            document.getElementById("M_Toe").innerHTML = "Required";
+            return false;
+        }
+
+        var M_From = $("#M_From").val();
+        if (M_From == "") {
+            document.getElementById("M_Frome").innerHTML = "Required";
+            return false;
+        }
+
+        var Outwardedby = $("#Outwardedby").val();
+        if (Outwardedby == "") {
+            document.getElementById("Outwardedbye").innerHTML = "Required";
+            return false;
+        }
+
+        var URL = '@System.Configuration.ConfigurationManager.AppSettings["url"]';
+        var R_url = '@Url.Action("Login", "Main")';
+        var user1 = '@Session["Token"]' + ':' + '@Session["UserName"]';
+
+        var Register = new Array();
+        var Register_list = new Array();
+
+        var registers = {};
+        registers.M_From = $("#M_From").val();
+        registers.M_To = $("#RM_To2 Option:selected").val();
+        registers.EDR = $("#EDR").val();
+        registers.RefDCNo = $("#RefDCNo").val();
+        registers.Outwardedby = $("#Outwardedby").val();
+
+        var error_count = 0;
+
+        $("#tbl_RIO_items tbody tr").each(function ()
+        {
+            var row = $(this);
+
+            var Material_name = row.find(".Material_name").val();
+            var Qty = row.find(".Qty").val();
+            var UOM = row.find(".UOM").val();
+
+            if (Material_name == "" )
+            {
+                row.find(".Material_name").focus();
+                row.find(".err_imname").val("Required");
+                error_count = 1;
+                return false;
+            }
+
+            if (Qty == "" ) {
+                row.find(".Qty").focus();
+                row.find(".err_iqty").val("Required");
+                error_count = 1;
+                return false;
+            }
+
+            if (UOM == "") {
+                row.find(".UOM").focus();
+                row.find(".err_iuom").val("Required");
+                error_count = 1;
+                return false;
+            }
+
+            var register_lists = {};
+            register_lists.Material_name = row.find(".Material_name").val();
+            register_lists.Qty = row.find(".Qty").val();
+            register_lists.UOM = row.find(".UOM").val();
+            register_lists.Remarks = row.find(".Remarks").val();
+            Register_list.push(register_lists);
+        });
+        Register.push(registers);
+
+        if (error_count == 0) {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("Insert_Update_returnable_internal_outward","MaterialEntries")",
+                data: '{register_lists: ' + JSON.stringify(Register_list) + ',registers: ' + JSON.stringify(Register) + '}',
+                headers: {
+                    Authorization: 'Bearer ' + user1
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                beforeSend: function () {
+                    $('.loading').show();
+                },
+                complete: function () {
+                    $('.loading').hide();
+                },
+                success: function (response) {
+                    $("#re_external10").show();
+                    $("#re_internal").hide();
+                    $("#div_re_internal10").show();
+                     if (response == "2") {
+                                        swal({
+                                            icon: "success",
+                                            title: "Details Updated Successfully...!",
+                                            showConfirmButton: true,
+                                            confirmButtonText: "Cerrar",
+                                            closeOnConfirm: false
+                                        })
+                                            .then(function (result) {
+
+                                                display_re_internal();
+                                                GetReintdc();
+
+                                            })
+
+                                    }
+
+                                    else if (response == "1") {
+                                        swal({
+                                            icon: "success",
+                                            title: "Details Added Successfully...!",
+                                            showConfirmButton: true,
+                                            confirmButtonText: "Cerrar",
+                                            closeOnConfirm: false
+                                        })
+                                            .then(function (result) {
+                                                display_re_internal();
+                                                GetReintdc();
+                                            })
+
+                                    }
+                                    else if (response=="-1") {
+                                        swal({
+                                            icon: "error",
+                                            title: "RefDCNO already exist",
+                                            button: true,
+                                            timer: 4500
+                                        }).then(function (result) {
+                                            display_re_internal();
+                                            GetReintdc();
+                                           })
+                    }
+
+                }
+
+            });
+        }
+
+    });
+
+
+
+//---------------------------------------------
+
+
+      $(document).ready(function ()
+      {
+        var maxAppend = 0;
+
+          $(document).on("click", "#add_materiale_external", function (e) {
+             $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetUOMs")',
+                dataType: 'json',
+                data: {},
+                success: function (data) {
+                    var s = '';
+                    s += '<option value="">Please Select</option>';
+                    for (var i = 0; i < data.length; i++) {
+
+                        s += '<option value="' + data[i].UOM + '">' + data[i].UOM + ' </option>';
+                    }
+                    var n = ($('.REO_details tr').length) + 1;
+
+                    var tr = '<tr id="tr' + n + '">' +
+                        '<td>' + n + '</td>' +
+
+                        '<td> <input type="text" id="materiale_' + n +'" name="Material_name" class="form-control Material_name space"></td>' +
+
+                        '<td> <input type="number" data-decimal="2" oninput="enforceNumberValidation(this)" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46 || event.charCode == 95"  onpaste="return false" name="Qty" class="form-control Qty space checkdot"></td>'+
+
+                        '<td> <select class="form-control UOM" name="UOM">' + s + '</select></td>' +
+
+                        '<td> <textarea class="form-control Remarks space" name="Remarks" rows="2"></textarea> </td>' +
+
+                        '<td> <button type="button" class="btn btn-danger remCF">Hide</button> </td>' +
+                        '</tr>';
+                    $('.REO_details').append(tr);
+                },
+                error: function (ex) {
+
+                }
+            });
+
+        });
+
+          $(".REO_details").on('click', '.remCF', function () {
+            $(this).parent().parent().remove();
+            totalval();
+        });
+
+    });
+
+
+    $(document).ready(function () {
+
+        $("#submitexternal").click(function (event) {
+
+
+            var M_To = $("#M_To").val();
+            if (M_To == "") {
+                document.getElementById("M_Toe1").innerHTML = "Required";
+                return false;
+            }
+
+            var M_From = $("#RM_From").val();
+            if (M_From == "") {
+                document.getElementById("M_Frome1").innerHTML = "Required";
+                return false;
+            }
+            var RefDCNo = $("#RefDCNo1").val();
+
+            if (RefDCNo == "") {
+                document.getElementById("RefDCNoe1").innerHTML = "Required";
+                return false;
+            }
+            var Inwardedby = $("#Inwardedby").val();
+
+            if (Inwardedby == "") {
+                document.getElementById("Inwardedbye").innerHTML = "Required";
+                return false;
+            }
+            var URL = '@System.Configuration.ConfigurationManager.AppSettings["url"]';
+            var R_url = '@Url.Action("Login", "Main")';
+            var user1 = '@Session["Token"]' + ':' + '@Session["UserName"]';
+
+            var Register = new Array();
+            var Register_list = new Array();
+            var registers = {};
+            registers.M_From = $("#RM_From Option:selected").val();
+            registers.M_To = $("#M_To").val();
+            registers.EDR = $("#EDR1").val();
+            registers.RefDCNo = $("#RefDCNo1").val();
+            registers.Inwardedby = $("#Inwardedby").val();
+            var error_count = 0;
+            $("#tbl_REO_items tbody tr").each(function () {
+                var row = $(this);
+
+                var Material_name = row.find(".Material_name").val();
+                var Qty = row.find(".Qty").val();
+                var UOM = row.find(".UOM").val();
+
+                if (Material_name == "") {
+                    row.find(".Material_name").focus();
+                    row.find(".err_imname").val("Required");
+                    error_count = 1;
+                    return false;
+                }
+
+                if (Qty == "") {
+                    row.find(".Qty").focus();
+                    row.find(".err_iqty").val("Required");
+                    error_count = 1;
+                    return false;
+                }
+
+                if (UOM == "") {
+                    row.find(".UOM").focus();
+                    row.find(".err_iuom").val("Required");
+                    error_count = 1;
+                    return false;
+                }
+                    var row = $(this);
+                    var register_lists = {};
+                    register_lists.Material_name = row.find(".Material_name").val();
+                    register_lists.Qty = row.find(".Qty").val();
+                     register_lists.UOM = row.find(".UOM").val();
+                    register_lists.Remarks = row.find(".Remarks").val();
+                    Register_list.push(register_lists);
+
+
+            });
+            Register.push(registers);
+            if (error_count == 0) {
+
+                  $.ajax({
+                     type: "POST",
+                     url: "@Url.Action("Insert_Update_returnable_external_inward", "MaterialEntries")",
+                     data: '{register_lists: ' + JSON.stringify(Register_list) + ',registers: ' + JSON.stringify(Register) + '}',
+                     headers: {
+                         Authorization: 'Bearer ' + user1
+                     },
+                     contentType: "application/json; charset=utf-8",
+                     dataType: "json",
+                     beforeSend: function () {
+                         $('.loading').show();
+                     },
+                     complete: function () {
+                         $('.loading').hide();
+                     },
+                      success: function (response) {
+                          document.getElementById("external").reset();
+                         $("#re_external10").show();
+                          $("#nonre_internal").hide();
+                         $("#div_re_external10").show();
+                          if (response == "1") {
+                             swal({
+                                 icon: "success",
+                                 title: "Details Added Successfully...!",
+                                 showConfirmButton: true,
+                                 confirmButtonText: "Cerrar",
+                                 closeOnConfirm: false
+                             })
+                                 .then(function (result) {
+                                     GetReextdc();
+                                     display_re_external();
+
+                                 })
+
+                         }
+                         else if (response == "-1") {
+                             swal({
+                                 icon: "error",
+                                 title: "RefDCNO already exist",
+                                 button: true,
+                                 timer: 4500
+                             }).then(function (result) {
+                                 display_re_external();
+                                 GetReextdc();
+
+                             })
+                         }
+                     }
+
+                 });
+            }
+
+
+        });
+    });
+
+    //-------------------------------------------------------
+
+     $(document).ready(function ()
+      {
+        var maxAppend = 0;
+
+         $(document).on("click", "#add_material_non_internal", function (e) {
+             $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetUOMs")',
+                dataType: 'json',
+                data: {},
+                success: function (data) {
+                    var s = '';
+                    s += '<option value="">Please Select</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].UOM + '">' + data[i].UOM + ' </option>';
+                    }
+
+                    var n = ($('.NRI_details tr').length) + 1;
+
+                    var tr = '<tr id="tr' + n + '">' +
+                        '<td>' + n + '</td>' +
+
+                        '<td> <input type="text" id="materialni_' + n +'" name="Material_name" class="form-control Material_name space"></td>' +
+
+                        '<td> <input type="number" data-decimal="2" oninput="enforceNumberValidation(this)" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46 || event.charCode == 95"  onpaste="return false" name="Qty" class="form-control QtyN space checkdot"></td>'+
+
+                        '<td> <select class="form-control UOM" name="UOM">' + s + '</select></td>' +
+
+                        '<td> <textarea class="form-control RemarksN space" name="Remarks" rows="2"></textarea> </td>' +
+
+                        '<td> <button type="button" class="btn btn-danger remCF">Hide</button> </td>' +
+                        '</tr>';
+                    $('.NRI_details').append(tr);
+                },
+                error: function (ex) {
+
+                }
+            });
+
+        });
+
+         $(".NRI_details").on('click', '.remCF', function () {
+            $(this).parent().parent().remove();
+            totalval();
+        });
+
+    });
+
+
+    $(document).ready(function ()
+    {
+        $(".submit3").click(function (event) {
+
+
+            var M_To = $("#RM_To1").val();
+            if (M_To == "") {
+                document.getElementById("eM_ToNI").innerHTML = "Required";
+                return false;
+            }
+
+            var M_From = $("#M_From").val();
+            if (M_From == "") {
+                document.getElementById("eM_FromNI").innerHTML = "Required";
+                return false;
+            }
+            var RefDCNo = $("#Ref_DCNoNI").val();
+            if (RefDCNo == "") {
+                document.getElementById("eRefDCNoNI").innerHTML = "Required";
+                return false;
+            }
+            var Outwardedby = $("#Outwardedby1").val();
+            if (Outwardedby == "") {
+                document.getElementById("eOutwardedbyNI").innerHTML = "Required";
+                return false;
+            }
+            var URL = '@System.Configuration.ConfigurationManager.AppSettings["url"]';
+            var R_url = '@Url.Action("Login", "Main")';
+            var user1 = '@Session["Token"]' + ':' + '@Session["UserName"]';
+
+            var Register = new Array();
+            var Register_list = new Array();
+
+            var registers = {};
+
+            registers.M_From = $("#M_From").val();
+            registers.M_To = $("#RM_To1 Option:selected").val();
+            registers.RefDCNo = $("#Ref_DCNoNI").val();
+            registers.Outwardedby = $("#Outwardedby1").val();
+            registers.VechicleNo = $("#VechicleNumber1").val();
+             var error_count = 0;
+            $("#tbl_NRI_items tbody tr").each(function () {
+
+                var row = $(this);
+
+                var Material_nameN = row.find(".Material_name").val();
+                var QtyN = row.find(".QtyN").val();
+                var UOM = row.find(".UOM").val();
+
+                if (Material_nameN == "") {
+                    row.find(".Material_name").focus();
+                    error_count = 1;
+                    return false;
+                }
+
+                if (QtyN == "") {
+                    row.find(".QtyN").focus();
+                    error_count = 1;
+                    return false;
+                }
+
+                if (UOM == "") {
+                    row.find(".UOM").focus();
+                    error_count = 1;
+                    return false;
+                }
+
+                var row = $(this);
+                var register_lists = {};
+                register_lists.Material_name = row.find(".Material_name").val();
+                register_lists.Qty = row.find(".QtyN").val();
+                register_lists.UOM = row.find(".UOM").val();
+                register_lists.Remarks = row.find(".RemarksN").val();
+                Register_list.push(register_lists);
+
+            });
+
+            Register.push(registers);
+
+            if (error_count == 0) {
+            $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("Insert_Update_nonreturnable_internal_outward", "MaterialEntries")",
+                    data: '{register_lists: ' + JSON.stringify(Register_list) + ',registers: ' + JSON.stringify(Register) + '}',
+                    headers: {
+                        Authorization: 'Bearer ' + user1
+                    },
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    beforeSend: function () {
+                        $('.loading').show();
+                    },
+                    complete: function () {
+                        $('.loading').hide();
+                    },
+                    success: function (response)
+                    {
+                        document.getElementById("noninternal").reset();
+                        $("#nonre_internal10").show();
+                         $("#re_external").hide();
+                        $("#div_nonre_internal").show();
+                          if (response == "1") {
+                             swal({
+                                 icon: "success",
+                                 title: "Details Added Successfully...!",
+                                 showConfirmButton: true,
+                                 confirmButtonText: "Cerrar",
+                                 closeOnConfirm: false
+                             })
+                                 .then(function (result) {
+                                     display_nonre_internal();
+                                 })
+
+                         }
+                         else if (response == "-1") {
+                             swal({
+                                 icon: "error",
+                                 title: "RefDCNO already exist",
+                                 button: true,
+                                 timer: 4500
+                             }).then(function (result) {
+                                 display_nonre_internal();
+                             })
+                         }
+                    }
+
+               });
+
+            }
+
+
+        });
+
+    });
+    //--------------------------------------
+        $(document).on("click", "#add_material_non_external", function (e) {
+
+        var maxAppend = 0;
+
+             $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetUOMs")',
+                dataType: 'json',
+                data: {},
+                success: function (data) {
+                    var s = '';
+                    s += '<option value="">Please Select</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].UOM + '">' + data[i].UOM + ' </option>';
+                    }
+
+                    var n = ($('.NRE_details tr').length) + 1;
+
+                    var tr = '<tr id="tr' + n + '">' +
+                        '<td>' + n + '</td>' +
+
+                        '<td> <input type="text" id="materialne_' + n +'" name="Material_name" class="form-control Material_name space"></td>' +
+
+                        '<td> <input type="number" data-decimal="2" oninput="enforceNumberValidation(this)" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46 || event.charCode == 95"  onpaste="return false" name="Qty" class="form-control Qty space checkdot"></td>'+
+
+                        '<td> <select class="form-control UOM" name="UOM">' + s + '</select></td>' +
+
+                        '<td> <textarea class="form-control Remarks space" name="Remarks" rows="2"></textarea> </td>' +
+
+                        '<td> <button type="button" class="btn btn-danger remCF">Hide</button> </td>' +
+                        '</tr>';
+                    $('.NRE_details').append(tr);
+                },
+                error: function (ex) {
+
+                }
+             });
+
+
+        $(".NRE_details").on('click', '.remCF', function () {
+            $(this).parent().parent().remove();
+            totalval();
+        });
+
+     });
+
+    $(document).ready(function () {
+
+        $(".submit4").click(function (event) {
+
+            var M_To = $("#M_To4").val();
+            if (M_To == "") {
+                document.getElementById("eM_TONE").innerHTML = "Required";
+                return false;
+       3     }
+
+            var M_From = $("#RM_From4").val();
+            if (M_From == "") {
+                document.getElementById("eM_FromNE").innerHTML = "Required";
+                return false;
+            }
+            var RefDCNo = $("#RefDCNo4").val();
+
+            if (RefDCNo == "") {
+                document.getElementById("eRefDCNoNE").innerHTML = "Required";
+                return false;
+            }
+            var Outwardedby = $("#Inwardedby4").val();
+            if (Outwardedby == "") {
+                document.getElementById("eInwardedbyNE").innerHTML = "Required";
+                return false;
+            }
+            var URL = '@System.Configuration.ConfigurationManager.AppSettings["url"]';
+            var R_url = '@Url.Action("Login", "Main")';
+            var user1 = '@Session["Token"]' + ':' + '@Session["UserName"]';
+
+            var Register = new Array();
+            var Register_list = new Array();
+
+            var registers = {};
+            registers.M_From = $("#RM_From4").val();
+            registers.M_To = $("#M_To4").val();
+            registers.RefDCNo = $("#RefDCNo4").val();
+            registers.Inwardedby = $("#Inwardedby4").val();
+            registers.VechicleNo = $("#VechicleNumber4").val();
+
+
+            var error_count = 0;
+            $("#tbl_NRE_items tbody tr").each(function ()
+            {
+
+                var row = $(this);
+                var Material_name = row.find(".Material_name").val();
+                var Qty = row.find(".Qty").val();
+                var UOM = row.find(".UOM").val();
+
+                if (Material_name == "") {
+                    row.find(".Material_name").focus();
+                    row.find(".err_imname").val("Required");
+                    error_count = 1;
+                    return false;
+                }
+
+                if (Qty == "") {
+                    row.find(".Qty").focus();
+                    row.find(".err_iqty").val("Required");
+                    error_count = 1;
+                    return false;
+                }
+
+                if (UOM == "") {
+                    row.find(".UOM").focus();
+                    row.find(".err_iuom").val("Required");
+                    error_count = 1;
+                    return false;
+                }
+
+                    var row = $(this);
+                    var register_lists = {};
+                    register_lists.Material_name = row.find(".Material_name").val();
+                    register_lists.Qty = row.find(".Qty").val();
+                register_lists.UOM = row.find(".UOM").val();
+                    register_lists.Remarks = row.find(".Remarks").val();
+                    Register_list.push(register_lists);
+
+            });
+
+            Register.push(registers);
+
+               if (error_count == 0) {
+                      $.ajax({
+                      type: "POST",
+                      url: "@Url.Action("Insert_Update_nonreturnable_external_inward", "MaterialEntries")",
+                      data: '{register_lists: ' + JSON.stringify(Register_list) + ',registers: ' + JSON.stringify(Register) + '}',
+                      headers: {
+                         Authorization: 'Bearer ' + user1
+                      },
+                      contentType: "application/json; charset=utf-8",
+                       dataType: "json",
+                      beforeSend: function () {
+                         $('.loading').show();
+                     },
+                     complete: function () {
+                          $('.loading').hide();
+                     },
+                     success: function (response)
+                    {
+
+                     document.getElementById("nonexternal").reset();
+                        $("#nonre_external10").show();
+                         $("#re_external").hide();
+                        $("#div_nonre_external").show();
+                          if (response == "1") {
+                             swal({
+                                 icon: "success",
+                                 title: "Details Added Successfully...!",
+                                 showConfirmButton: true,
+                                 confirmButtonText: "Cerrar",
+                                 closeOnConfirm: false
+                             })
+                                 .then(function (result) {
+                                     display_nonre_external();
+                                 })
+
+                         }
+                         else if (response == "-1") {
+                             swal({
+                                 icon: "error",
+                                 title: "RefDCNO already exist",
+                                 button: true,
+                                 timer: 4500
+                             }).then(function (result) {
+                                 display_nonre_external();
+                             })
+                         }
+                    }
+
+            });
+
+            }
+
+
+
+        });
+    });
+
+    //Returnable Internal Inward
+    $("#SubmitRII").click(function () {
+        var error_count = 0;
+        $("#ReturnDC_No").val("");
+        document.getElementById("internal").reset();
+        document.getElementById("add_reint").disabled = true;
+        document.getElementById("DC_No").disabled = false;
+        document.getElementById("SubmitRII").disabled = false;
+        document.getElementById("SubmitRII").style.backgroundColor = "forestgreen";
+        $("#re_internal10").hide();
+        $("#div_re_internalreturn").show();
+        $("#div_re_externalreturn").hide();
+        var vendorname = $("#vendor_ret_int").val();
+        if (vendorname == "") {
+            $("#vendor_ret_int").focus();
+
+            error_count = 1;
+        }
+
+        var url2 = '@Url.Action("get_inward_details", "MaterialEntries")';
+        var user1 = '@Session["Token"]' + ':' + '@Session["UserName"]';
+
+        var Register = new Array();
+        var registers = {};
+        registers.RefDCNo = $("#DC_No").val();
+        registers.id = $("#vendor_ret_int").select2('val');
+        registers.M_To = $("#vendor_ret_int").select2('data').text;
+        Register.push(registers);
+        if (error_count == 0) {
+            $.ajax({
+                type: "POST",
+                url: url2,
+                data: '{registers: ' + JSON.stringify(Register) + '}',
+                headers: {
+                    Authorization: 'Bearer ' + user1
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                beforeSend: function () {
+                    $('.loading').show();
+                },
+                complete: function () {
+                    $('.loading').hide();
+                },
+                success: function (response) {
+                    if (response.length != 0) {
+                        $("#return_internal").show();
+                        $("#error_return_internal").hide();
+                        $("#error_return_internal").html('');
+
+                        $('#M_From6').val(response[0].M_From);
+                        $('#M_To6').val(response[0].M_To);
+                        $('#EDR6').val(response[0].EDR);
+                        $('#Timeout6').val(response[0].Timeout);
+                        $('#Outwardedby6').val(response[0].Outwardedby);
+                        $('#RefDC_No7').val(response[0].RefDCNo);
+                    }
+                    else {
+                        $("#return_internal").hide();
+                        $("#error_return_internal").show();
+                        $("#error_return_internal").html('Details Not Found...!');
+
+                        $('#M_From6').val('');
+                        $('#M_To6').val('');
+                        $('#EDR6').val('');
+                        $('#Timeout6').val('');
+                        $('#Outwardedby6').val('');
+                        $('#RefDC_No7').val('');
+                        $("#div_re_internalreturn").hide();
+                    }
+
+                },
+                error: function (response) {
+
+                }
+            });
+
+        var url3 = '@Url.Action("get_inward_details_list", "MaterialEntries")';
+        $.ajax({
+            type: "POST",
+            url: url3,
+            data: '{registers: ' + JSON.stringify(Register) + '}',
+            headers: {
+                Authorization: 'Bearer ' + user1
+            },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            complete: function () {
+                $('.loading').hide();
+            },
+            success: function (response) {
+                if (response != 0) {
+                    var rowsCnt = document.getElementById("tbl_RII_items").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                    if (rowsCnt > 0) {
+                        for (var i = 0; i < rowsCnt; i++) {
+                            document.getElementById("tbl_RII_items").deleteRow(1);
+                        }
+                    }
+
+                    for (var i = 0; i < response.length; i++) {
+                        var newRow = $("<tr>");
+                        var cols = '';
+                        var n = ($('.RII_details tr').length) + 1;
+                        cols += "<td>" + n + "</td>";
+                        cols += "<td> <input type='hidden' name='Material_name' value='" + response[i].Material_name + "' class='form-control Material_name' required>" + response[i].Material_name + "</td>";
+                        cols += "<td> <input type='hidden' name='Qty' value=" + response[i].Qty + " class='form-control Qty' required>" + response[i].Qty + "</td>";
+                        cols += "<td> <input type='hidden' name='UOM' value=" + response[i].UOM + " class='form-control UOM' required>" + response[i].UOM + "</td>";
+                        cols += "<td> <input type='hidden' name='PendingQty' value=" + response[i].PendingQty + " class='form-control PendingQty' required>" + response[i].PendingQty + "</td>";
+                        cols += "<td> <input type='number' data-decimal='2'' oninput='enforceNumberValidation(this)' onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode ==46 || event.charCode == 95' onpaste='return false' name='ReceivedQty' value='0' class='form-control ReceivedQty space checkdot'> </td>";
+                        cols += "<td> <input type='hidden' name='RemainingQty' value=" + response[i].RemainingQty + " class='form-control RemainingQty' required> <span class='remain_qty'>" + response[i].PendingQty + " </span> </td>";
+                        cols += "<td> <input type='text' name='Remarks' value='' class='form-control Remarks' required></td>";
+                        cols += '<td> <button type="reset" name="deleteRII" class="btn btn-danger DeleteRII">Hide</button></td> '
+                        cols += "</tr>";
+                        newRow.append(cols);
+                        $(".RII_details").append(newRow);
+                    }
+                    $(".RII_details").on('click', '.DeleteRII', function () {
+                        $(this).parent().parent().remove();
+
+                    });
+                }
+                
+            },
+            error: function (response) {
+
+            }
+       
+        });
+        }
+        else {
+            alert("PLEASE SELECT VENDORNAME");
+            $("#div_re_internalreturn").hide();
+        }
+    });
+    
+
+    $('body').delegate('.ReceivedQty', 'keyup', function () {
+        var tr = $(this).parent().parent();
+        var ReceivedQty = tr.find('.ReceivedQty').val();
+        var PendingQty = tr.find('.PendingQty').val();
+
+        if (parseFloat(PendingQty) >= parseFloat(ReceivedQty)) {
+            var RemainingQty = PendingQty - ReceivedQty;
+            var Rema1 = parseFloat((RemainingQty).toFixed(2));
+            tr.find('.RemainingQty').val(Rema1);
+            tr.find('.remain_qty').html(Rema1);
+        }
+        else {
+            tr.find('.RemainingQty').val('0');
+            tr.find('.remain_qty').html('0');
+        }
+
+    });
+
+
+  $(document).ready(function ()
+  {
+        $("#submit6").click(function (event) {
+            var URL = '@System.Configuration.ConfigurationManager.AppSettings["url"]';
+            var R_url = '@Url.Action("Login", "Main")';
+            var user1 = '@Session["Token"]' + ':' + '@Session["UserName"]';
+
+            var ReturnDC_No = $("#ReturnDC_No").val();
+            if (ReturnDC_No == "") {
+                document.getElementById("err_ReturnDC_No").innerHTML = "Required";
+                return false;
+            }
+
+
+            var Register = new Array();
+            var Register_list = new Array();
+
+            var registers = {};
+
+            registers.M_From = $("#M_From6").val();
+            registers.M_To = $("#M_To6").val();
+            registers.VechicleNo = $("#EDR6").val();
+            registers.RefDCNo = $("#RefDC_No7").val();
+            registers.Timeout = $("#Timeout6").val();
+            registers.Outwardedby = $("#Outwardedby6").val();
+            registers.ReturnDC_No = $("#ReturnDC_No").val();
+            registers.Inwardedby = $("#Inwardedby6").val();
+            var error_count = 0;
+            $("#tbl_RII_items tbody tr").each(function () {
+                var row = $(this);
+
+                var Rece = row.find(".ReceivedQty").val();
+                var Pend = row.find(".PendingQty").val();
+                if (parseFloat(Rece) > parseFloat(Pend)) {
+                    swal({
+                        icon: "error",
+                        title: "ReceivedQty should be lesser than PendingQty!",
+                        button: true,
+                        timer: 4500
+                    })
+                    row.find(".ReceivedQty").focus();
+                    error_count = 1;
+                    return false;
+                }
+
+                if (Rece == "") {
+                    row.find(".ReceivedQty").focus();
+                    error_count = 1;
+                    return false;
+                }
+                var register_lists = {};
+
+                register_lists.Material_name = row.find(".Material_name").val();
+                register_lists.Qty = row.find(".Qty").val();
+                register_lists.UOM = row.find(".UOM").val();
+                register_lists.PendingQty = row.find(".PendingQty").val();
+                register_lists.ReceivedQty = row.find(".ReceivedQty").val();
+                register_lists.RemainingQty = row.find(".RemainingQty").val();
+                register_lists.Remarks = row.find(".Remarks").val();
+                Register_list.push(register_lists);
+            });
+            var row = $(this);
+            var ReceivedQty = row.find(".ReceivedQty").val();
+            if (ReceivedQty != "" || ReceivedQty != "0") {
+                Register.push(registers);
+            }
+            if (error_count == 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("Insert_Update_returnable_internal_inward", "MaterialEntries")",
+                    data: '{register_lists: ' + JSON.stringify(Register_list) + ',registers: ' + JSON.stringify(Register) + '}',
+                    headers: {
+                        Authorization: 'Bearer ' + user1
+                    },
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    beforeSend: function () {
+                        $('.loading').show();
+                    },
+                    complete: function () {
+                        $('.loading').hide();
+                    },
+                    success: function (response) {
+                        $("#re_external10").show();
+                        $("#re_internal").hide();
+                        $("#div_re_internal10").show();
+
+                         if (response == "1") {
+                            swal({
+                                icon: "success",
+                                title: "Details Added Successfully...!",
+                                showConfirmButton: true,
+                                confirmButtonText: "Cerrar",
+                                closeOnConfirm: false
+                            })
+                                .then(function (result) {
+                                    display_re_internal();
+                                })
+
+                        }
+                        else if (response == "-1") {
+                            swal({
+                                icon: "error",
+                                title: "RefDCNO already exist",
+                                button: true,
+                                timer: 4500
+                            }).then(function (result) {
+                                display_re_internal();
+                            })
+                        }
+                    }
+
+                });
+            }
+        });
+    });
+
+    //Returnable External Outward
+    $("#SubmitREI").click(function ()
+    {
+        var error_count = 0;
+        $("#ReturnDC_No8").val("");
+        $("#re_external10").hide();
+        document.getElementById("add_re_external").disabled = true;
+        document.getElementById("DC_No1").disabled = false;
+        document.getElementById("SubmitREI").disabled = false;
+        document.getElementById("SubmitREI").style.backgroundColor = "forestgreen";
+
+        $("#div_re_internalreturn").hide();
+        $("#div_re_externalreturn").show();
+        var vendorname = $("#vendor_ret_ext").val();
+        if (vendorname == "") {
+            $("#vendor_ret_ext").focus();
+            error_count = 1;
+        }
+        var url2 ='@Url.Action("get_outward_details", "MaterialEntries")';
+        var user1 = '@Session["Token"]' + ':' + '@Session["UserName"]';
+
+        var Register = new Array();
+        var registers = {};
+        registers.id = $("#vendor_ret_ext").select2('val');
+        registers.M_From = $("#vendor_ret_ext").select2('data').text;
+        registers.RefDCNo = $("#DC_No1").val();
+
+        Register.push(registers);
+        if (error_count == 0) {
+        $.ajax({
+            type: "POST",
+            url: url2,
+            data: '{registers: ' + JSON.stringify(Register) + '}',
+            headers: {
+                Authorization: 'Bearer ' + user1
+            },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            complete: function () {
+                $('.loading').hide();
+            },
+            success: function (response)
+            {
+                if (response.length != '0')
+                {
+                    $("#return_external").show();
+                    $("#error_return_external").hide();
+                    $("#error_return_external").html('');
+                    $('#M_From8').val(response[0].M_From);
+                    $('#M_To8').val(response[0].M_To);
+                    $('#EDR8').val(response[0].EDR);
+                    $('#Timeout8').val(response[0].Timein);
+                    $('#Inwardedby8').val(response[0].Inwardedby);
+                    $('#RefDC_No8').val(response[0].RefDCNo);
+                }
+                else
+                {
+                    $("#return_external").hide();
+                    $("#error_return_external").show();
+                    $("#error_return_external").html('Details Not Found...!');
+                    $('#M_From8').val('');
+                    $('#M_To8').val('');
+                    $('#EDR8').val('');
+                    $('#Timeout8').val('');
+                    $('#Inwardedby8').val('');
+                    $('#RefDC_No8').val('');
+                }
+
+            },
+            error: function (response) {
+
+            }
+        });
+
+        var url3 ='@Url.Action("get_outward_details_list", "MaterialEntries")';
+
+        $.ajax({
+            type: "POST",
+            url: url3,
+            data: '{registers: ' + JSON.stringify(Register) + '}',
+            headers: {
+                Authorization: 'Bearer ' + user1
+            },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            beforeSend: function () {
+                $('.loading').show();
+            },
+            complete: function () {
+                $('.loading').hide();
+            },
+            success: function (response)
+            {
+
+                var rowsCnt = document.getElementById("tbl_REI_items").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                if (rowsCnt > 0) {
+                    for (var i = 0; i < rowsCnt; i++) {
+                        document.getElementById("tbl_REI_items").deleteRow(1);
+                    }
+                }
+                for (var i = 0; i < response.length; i++)
+                {
+
+                    var newRow = $("<tr>");
+                    var cols = '';
+                    var n = ($('.REI_details tr').length) + 1;
+                    cols += "<td>" + n + "</td>";
+                    cols += "<td> <input type='hidden' name='Material_name' value='" + response[i].Material_name + "' class='form-control Material_name1' required>" + response[i].Material_name + "</td>";
+                    cols += "<td> <input type='hidden' name='Qty' value=" + response[i].Qty + " class='form-control Qty1' required>" + response[i].Qty + "</td>";
+                    cols += "<td> <input type='hidden' name='UOM' value=" + response[i].UOM + " class='form-control UOM1' required>" + response[i].UOM + "</td>";
+                    cols += "<td> <input type='hidden' name='PendingQty' value=" + response[i].PendingQty + " class='form-control PendingQty1' required>" + response[i].PendingQty + "</td>";
+                    cols += "<td> <input type='number' data-decimal='2'' oninput='enforceNumberValidation(this)' onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode ==46 || event.charCode == 95' onpaste='return false' name='ReturnedQty' value='0' class='form-control ReturnedQty1 space checkdot' required> </td>";
+                    cols += "<td> <input type='hidden' name='RemainingQty' value=" + response[i].PendingQty + " class='form-control RemainingQty1' required> <span class='remain_qty1'>" + response[i].PendingQty + " </span>  </td>";
+                    cols += "<td> <input type='text' name='Remarks' class='form-control Remarks1'></td>";
+
+                    cols += '<td> <button type="reset" name="deleteREI" class="btn btn-danger DeleteREI">Hide</button></td> '
+                    cols += "</tr>";
+                    newRow.append(cols);
+                    $(".REI_details").append(newRow);
+                }
+
+                $(".REI_details").on('click', '.DeleteREI', function () {
+                    $(this).parent().parent().remove();
+
+                });
+
+            },
+            error: function (response) {
+
+            }
+        });
+        }
+        else {
+            alert("PLEASE SELECT VENDORNAME");
+            $("#div_re_externalreturn").hide();
+        }
+    });
+
+
+    $('body').delegate('.ReturnedQty1', 'keyup', function () {
+        var tr = $(this).parent().parent();
+        var ReturnedQty = tr.find('.ReturnedQty1').val();
+        var PendingQty = tr.find('.PendingQty1').val();
+
+        if (parseFloat(PendingQty) >= parseFloat(ReturnedQty)) {
+            var RemainingQty = PendingQty - ReturnedQty;
+            var Rema1 = parseFloat((RemainingQty).toFixed(2));
+            tr.find('.RemainingQty1').val(Rema1);
+            tr.find('.remain_qty1').html(Rema1);
+        }
+        else {
+            tr.find('.RemainingQty1').val('0');
+            tr.find('.remain_qty1').html('0');
+        }
+
+    });
+
+     $(document).ready(function ()
+       {
+         $("#submit12").click(function (event) {
+            var URL = '@System.Configuration.ConfigurationManager.AppSettings["url"]';
+            var R_url = '@Url.Action("Login", "Main")';
+            var user1 = '@Session["Token"]' + ':' + '@Session["UserName"]';
+
+             var ReturnDC_No8 = $("#ReturnDC_No8").val();
+             if (ReturnDC_No8 == "") {
+                 document.getElementById("err_ReturnDC_No8").innerHTML = "Required";
+                 return false;
+             }
+
+
+            var Register = new Array();
+            var Register_list = new Array();
+
+            var registers = {};
+
+             registers.M_From = $("#M_From8").val();
+            registers.M_To = $("#M_To8").val();
+            registers.EDR = $("#EDR8").val();
+            registers.RefDCNo = $("#RefDC_No8").val();
+            registers.Timeout = $("#Timeout8").val();
+            registers.Outwardedby = $("#Outwardedby8").val();
+            registers.ReturnDC_No = $("#ReturnDC_No8").val();
+            registers.Inwardedby = $("#Inwardedby8").val();
+             var error_count = 0;
+            $("#tbl_REI_items tbody tr").each(function () {
+                var row = $(this);
+                var Rece = row.find(".ReturnedQty1").val();
+                var Pend = row.find(".PendingQty1").val();
+                if (parseFloat(Rece) > parseFloat(Pend)) {
+                    swal({
+                        icon: "error",
+                        title: "ReturnedQty should be lesser than PendingQty!",
+                        button: true,
+                        timer: 4500
+                    })
+                    row.find(".ReturnedQty1").focus();
+                    error_count = 1;
+                    return false;
+                }
+
+                if (Rece == "") {
+                    row.find(".ReturnedQty1").focus();
+                    error_count = 1;
+                    return false;
+                }
+                var register_lists = {};
+
+                register_lists.Material_name = row.find(".Material_name1").val();
+                register_lists.Qty = row.find(".Qty1").val();
+                register_lists.UOM = row.find(".UOM1").val();
+                register_lists.PendingQty = row.find(".PendingQty1").val();
+                register_lists.ReturnedQty = row.find(".ReturnedQty1").val();
+                register_lists.RemainingQty = row.find(".RemainingQty1").val();
+                register_lists.Remarks = row.find(".Remarks1").val();
+                Register_list.push(register_lists);
+            });
+             var row = $(this);
+             var ReturnedQty = row.find(".ReturnedQty1").val();
+             if (ReturnedQty != "" || ReturnedQty != "0") {
+                 Register.push(registers);
+             }
+             if (error_count == 0) {
+                 $.ajax({
+                     type: "POST",
+                     url: "@Url.Action("Insert_Update_returnable_external_return", "MaterialEntries")",
+                     data: '{register_lists: ' + JSON.stringify(Register_list) + ',registers: ' + JSON.stringify(Register) + '}',
+                     headers: {
+                         Authorization: 'Bearer ' + user1
+                     },
+                     contentType: "application/json; charset=utf-8",
+                     dataType: "json",
+                     beforeSend: function () {
+                         $('.loading').show();
+                     },
+                     complete: function () {
+                         $('.loading').hide();
+                     },
+                     success: function (response) {
+                         document.getElementById("externalreturn").reset();
+                         $("#re_external10").show();
+                         $("#re_external").hide();
+                         $("#div_re_external10").show();
+                          if (response == "1") {
+                             swal({
+                                 icon: "success",
+                                 title: "Details Added Successfully...!",
+                                 showConfirmButton: true,
+                                 confirmButtonText: "Cerrar",
+                                 closeOnConfirm: false
+                             })
+                                 .then(function (result) {
+                                     display_re_external();
+                                 })
+
+                         }
+                         else if (response == "-1") {
+                             swal({
+                                 icon: "error",
+                                 title: "RefDCNO already exist",
+                                 button: true,
+                                 timer: 4500
+                             }).then(function (result) {
+                                 display_re_external();
+                             })
+                         }
+                     }
+
+                 });
+             }
+        });
+     });
+
+   function getvendor_reint() {
+       var url2 = '@Url.Action("Get_reintvendor","MaterialEntries")';
+       var RefDCNo = $("#DC_No").val();
+        $.ajax({
+            type: "POST",
+            url: url2,
+            data: '{RefDCNo: "' + RefDCNo + '"}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                var s = '<option value="">Vendor/Customername</option>';
+                for (var i = 0; i < data.length; i++) {
+                    s += '<option value="' + data[i].id + '">' + data[i].M_To + '</option>';
+                }
+                $("#vendor_ret_int").html(s);
+            },
+        });
+    }
+    function getvendor_reext() {
+       var url2 = '@Url.Action("Get_reextvendor","MaterialEntries")';
+        var RefDCNo = $("#DC_No1").val();
+        console.log(RefDCNo);
+        $.ajax({
+            type: "POST",
+            url: url2,
+            /* data: '{RefDCNo: ' + RefDCNo + '}',*/
+             data: '{RefDCNo: "' + RefDCNo + '"}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(data) {
+                var s = '<option value="">Vendor/Customername</option>';
+                for (var i = 0; i < data.length; i++) {
+                    s += '<option value="' + data[i].id + '">' + data[i].M_From + '</option>';
+                }
+
+                $("#vendor_ret_ext").html(s);
+
+            },
+        });
+  }
+</script>
+
+
+
+<script>
+
+    $(document).on("change", ".RIO_details .Material_name", function () {
+        var current = $(this);
+
+        $('input[name^="Material_name"]').each(function () {
+            if ($(this).val().toLowerCase() == current.val().toLowerCase() && $(this).attr('id') != current.attr('id')) {
+                swal({
+                    icon: "error",
+                    title: "Materialname Already Exist...!",
+                    showConfirmButton: false,
+                    timer: 4500
+                })
+                current.val("");
+            }
+
+        });
+
+    });
+    $(document).on("change", ".REO_details .Material_name", function () {
+        var current = $(this);
+
+        $('input[name^="Material_name"]').each(function () {
+            if ($(this).val().toLowerCase() == current.val().toLowerCase() && $(this).attr('id') != current.attr('id')) {
+                swal({
+                    icon: "error",
+                    title: "Materialname Already Exist...!",
+                    showConfirmButton: false,
+                    timer: 4500
+                })
+                current.val("");
+            }
+
+        });
+
+    });
+
+    $(document).on("change", ".NRI_details .Material_name", function () {
+        var current = $(this);
+
+        $('input[name^="Material_name"]').each(function () {
+            if ($(this).val().toLowerCase() == current.val().toLowerCase() && $(this).attr('id') != current.attr('id')) {
+                swal({
+                    icon: "error",
+                    title: "Materialname Already Exist...!",
+                    showConfirmButton: false,
+                    timer: 4500
+                })
+                current.val("");
+            }
+        });
+
+    });
+    $(document).on("change", ".NRE_details .Material_name", function () {
+        var current = $(this);
+
+        $('input[name^="Material_name"]').each(function () {
+            if ($(this).val().toLowerCase() == current.val().toLowerCase() && $(this).attr('id') != current.attr('id')) {
+                swal({
+                    icon: "error",
+                    title: "Materialname Already Exist...!",
+                    showConfirmButton: false,
+                    timer: 4500
+                })
+                current.val("");
+            }
+
+        });
+
+    });
+
+    //Check for double dots in decimal textbox
+    $(document).on("input", ".checkdot", function () {
+        var original = '';
+        if ($(this).val().replace(/[^.]/g, "").length > 1) {
+            $(this).val(original);
+        } else {
+            original = $(this).val();
+        }
+    });
+
+
+
+</script>
